@@ -2,8 +2,9 @@ package kr.spring.tiles.member.controller;
 
 import java.util.List;
 
-import javax.inject.Inject;
 
+import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.spring.tiles.member.model.dto.MemberVO;
 import kr.spring.tiles.member.service.MemberService;
@@ -56,17 +58,8 @@ public class MemberController {
 		return "index";
 	}
 	
-	// 03 회원 상세정보 조회
-	@RequestMapping("member/view.do")
-	public String memberView(@RequestParam String userId, Model model){
-		// 회원 정보를 model에 저장
-		model.addAttribute("dto", memberService.viewMember(userId));
-		//System.out.println("클릭한 아이디 확인 : "+userId);
-		logger.info("클릭한 아이디 : "+userId);
-		// member_view.jsp로 포워드
-		return "member/member_view";
-	}
-	// 04. 회원 정보 수정 처리
+
+/*	// 04. 회원 정보 수정 처리
 	@RequestMapping("member/update.do")
 	public String memberUpdate(@ModelAttribute MemberVO vo, Model model){
 		// 비밀번호 체크
@@ -84,11 +77,11 @@ public class MemberController {
 			return "member/member_view";
 		}
 		
-	}
+	}*/
 	// 05. 회원정보 삭제 처리
 	// @RequestMapping : url mapping
 	// @RequestParam : get or post방식으로 전달된 변수값
-	@RequestMapping("member/delete.do")
+/*	@RequestMapping("member/delete.do")
 	public String memberDelete(@RequestParam String userId, @RequestParam String userPw, Model model){
 		// 비밀번호 체크
 		boolean result = memberService.checkPw(userId, userPw);
@@ -100,5 +93,40 @@ public class MemberController {
 			model.addAttribute("dto", memberService.viewMember(userId));
 			return "member/member_view";
 		}
-	}
+	}*/
+	
+	// 01. 로그인 화면 
+    @RequestMapping("member/login.do")
+    public String login(){
+        return "member_login";    // views/member/login.jsp로 포워드
+    }
+    
+    // 02. 로그인 처리
+    @RequestMapping("member/loginCheck.do")
+    public ModelAndView loginCheck(@ModelAttribute MemberVO vo, HttpSession session){
+        boolean result = memberService.loginCheck(vo, session);
+        ModelAndView mav = new ModelAndView();
+        if (result == true) { // 로그인 성공
+            // main.jsp로 이동
+            mav.setViewName("index");
+            mav.addObject("msg", "success");
+        } else {    // 로그인 실패
+            // login.jsp로 이동
+            mav.setViewName("member_login");
+            mav.addObject("msg", "failure");
+        }
+        return mav;
+    }
+    
+    // 03. 로그아웃 처리
+    @RequestMapping("member/logout.do")
+    public ModelAndView logout(HttpSession session){
+        memberService.logout(session);
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("member_login");
+        mav.addObject("msg", "logout");
+        return mav;
+    }
+	
+	
 }
