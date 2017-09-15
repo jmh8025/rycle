@@ -1,3 +1,5 @@
+//asdf
+
 <%
-	response.sendRedirect(request.getContextPath()+"/index.do");
+response.sendRedirect(request.getContextPath()+"/index.do");
 %>
