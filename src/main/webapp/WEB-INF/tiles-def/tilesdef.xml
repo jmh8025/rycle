@@ -19,4 +19,8 @@
 		<put-attribute name="title" value="글쓰기" />
 		<put-attribute name="content" value="/WEB-INF/tiles-view/member/member_write.jsp" />
 	</definition>
+	<definition name="member_login" extends="index">
+		<put-attribute name="title" value="글쓰기" />
+		<put-attribute name="content" value="/WEB-INF/tiles-view/member/login.jsp" />
+	</definition>
 </tiles-definitions>
