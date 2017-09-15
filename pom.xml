@@ -194,6 +194,6 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>SpringTitle2</finalName>
+		<finalName>머지테스트</finalName>
 	</build>
 </project>
