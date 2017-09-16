@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <aside id="sidebar">
     <div class="inbox">
         <nav id="lnb">
@@ -22,7 +24,7 @@
                 <li class="sub-menu"><a href="#">커뮤니티</a>
                     <ul>
                         <li><a href="#">공지사항</a></li>
-                        <li><a href="#">자유게시판</a></li>
+                        <li><a href="${path}/board/free_board_list.do">자유게시판</a></li>
                         <li><a href="#">질문과답변</a></li>
                         <li><a href="#">갤러리</a></li>
                     </ul>
