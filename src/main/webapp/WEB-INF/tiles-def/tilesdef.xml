@@ -23,4 +23,20 @@
 		<put-attribute name="title" value="글쓰기" />
 		<put-attribute name="content" value="/WEB-INF/tiles-view/member/login.jsp" />
 	</definition>
+	
+	<!-- 자유게시판 s-->
+	
+	<!-- 자유게시판 목록 -->
+	<definition name="free_board_list" extends="index">
+		<put-attribute name="title" value="자유게시판_목록" />
+		<put-attribute name="content" value="/WEB-INF/tiles-view/board/free/free_board_list.jsp" />
+	</definition>
+	
+	<!-- 자유게시판 글쓰기 -->
+	<definition name="free_board_write" extends="index">
+		<put-attribute name="title" value="자유게시판_글쓰기" />
+		<put-attribute name="content" value="/WEB-INF/tiles-view/board/free/free_board_write.jsp" />
+	</definition>
+	
+	<!-- 자유게시판 e -->
 </tiles-definitions>

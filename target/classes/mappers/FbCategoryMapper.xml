@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="fb_category">
+
+	<!-- 게시글 카테고리 -->
+	<select id="listAll" resultType="kr.spring.tiles.board.free.model.dto.Fb_categoryVO">
+	        SELECT cate_chk, cate_name
+	        FROM fb_category
+	</select>
+	 
+</mapper>
