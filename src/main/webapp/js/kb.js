@@ -36,21 +36,26 @@ $(document).ready(function(){
 		//var content = document.form1.content.value;
 		//var writer = document.form1.writer.value;
 		var subject = $("#subject").val();
-		var content = $("#content").val();
-		alert (subject);
-		alert(content);
-/*		var writer = $("#writer").val();
-*/		
+		
 		if(subject == ""){
 			alert("제목을 입력하세요");
 			document.writeform.subject.focus();
 			return;
 		}
-		if(content == ""){
-			alert("내용을 입력하세요");
-			document.writeform.content.focus();
-			return;
-		}
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
 /*		
 		 if(writer == ""){
 			alert("이름을 입력하세요");
