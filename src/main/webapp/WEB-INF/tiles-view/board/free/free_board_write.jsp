@@ -4,12 +4,11 @@
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
 <h2>게시글 작성</h2>
-<form name="form1" id="form1" method="post" action="${path}/board/insert.do">
 
 
 	<div class="content">
 		<p class="tbTopTxt"><span><b class="star" title="필수항목">*</b> 필수입력</span></p>
-		<form method="post" name="writeform" action="/SpringTiles/board/free_board_write_Pro.do">
+		<form method="post" id="writeform" name="writeform" action="/SpringTiles/board/free_board_insert.do">
 			<input type="hidden" name="id" value="${id}">
 			
 			<!-- boardWrite -->
@@ -27,14 +26,16 @@
 					</tr>
 					<tr>
 						<th>제목<b class="star" title="필수항목">*</b></th>
-						<td><input type="text" name="subject" title="제목" class="w100" value=""></td>
+						<td><input type="text" id="subject" name="subject" title="제목" class="w100" value=""></td>
 					</tr>
 					<tr>
 						<th>내용<b class="star" title="필수항목">*</b></th>
 						<td>
-							<textarea name="content" class="textarea" title="내용입력"></textarea>
+							<textarea id="content" name="content" class="textarea" title="내용입력"></textarea>
 							<span class="cmt">2.000 Bytes 이내로 작성 하세요.</span>
 						</td>
+
+
 					</tr>
 <!-- 					<tr>
 						<th>첨부파일</th>
@@ -64,4 +65,3 @@
 			
 		</form>
 	</div>
-</form>
