@@ -2,11 +2,51 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
-<mapper namespace="freeboard">
-	<select id="boardList" resultType="kr.spring.tiles.board.free.model.dto.Free_boardVO">
-		SELECT 
-		  *
-		FROM free_board
-		ORDER BY no desc
+<mapper namespace="free_board">
+	<!-- 02_02. 게시글 레코드 갯수 -->
+	<select id="countArticle" parameterType="map" resultType="int">
+		SELECT COUNT(*) 
+		FROM 
+		free_board
+		<!-- WHERE절을 include 태그로 삽입 -->
+		<include refid="board_search"></include>
 	</select>
+
+	<!-- 게시글 전체 목록 조회 및 검색조회까지 -->
+	<select id="listAll" parameterType="map" resultType="kr.spring.tiles.board.free.model.dto.Free_boardVO">
+	    <!-- 목록 조회 및 페이징 전체 쿼리 -->
+	        SELECT no, writer, subject, k_date, readcount, cate_chk 
+	        FROM free_board
+	        <include refid="board_search" />
+	        <include refid="pagingFooter" />
+	</select>
+	 
+	<!-- 검색 조건 sql -->
+	<sql id="board_search">
+	    <choose>
+	        <!-- 검색옵션이 전체 검색일 경우 -->
+	        <when test="searchOption == 'all'">
+	            WHERE 
+	            id like '%'||#{keyword}||'%'
+	            OR writer like '%'||#{keyword}||'%'
+	            OR subject like '%'||#{keyword}||'%'
+	            OR content like '%'||#{keyword}||'%'
+	        </when>
+	        <when test="searchOption == 'subject_content'">
+	        	WHERE 
+	        	subject like '%'||#{keyword}||'%'
+	            OR content like '%'||#{keyword}||'%'
+	        </when>
+	        <!-- 전체 검색이 아닐 경우 -->
+	        <otherwise>
+	            WHERE ${searchOption} like '%'||#{keyword}||'%'
+	        </otherwise>
+	    </choose>
+	</sql>
+	 
+	<!-- 페이징 sql -->
+	<sql id="pagingFooter">
+		ORDER BY no DESC limit #{start}, #{end} 
+	</sql>
+
 </mapper>

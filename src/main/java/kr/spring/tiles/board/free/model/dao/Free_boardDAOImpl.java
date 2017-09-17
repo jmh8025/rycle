@@ -27,10 +27,82 @@ public class Free_boardDAOImpl implements Free_boardDAO {
 	// try catch문, finally문, 객체를 close할 필요가 없어졌다.
 	SqlSession sqlSession;
 	
-	// 01. 전체 회원 목록 조회
+	// 01_01. 게시글 작성
 	@Override
-	public List<Free_boardVO> boardList() {
-		return sqlSession.selectList("freeboard.boardList");
+	public void create(Free_boardVO vo) throws Exception {
+		sqlSession.insert("board.insert", vo);
 	}
+	
+	/*	// 01_02 게시물 첨부파일 추가
+	@Override
+	public void addAttach(String fullName) {
+		sqlSession.insert("board.addAttach", fullName);
+	}
+	
+	// 02. 게시글 상세보기
+	@Override
+	public BoardVO read(int bno) throws Exception {
+		return sqlSession.selectOne("board.view", bno);
+	}
+	// 03. 게시글 수정
+	@Override
+	public void update(BoardVO vo) throws Exception {
+		sqlSession.update("board.updateArticle", vo);
 
+	}
+	// 04. 게시글 삭제
+	@Override
+	public void delete(int bno) throws Exception {
+		sqlSession.delete("board.deleteArticle",bno);
+
+	}*/
+	
+	// 05. 게시글 전체 목록
+	@Override
+	public List<Free_boardVO> listAll(int start, int end, String searchOption, String keyword) throws Exception {
+		// 검색옵션, 키워드 맵에 저장
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
+		// BETWEEN #{start}, #{end}에 입력될 값을 맵에 
+		map.put("start", start);
+		map.put("end", end);
+		return sqlSession.selectList("free_board.listAll", map);
+	}
+	
+/*	// 06. 게시글 조회수 증가
+	@Override
+	public void increaseViewcnt(int bno) throws Exception {
+		sqlSession.update("board.increaseViewcnt", bno);
+	}*/
+	// 07. 게시글 레코드 갯수
+	@Override
+	public int countArticle(String searchOption, String keyword) throws Exception {
+		// 검색옵션, 키워드 맵에 저장
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
+		return sqlSession.selectOne("free_board.countArticle", map);
+	}
+/*	
+	// 08. 게시글 첨부파일 목록
+	@Override
+	public List<String> getAttach(int bno) {
+		return sqlSession.selectList("board.getAttach", bno);
+	}
+	
+	// 09. 게시글 첨부파일 삭제처리
+	@Override
+	public void deleteFile(String fullname) {
+		sqlSession.delete("board.deleteAttach", fullname);
+	}
+	// 10. 게시글 첨부파일 업데이트 처리
+	@Override
+	public void updateAttach(String fullName, int bno) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("fullName", fullName);
+		map.put("bno", bno);
+		sqlSession.insert("board.updateAttach", map);
+		
+	}*/
 }

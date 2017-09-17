@@ -3,6 +3,7 @@ package kr.spring.tiles.board.free.model.dto;
 import java.sql.Date;
 
 public class Fb_categoryVO {
+	
 	private String cate_chk;
 	private String cate_name;
 	
