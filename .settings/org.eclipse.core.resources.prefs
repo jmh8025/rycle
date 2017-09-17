@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+encoding//src/main/java/kr/spring/tiles/board/util/BoardPager.java=UTF-8
+encoding//src/main/webapp/WEB-INF/tiles-view/board/free/free_board_write.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/tiles-view/board/include/list_page_foot.jsp=UTF-8
+encoding//src/main/webapp/css/board.css=UTF-8

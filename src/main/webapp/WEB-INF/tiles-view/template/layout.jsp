@@ -18,9 +18,12 @@
     <link rel="stylesheet" href="/SpringTiles/css/fontello.css">
     <link rel="stylesheet" href="/SpringTiles/css/style.css">
 
+    <link rel="stylesheet" href="/SpringTiles/css/board.css">
+
     <!-- js -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="/SpringTiles/js/common.js"></script>    
+    <script src="/SpringTiles/js/common.js"></script>   
+    <script src="/SpringTiles/js/kb.js"></script>    
 </head>
 <body>
     <!-- header -->
