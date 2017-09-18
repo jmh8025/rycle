@@ -7,7 +7,7 @@ import kr.spring.tiles.board.free.model.dto.Fb_categoryVO;
 
 public interface FbCategoryService {
  
-	// 01. Ä«Å×°í¸® °¡Á®¿À±â
+	// 01. ì¹´í…Œê³ ë¦¬ ê°€ì ¸ì˜¤ê¸°
 	public List<Fb_categoryVO> listAll() throws Exception;
 
 }

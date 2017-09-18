@@ -13,43 +13,43 @@ import org.springframework.stereotype.Repository;
 
 import kr.spring.tiles.member.model.dto.MemberVO;
 
-//ÇöÀç Å¬·¡½º¸¦ DAO beanÀ¸·Î µî·Ï½ÃÅ´
+//í˜„ì¬ í´ë˜ìŠ¤ë¥¼ DAO beanìœ¼ë¡œ ë“±ë¡ì‹œí‚´
 @Repository
 public class MemberDAOImpl implements MemberDAO {
 	
-	// SqlSession °´Ã¼¸¦ ½ºÇÁ¸µ¿¡¼­ »ı¼ºÇÏ¿© ÁÖÀÔ½ÃÄÑÁØ´Ù.
-	// ÀÇÁ¸°ü°è ÁÖÀÔ(Dependency Injection, DI)
-	// ´À½ºÇÑ °áÇÔ
-	// IoC(Inversion of Control, Á¦¾îÀÇ ¿ªÀü)
+	// SqlSession ê°ì²´ë¥¼ ìŠ¤í”„ë§ì—ì„œ ìƒì„±í•˜ì—¬ ì£¼ì…ì‹œì¼œì¤€ë‹¤.
+	// ì˜ì¡´ê´€ê³„ ì£¼ì…(Dependency Injection, DI)
+	// ëŠìŠ¤í•œ ê²°í•¨
+	// IoC(Inversion of Control, ì œì–´ì˜ ì—­ì „)
 	@Inject
-	// Inject¾Ö³ëÅ×ÀÌ¼ÇÀÌ ¾øÀ¸¸é sqlSessionÀº null»óÅÂÀÌÁö¸¸
-	// Inject¾Ö³ëÅ×ÀÌ¼ÇÀÌ ÀÖÀ¸¸é ¿ÜºÎ¿¡¼­ °´Ã¼¸¦ ÁÖÀÔ½ÃÄÑÁÖ°Ô µÈ´Ù. 
-	// try catch¹®, finally¹®, °´Ã¼¸¦ closeÇÒ ÇÊ¿ä°¡ ¾ø¾îÁ³´Ù.
+	// Injectì• ë…¸í…Œì´ì…˜ì´ ì—†ìœ¼ë©´ sqlSessionì€ nullìƒíƒœì´ì§€ë§Œ
+	// Injectì• ë…¸í…Œì´ì…˜ì´ ìˆìœ¼ë©´ ì™¸ë¶€ì—ì„œ ê°ì²´ë¥¼ ì£¼ì…ì‹œì¼œì£¼ê²Œ ëœë‹¤. 
+	// try catchë¬¸, finallyë¬¸, ê°ì²´ë¥¼ closeí•  í•„ìš”ê°€ ì—†ì–´ì¡Œë‹¤.
 	SqlSession sqlSession;
 	
-	// 01. ÀüÃ¼ È¸¿ø ¸ñ·Ï Á¶È¸
+	// 01. ì „ì²´ íšŒì› ëª©ë¡ ì¡°íšŒ
 	@Override
 	public List<MemberVO> memberList() {
 		return sqlSession.selectList("member.memberList");
 	}
-	// 02. È¸¿ø µî·Ï
+	// 02. íšŒì› ë“±ë¡
 	@Override
 	public void insertMember(MemberVO vo) {
 		sqlSession.insert("member.insertMember", vo);
 	}
 
-	// 04. È¸¿ø Á¤º¸ ¼öÁ¤ Ã³¸®
+	// 04. íšŒì› ì •ë³´ ìˆ˜ì • ì²˜ë¦¬
 	@Override
 	public void deleteMember(String userId) {
 		sqlSession.delete("member.deleteMember",userId);
 	}
-	// 05. È¸¿ø Á¤º¸ »èÁ¦ Ã³¸®
+	// 05. íšŒì› ì •ë³´ ì‚­ì œ ì²˜ë¦¬
 	@Override
 	public void updateMember(MemberVO vo) {
 		sqlSession.update("member.updateMember", vo);
 
 	}
-	// 06. È¸¿ø Á¤º¸ ¼öÁ¤ ¹× »èÁ¦¸¦ À§ÇÑ ºñ¹Ğ¹øÈ£ Ã¼Å©
+	// 06. íšŒì› ì •ë³´ ìˆ˜ì • ë° ì‚­ì œë¥¼ ìœ„í•œ ë¹„ë°€ë²ˆí˜¸ ì²´í¬
 	@Override
 	public boolean checkPw(String userId, String userPw) {
 		boolean result = false;
@@ -60,18 +60,18 @@ public class MemberDAOImpl implements MemberDAO {
 		if(count == 1) result= true;
 		return result;
 	}
-	// 01_01. È¸¿ø ·Î±×ÀÎÃ¼Å©
+	// 01_01. íšŒì› ë¡œê·¸ì¸ì²´í¬
     @Override
     public boolean loginCheck(MemberVO vo) {
         String name = sqlSession.selectOne("member.loginCheck", vo);
         return (name == null) ? false : true;
     }
-    // 01_02. È¸¿ø ·Î±×ÀÎ Á¤º¸
+    // 01_02. íšŒì› ë¡œê·¸ì¸ ì •ë³´
     @Override
     public MemberVO viewMember(MemberVO vo) {
         return sqlSession.selectOne("member.viewMember", vo);
     }
- // 02. È¸¿ø ·Î±×¾Æ¿ô
+ // 02. íšŒì› ë¡œê·¸ì•„ì›ƒ
     @Override
     public void logout(HttpSession sessin) {
     }

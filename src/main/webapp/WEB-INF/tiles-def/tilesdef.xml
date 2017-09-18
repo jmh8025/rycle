@@ -16,11 +16,11 @@
 		<put-attribute name="footer" value="/WEB-INF/tiles-view/template/footer.jsp" />
 	</definition>
 	<definition name="member_write" extends="index">
-		<put-attribute name="title" value="글쓰기" />
+		<put-attribute name="title" value="회원가입" />
 		<put-attribute name="content" value="/WEB-INF/tiles-view/member/member_write.jsp" />
 	</definition>
 	<definition name="member_login" extends="index">
-		<put-attribute name="title" value="글쓰기" />
+		<put-attribute name="title" value="로그인" />
 		<put-attribute name="content" value="/WEB-INF/tiles-view/member/login.jsp" />
 	</definition>
 	

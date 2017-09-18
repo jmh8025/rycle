@@ -17,108 +17,108 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.spring.tiles.member.model.dto.MemberVO;
 import kr.spring.tiles.member.service.MemberService;
 
-@Controller // ÇöÀçÀÇ Å¬·¡½º¸¦ controller bean¿¡ µî·Ï½ÃÅ´
+@Controller // í˜„ì¬ì˜ í´ë˜ìŠ¤ë¥¼ controller beanì— ë“±ë¡ì‹œí‚´
 public class MemberController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	
-	// MemberService °´Ã¼¸¦ ½ºÇÁ¸µ¿¡¼­ »ı¼ºÇÏ¿© ÁÖÀÔ½ÃÅ´
+	// MemberService ê°ì²´ë¥¼ ìŠ¤í”„ë§ì—ì„œ ìƒì„±í•˜ì—¬ ì£¼ì…ì‹œí‚´
 	@Inject
 	MemberService memberService;
 	
-	// 01 È¸¿ø ¸ñ·Ï
+	// 01 íšŒì› ëª©ë¡
 	// url pattern mapping
 	@RequestMapping("member/list.do")
 	public String memberList(Model model){
-	// controller => service => dao ¿äÃ»
+	// controller => service => dao ìš”ì²­
 		List<MemberVO> list = memberService.memberList();
 		model.addAttribute("list", list);
 		return "index";
 	}
 
-	// 02_01 È¸¿ø µî·Ï ÆäÀÌÁö·Î ÀÌµ¿
+	// 02_01 íšŒì› ë“±ë¡ í˜ì´ì§€ë¡œ ì´ë™
 	@RequestMapping("member/write.do")
 	public String memberWrite(){
 		return "member_write";
 	}
 	
-	// 02_02 È¸¿ø µî·Ï Ã³¸® ÈÄ ==> È¸¿ø¸ñ·ÏÀ¸·Î ¸®´ÙÀÌ·ºÆ®
-	// @ModelAttribute¿¡ Æû¿¡¼­ ÀÔ·ÂÇÑ µ¥ÀÌÅÍ°¡ ÀúÀåµÈ´Ù.
+	// 02_02 íšŒì› ë“±ë¡ ì²˜ë¦¬ í›„ ==> íšŒì›ëª©ë¡ìœ¼ë¡œ ë¦¬ë‹¤ì´ë ‰íŠ¸
+	// @ModelAttributeì— í¼ì—ì„œ ì…ë ¥í•œ ë°ì´í„°ê°€ ì €ì¥ëœë‹¤.
 	@RequestMapping("member/insert.do")
-	// * Æû¿¡¼­ ÀÔ·ÂÇÑ µ¥ÀÌÅÍ¸¦ ¹Ş¾Æ¿À´Â ¹ı 3°¡Áö 
+	// * í¼ì—ì„œ ì…ë ¥í•œ ë°ì´í„°ë¥¼ ë°›ì•„ì˜¤ëŠ” ë²• 3ê°€ì§€ 
 	//public String memberInsert(HttpServlet request){
 	//public String memberInsert(String userId, String userPw, String userName, String userEmail){
 	public String memberInsert(@ModelAttribute MemberVO vo){
-		// Å×ÀÌºí¿¡ ·¹ÄÚµå ÀÔ·Â
+		// í…Œì´ë¸”ì— ë ˆì½”ë“œ ì…ë ¥
 		memberService.insertMember(vo);
-		// * (/)ÀÇ À¯¹«¿¡ Â÷ÀÌ
-		// /member/list.do : ·çÆ® µğ·ºÅä¸®¸¦ ±âÁØ
-		// member/list.do : ÇöÀç µğ·ºÅä¸®¸¦ ±âÁØ
-		// member_list.jsp·Î ¸®´ÙÀÌ·ºÆ®
+		// * (/)ì˜ ìœ ë¬´ì— ì°¨ì´
+		// /member/list.do : ë£¨íŠ¸ ë””ë ‰í† ë¦¬ë¥¼ ê¸°ì¤€
+		// member/list.do : í˜„ì¬ ë””ë ‰í† ë¦¬ë¥¼ ê¸°ì¤€
+		// member_list.jspë¡œ ë¦¬ë‹¤ì´ë ‰íŠ¸
 		return "index";
 	}
 	
 
-/*	// 04. È¸¿ø Á¤º¸ ¼öÁ¤ Ã³¸®
+/*	// 04. íšŒì› ì •ë³´ ìˆ˜ì • ì²˜ë¦¬
 	@RequestMapping("member/update.do")
 	public String memberUpdate(@ModelAttribute MemberVO vo, Model model){
-		// ºñ¹Ğ¹øÈ£ Ã¼Å©
+		// ë¹„ë°€ë²ˆí˜¸ ì²´í¬
 		boolean result = memberService.checkPw(vo.getUserId(), vo.getUserPw());
-		if(result){ // ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏ¸é ¼öÁ¤ Ã³¸®ÈÄ, ÀüÃ¼ È¸¿ø ¸ñ·ÏÀ¸·Î ¸®´ÙÀÌ·ºÆ®
+		if(result){ // ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ë©´ ìˆ˜ì • ì²˜ë¦¬í›„, ì „ì²´ íšŒì› ëª©ë¡ìœ¼ë¡œ ë¦¬ë‹¤ì´ë ‰íŠ¸
 			memberService.updateMember(vo);
 			return "redirect:/member/list.do";
-		} else { // ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê´Â´Ù¸é, div¿¡ ºÒÀÏÄ¡ ¹®±¸ Ãâ·Â, viwe.jsp·Î Æ÷¿öµå
-			// °¡ÀÔÀÏÀÚ, ¼öÁ¤ÀÏÀÚ ÀúÀå
+		} else { // ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´, divì— ë¶ˆì¼ì¹˜ ë¬¸êµ¬ ì¶œë ¥, viwe.jspë¡œ í¬ì›Œë“œ
+			// ê°€ì…ì¼ì, ìˆ˜ì •ì¼ì ì €ì¥
 			MemberVO vo2 = memberService.viewMember(vo.getUserId());
 			vo.setUserRegdate(vo2.getUserRegdate());
 			vo.setUserUpdatedate(vo2.getUserUpdatedate());
 			model.addAttribute("dto", vo);
-			model.addAttribute("message", "ºñ¹Ğ¹øÈ£ ºÒÀÏÄ¡");
+			model.addAttribute("message", "ë¹„ë°€ë²ˆí˜¸ ë¶ˆì¼ì¹˜");
 			return "member/member_view";
 		}
 		
 	}*/
-	// 05. È¸¿øÁ¤º¸ »èÁ¦ Ã³¸®
+	// 05. íšŒì›ì •ë³´ ì‚­ì œ ì²˜ë¦¬
 	// @RequestMapping : url mapping
-	// @RequestParam : get or post¹æ½ÄÀ¸·Î Àü´ŞµÈ º¯¼ö°ª
+	// @RequestParam : get or postë°©ì‹ìœ¼ë¡œ ì „ë‹¬ëœ ë³€ìˆ˜ê°’
 /*	@RequestMapping("member/delete.do")
 	public String memberDelete(@RequestParam String userId, @RequestParam String userPw, Model model){
-		// ºñ¹Ğ¹øÈ£ Ã¼Å©
+		// ë¹„ë°€ë²ˆí˜¸ ì²´í¬
 		boolean result = memberService.checkPw(userId, userPw);
-		if(result){ // ºñ¹Ğ¹øÈ£°¡ ¸Â´Ù¸é »èÁ¦ Ã³¸®ÈÄ, ÀüÃ¼ È¸¿ø ¸ñ·ÏÀ¸·Î ¸®´ÙÀÌ·ºÆ®
+		if(result){ // ë¹„ë°€ë²ˆí˜¸ê°€ ë§ë‹¤ë©´ ì‚­ì œ ì²˜ë¦¬í›„, ì „ì²´ íšŒì› ëª©ë¡ìœ¼ë¡œ ë¦¬ë‹¤ì´ë ‰íŠ¸
 			memberService.deleteMember(userId);
 			return "redirect:/member/list.do";
-		} else { // ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê´Â´Ù¸é, div¿¡ ºÒÀÏÄ¡ ¹®±¸ Ãâ·Â, viwe.jsp·Î Æ÷¿öµå
-			model.addAttribute("message", "ºñ¹Ğ¹øÈ£ ºÒÀÏÄ¡");
+		} else { // ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´, divì— ë¶ˆì¼ì¹˜ ë¬¸êµ¬ ì¶œë ¥, viwe.jspë¡œ í¬ì›Œë“œ
+			model.addAttribute("message", "ë¹„ë°€ë²ˆí˜¸ ë¶ˆì¼ì¹˜");
 			model.addAttribute("dto", memberService.viewMember(userId));
 			return "member/member_view";
 		}
 	}*/
 	
-	// 01. ·Î±×ÀÎ È­¸é 
+	// 01. ë¡œê·¸ì¸ í™”ë©´ 
     @RequestMapping("member/login.do")
     public String login(){
-        return "member_login";    // views/member/login.jsp·Î Æ÷¿öµå
+        return "member_login";    // views/member/login.jspë¡œ í¬ì›Œë“œ
     }
     
-    // 02. ·Î±×ÀÎ Ã³¸®
+    // 02. ë¡œê·¸ì¸ ì²˜ë¦¬
     @RequestMapping("member/loginCheck.do")
     public ModelAndView loginCheck(@ModelAttribute MemberVO vo, HttpSession session){
         boolean result = memberService.loginCheck(vo, session);
         ModelAndView mav = new ModelAndView();
-        if (result == true) { // ·Î±×ÀÎ ¼º°ø
-            // main.jsp·Î ÀÌµ¿
+        if (result == true) { // ë¡œê·¸ì¸ ì„±ê³µ
+            // main.jspë¡œ ì´ë™
             mav.setViewName("index");
             mav.addObject("msg", "success");
-        } else {    // ·Î±×ÀÎ ½ÇÆĞ
-            // login.jsp·Î ÀÌµ¿
+        } else {    // ë¡œê·¸ì¸ ì‹¤íŒ¨
+            // login.jspë¡œ ì´ë™
             mav.setViewName("member_login");
             mav.addObject("msg", "failure");
         }
         return mav;
     }
     
-    // 03. ·Î±×¾Æ¿ô Ã³¸®
+    // 03. ë¡œê·¸ì•„ì›ƒ ì²˜ë¦¬
     @RequestMapping("member/logout.do")
     public ModelAndView logout(HttpSession session){
         memberService.logout(session);
