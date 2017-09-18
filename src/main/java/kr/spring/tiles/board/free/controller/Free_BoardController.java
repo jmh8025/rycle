@@ -2,6 +2,7 @@
 package kr.spring.tiles.board.free.controller;
 
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -23,51 +24,54 @@ import kr.spring.tiles.board.free.model.dto.Fb_categoryVO;
 import kr.spring.tiles.board.free.service.FreeBoardService;
 import kr.spring.tiles.board.free.service.FbCategoryService;
 
-@Controller // ÇöÀçÀÇ Å¬·¡½º¸¦ controller bean¿¡ µî·Ï½ÃÅ´
+@Controller // í˜„ì¬ì˜ í´ë˜ìŠ¤ë¥¼ controller beanì— ë“±ë¡ì‹œí‚´
 public class Free_BoardController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(Free_BoardController.class);
 	
-	// MemberService °´Ã¼¸¦ ½ºÇÁ¸µ¿¡¼­ »ı¼ºÇÏ¿© ÁÖÀÔ½ÃÅ´
+	// MemberService ê°ì²´ë¥¼ ìŠ¤í”„ë§ì—ì„œ ìƒì„±í•˜ì—¬ ì£¼ì…ì‹œí‚´
 
 	@Inject
 	FreeBoardService freeBoardService;
 	
 	@Inject
 	FbCategoryService fbcategoryservice;
-	
-	// 01 È¸¿ø ¸ñ·Ï
+
+	// 01 íšŒì› ëª©ë¡
 	// url pattern mapping
 	@RequestMapping("/board/free_board_list.do")
 	public String free_Board_List(Model model, 
 			@RequestParam(value="searchOption", defaultValue="all") String searchOption,
             @RequestParam(value="searchKeyword", defaultValue="") String keyword,
             @RequestParam(value="curPage", defaultValue="1") int curPage) throws Exception{
-		
-		//°Ô½ÃÆÇ ¸ñ·Ïs
+
+			logger.info("í‚¤ì›Œë“œê°’"+keyword);
+        
+
+		//ê²Œì‹œíŒ ëª©ë¡s
 /*		List<Free_boardVO> list = boardService.boardList();
   		model.addAttribute("list", list);*/
   		
-	    // ·¹ÄÚµåÀÇ °¹¼ö °è»ê
+	    // ë ˆì½”ë“œì˜ ê°¯ìˆ˜ ê³„ì‚°
 	    int count = freeBoardService.countArticle(searchOption, keyword);
-	    
-	    // ÆäÀÌÁö ³ª´©±â °ü·Ã Ã³¸®
+	
+	    // í˜ì´ì§€ ë‚˜ëˆ„ê¸° ê´€ë ¨ ì²˜ë¦¬
 	    BoardPager boardPager = new BoardPager(count, curPage);
 	    int start = boardPager.getPageBegin();
 	    int end = boardPager.getPageEnd();
 	    int PAGE_SCALE = boardPager.getPAGE_SCALE();
-	    
+	    logger.info("í‚¤ì›Œë“œê°’2"+keyword);
 	    List<Free_boardVO> list = freeBoardService.listAll(start, end, searchOption, keyword);
   		
-	    // µ¥ÀÌÅÍ¸¦ ¸Ê¿¡ ÀúÀå
+	    // ë°ì´í„°ë¥¼ ë§µì— ì €ì¥
 	    Map<String, Object> map = new HashMap<String, Object>();
 	    map.put("list", list); // list
-	    map.put("count", count); // ·¹ÄÚµåÀÇ °¹¼ö
-	    map.put("searchOption", searchOption); // °Ë»ö¿É¼Ç
-	    map.put("keyword", keyword); // °Ë»öÅ°¿öµå
+	    map.put("count", count); // ë ˆì½”ë“œì˜ ê°¯ìˆ˜
+	    map.put("searchOption", searchOption); // ê²€ìƒ‰ì˜µì…˜
+	    map.put("keyword", keyword); // ê²€ìƒ‰í‚¤ì›Œë“œ
 	    map.put("boardPager", boardPager);
-	    map.put("PAGE_SCALE", PAGE_SCALE); //ÆäÀÌÁö´ç °Ô½Ã¹° ¼ö 	    
-	    
+	    map.put("PAGE_SCALE", PAGE_SCALE); //í˜ì´ì§€ë‹¹ ê²Œì‹œë¬¼ ìˆ˜ 	    
+	    logger.info("í‚¤ì›Œë“œê°’3"+keyword);
 	    model.addAttribute("map", map);
 	    
 		return "free_board_list";
