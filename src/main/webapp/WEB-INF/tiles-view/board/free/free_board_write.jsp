@@ -10,7 +10,7 @@
 	<div class="content">
 	
 		<p class="tbTopTxt"><span><b class="star" title="필수항목">*</b> 필수입력</span></p>
-		<form method="post" id="writeform" name="writeform" action="/SpringTiles/board/free_board_insert.do">
+		<form method="post" id="writeform" name="writeform" action="/SpringTiles/board/free_board_insert.do" enctype="multipart/form-data"> 
 			<input type="hidden" name="id" value="slr2">
 			<input type="hidden" name="writer" value="작성자">
 			
@@ -46,8 +46,6 @@
 							<span class="cmt">2.000 Bytes 이내로 작성 하세요.</span>
 						
 						</td>
-
-
 					</tr>
 <!-- 					<tr>
 						<th>첨부파일</th>
@@ -59,6 +57,14 @@
 							<p class="txtCmt">총 10MBytes 이하</p>
 						</td>
 					</tr> -->
+					
+					<tr>
+						<th>첨부파일</th>
+						<td>	
+						        <input type="file" name="file">
+       							<input type="submit" value="업로드">    
+						</td>
+					</tr>
 				</table>
 			</div>
 			

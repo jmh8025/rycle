@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
@@ -30,10 +31,14 @@ public class Free_BoardController {
 	private static final Logger logger = LoggerFactory.getLogger(Free_BoardController.class);
 	
 	// MemberService 객체를 스프링에서 생성하여 주입시킴
-
 	@Inject
 	FreeBoardService freeBoardService;
-
+	
+    // xml에 설정된 리소스 참조
+    // bean의 id가 uploadPath인 태그를 참조
+    @Resource(name="uploadPath")
+    String uploadPath;
+	
 	// 01 회원 목록
 	// url pattern mapping
 	@RequestMapping("/board/free_board_list.do")
