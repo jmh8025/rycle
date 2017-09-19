@@ -7,67 +7,67 @@ import org.springframework.stereotype.Service;
 import kr.spring.tiles.member.model.dao.MemberDAOImpl;
 import kr.spring.tiles.member.model.dto.MemberVO;
 
-// ÇöÀç Å¬·¡½º¸¦ ½ºÇÁ¸µ¿¡¼­ °ü¸®ÇÏ´Â service beanÀ¸·Î µî·Ï
+// í˜„ì¬ í´ë˜ìŠ¤ë¥¼ ìŠ¤í”„ë§ì—ì„œ ê´€ë¦¬í•˜ëŠ” service beanìœ¼ë¡œ ë“±ë¡
 @Service
 public class MemberServiceImpl implements MemberService {
 	
-	// MemberDAOImpl °´Ã¼¸¦ ½ºÇÁ¸µ¿¡¼­ »ı¼ºÇÏ¿© ÁÖÀÔ½ÃÅ´
+	// MemberDAOImpl ê°ì²´ë¥¼ ìŠ¤í”„ë§ì—ì„œ ìƒì„±í•˜ì—¬ ì£¼ì…ì‹œí‚´
 	@Inject
 	MemberDAOImpl memberDao;
 	
-	// 01. ÀüÃ¼ È¸¿ø ¸ñ·Ï Á¶È¸
+	// 01. ì „ì²´ íšŒì› ëª©ë¡ ì¡°íšŒ
 	@Override
 	public List<MemberVO> memberList() {
 		return memberDao.memberList();
 	}
 	
-	// 02. È¸¿ø µî·Ï
+	// 02. íšŒì› ë“±ë¡
 	@Override
 	public void insertMember(MemberVO vo) {
 		memberDao.insertMember(vo);
 	}
 
-	// 04. È¸¿ø Á¤º¸ ¼öÁ¤ Ã³¸®
+	// 04. íšŒì› ì •ë³´ ìˆ˜ì • ì²˜ë¦¬
 	@Override
 	public void deleteMember(String userId) {
 		memberDao.deleteMember(userId);
 	}
-	// 05. È¸¿ø Á¤º¸ »èÁ¦ Ã³¸®
+	// 05. íšŒì› ì •ë³´ ì‚­ì œ ì²˜ë¦¬
 	@Override
 	public void updateMember(MemberVO vo) {
 		memberDao.updateMember(vo);
 	}
-	// 06. È¸¿ø Á¤º¸ ¼öÁ¤ ¹× »èÁ¦¸¦ À§ÇÑ ºñ¹Ğ¹øÈ£ Ã¼Å©
+	// 06. íšŒì› ì •ë³´ ìˆ˜ì • ë° ì‚­ì œë¥¼ ìœ„í•œ ë¹„ë°€ë²ˆí˜¸ ì²´í¬
 	@Override
 	public boolean checkPw(String userId, String userPw) {
 		return memberDao.checkPw(userId, userPw);
 	}
 
-	   // 01_01. È¸¿ø ·Î±×ÀÎÃ¼Å©
+	   // 01_01. íšŒì› ë¡œê·¸ì¸ì²´í¬
     @Override
     public boolean loginCheck(MemberVO vo, HttpSession session) {
         boolean result = memberDao.loginCheck(vo);
-        if (result) { // trueÀÏ °æ¿ì ¼¼¼Ç¿¡ µî·Ï
+        if (result) { // trueì¼ ê²½ìš° ì„¸ì…˜ì— ë“±ë¡
             MemberVO vo2 = viewMember(vo);
-            // ¼¼¼Ç º¯¼ö µî·Ï
+            // ì„¸ì…˜ ë³€ìˆ˜ ë“±ë¡
             session.setAttribute("userId", vo2.getUserId());
             session.setAttribute("userName", vo2.getUserName());
         } 
         return result;
     }
 
-    // 01_02. È¸¿ø ·Î±×ÀÎ Á¤º¸
+    // 01_02. íšŒì› ë¡œê·¸ì¸ ì •ë³´
     @Override
     public MemberVO viewMember(MemberVO vo) {
         return memberDao.viewMember(vo);
     }
 
-    // 02. È¸¿ø ·Î±×¾Æ¿ô
+    // 02. íšŒì› ë¡œê·¸ì•„ì›ƒ
     @Override
     public void logout(HttpSession session) {
-        // ¼¼¼Ç º¯¼ö °³º° »èÁ¦
+        // ì„¸ì…˜ ë³€ìˆ˜ ê°œë³„ ì‚­ì œ
         // session.removeAttribute("userId");
-        // ¼¼¼Ç Á¤º¸¸¦ ÃÊ±âÈ­ ½ÃÅ´
+        // ì„¸ì…˜ ì •ë³´ë¥¼ ì´ˆê¸°í™” ì‹œí‚´
         session.invalidate();
     }
 

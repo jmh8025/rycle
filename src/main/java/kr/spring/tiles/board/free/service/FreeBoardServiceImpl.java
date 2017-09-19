@@ -3,119 +3,124 @@ package kr.spring.tiles.board.free.service;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.spring.tiles.board.free.controller.Free_BoardController;
 import kr.spring.tiles.board.free.model.dao.Free_boardDAOImpl;
 import kr.spring.tiles.board.free.model.dto.Free_boardVO;
 
-// ÇöÀç Å¬·¡½º¸¦ ½ºÇÁ¸µ¿¡¼­ °ü¸®ÇÏ´Â service beanÀ¸·Î µî·Ï
+// í˜„ì¬ í´ë˜ìŠ¤ë¥¼ ìŠ¤í”„ë§ì—ì„œ ê´€ë¦¬í•˜ëŠ” service beanìœ¼ë¡œ ë“±ë¡
 @Service
 public class FreeBoardServiceImpl implements FreeBoardService {
 	
-	// MemberDAOImpl °´Ã¼¸¦ ½ºÇÁ¸µ¿¡¼­ »ı¼ºÇÏ¿© ÁÖÀÔ½ÃÅ´
+	// MemberDAOImpl ê°ì²´ë¥¼ ìŠ¤í”„ë§ì—ì„œ ìƒì„±í•˜ì—¬ ì£¼ì…ì‹œí‚´
 	@Inject
 	Free_boardDAOImpl freeboardDao;
-	
-	// 01. ÀüÃ¼ È¸¿ø ¸ñ·Ï Á¶È¸
+	private static final Logger logger = LoggerFactory.getLogger(Free_BoardController.class);
+	// 01. ì „ì²´ íšŒì› ëª©ë¡ ì¡°íšŒ
 
 	
-	// 01. °Ô½Ã±Û¾²±â
-	@Transactional // Æ®·£Àè¼Ç Ã³¸® ¸Ş¼­µå·Î ¼³Á¤
+	// 01. ê²Œì‹œê¸€ì“°ê¸°
+	@Transactional // íŠ¸ëœì­ì…˜ ì²˜ë¦¬ ë©”ì„œë“œë¡œ ì„¤ì •
 	@Override
 	public void create(Free_boardVO vo) throws Exception {
 /*		String title = vo.getTitle();
 		String content = vo.getContent();
 		String writer = vo.getWriter();
-		// *ÅÂ±×¹®ÀÚ Ã³¸® (< ==> &lt; > ==> &gt;)
-		// replace(A, B) A¸¦ B·Î º¯°æ
+		// *íƒœê·¸ë¬¸ì ì²˜ë¦¬ (< ==> &lt; > ==> &gt;)
+		// replace(A, B) Aë¥¼ Bë¡œ ë³€ê²½
 		title = title.replace("<", "&lt;");
 		title = title.replace("<", "&gt;");
 		writer = writer.replace("<", "&lt;");
 		writer = writer.replace("<", "&gt;");
-		// *°ø¹é¹®ÀÚ Ã³¸®  
+		// *ê³µë°±ë¬¸ì ì²˜ë¦¬  
 		title = title.replace("  ",	"&nbsp;&nbsp;");
 		writer = writer.replace("  ",	"&nbsp;&nbsp;");
-		// *ÁÙ¹Ù²Ş ¹®ÀÚÃ³¸®
+		// *ì¤„ë°”ê¿ˆ ë¬¸ìì²˜ë¦¬
 		content = content.replace("\n", "<br>");
 		vo.setTitle(title);
 		vo.setContent(content);
 		vo.setWriter(writer);
-		// °Ô½Ã¹° µî·Ï
+		// ê²Œì‹œë¬¼ ë“±ë¡
 		boardDao.create(vo);
-		// °Ô½Ã¹°ÀÇ Ã·ºÎÆÄÀÏ Á¤º¸ µî·Ï
-		String[] files = vo.getFiles(); // Ã·ºÎÆÄÀÏ ¹è¿­
-		if(files == null) return; // Ã·ºÎÆÄÀÏÀÌ ¾øÀ¸¸é ¸Ş¼­µå Á¾·á
-		// Ã·ºÎÆÄÀÏµéÀÇ Á¤º¸¸¦ tbl_attach Å×ÀÌºí¿¡ insert
+		// ê²Œì‹œë¬¼ì˜ ì²¨ë¶€íŒŒì¼ ì •ë³´ ë“±ë¡
+		String[] files = vo.getFiles(); // ì²¨ë¶€íŒŒì¼ ë°°ì—´
+		if(files == null) return; // ì²¨ë¶€íŒŒì¼ì´ ì—†ìœ¼ë©´ ë©”ì„œë“œ ì¢…ë£Œ
+		// ì²¨ë¶€íŒŒì¼ë“¤ì˜ ì •ë³´ë¥¼ tbl_attach í…Œì´ë¸”ì— insert
 		for(String name : files){ 
 			boardDao.addAttach(name);
 		}*/
 		
 	}
-	/*	// 02. °Ô½Ã±Û »ó¼¼º¸±â
+	/*	// 02. ê²Œì‹œê¸€ ìƒì„¸ë³´ê¸°
 	@Override
 	public Free_boardVO read(int bno) throws Exception {
 		return boardDao.read(bno);
 	}
-	// 03. °Ô½Ã±Û ¼öÁ¤
+	// 03. ê²Œì‹œê¸€ ìˆ˜ì •
 	@Transactional
 	@Override
 	public void update(Free_boardVO vo) throws Exception {
 		boardDao.update(vo);
-		// Ã·ºÎÆÄÀÏ Á¤º¸ µî·Ï
-		String[] files = vo.getFiles(); // Ã·ºÎÆÄÀÏ ¹è¿­
-		// Ã·ºÎÆÄÀÏÀÌ ¾øÀ¸¸é Á¾·á
+		// ì²¨ë¶€íŒŒì¼ ì •ë³´ ë“±ë¡
+		String[] files = vo.getFiles(); // ì²¨ë¶€íŒŒì¼ ë°°ì—´
+		// ì²¨ë¶€íŒŒì¼ì´ ì—†ìœ¼ë©´ ì¢…ë£Œ
 		if(files == null) return;
-		// Ã·ºÎÆÄÀÏµéÀÇ Á¤º¸¸¦ tbl_attach Å×ÀÌºí¿¡ insert
+		// ì²¨ë¶€íŒŒì¼ë“¤ì˜ ì •ë³´ë¥¼ tbl_attach í…Œì´ë¸”ì— insert
 		for(String name : files){
 			boardDao.updateAttach(name, vo.getBno());
 		}
 	}
-	// 04. °Ô½Ã±Û »èÁ¦
+	// 04. ê²Œì‹œê¸€ ì‚­ì œ
 	@Override
 	public void delete(int bno) throws Exception {
 		boardDao.delete(bno);
 	}*/
 	
-	// 05. °Ô½Ã±Û ÀüÃ¼ ¸ñ·Ï
+	// 05. ê²Œì‹œê¸€ ì „ì²´ ëª©ë¡
 	@Override
-	public List<Free_boardVO> listAll(int start, int end, String searchOption, String searchKeyword) throws Exception {
-	    return freeboardDao.listAll(start, end, searchOption, searchKeyword);
+	public List<Free_boardVO> listAll(int start, int end, String searchOption, String keyword) throws Exception {
+		 logger.info("í‚¤ì›Œë“œê°’333"+keyword);
+		return freeboardDao.listAll(start, end, searchOption, keyword);
 	}
 	
-/*	// 06. °Ô½Ã±Û Á¶È¸¼ö Áõ°¡
+/*	// 06. ê²Œì‹œê¸€ ì¡°íšŒìˆ˜ ì¦ê°€
 	@Override
 	public void increaseViewcnt(int bno, HttpSession session) throws Exception {
 		long update_time = 0;
-		// ¼¼¼Ç¿¡ ÀúÀåµÈ Á¶È¸½Ã°£ °Ë»ö
-		// ÃÖÃÊ·Î Á¶È¸ÇÒ °æ¿ì ¼¼¼Ç¿¡ ÀúÀåµÈ °ªÀÌ ¾ø±â ¶§¹®¿¡ if¹®Àº ½ÇÇàX
+		// ì„¸ì…˜ì— ì €ì¥ëœ ì¡°íšŒì‹œê°„ ê²€ìƒ‰
+		// ìµœì´ˆë¡œ ì¡°íšŒí•  ê²½ìš° ì„¸ì…˜ì— ì €ì¥ëœ ê°’ì´ ì—†ê¸° ë•Œë¬¸ì— ifë¬¸ì€ ì‹¤í–‰X
 		if(session.getAttribute("update_time_"+bno) != null){
-								// ¼¼¼Ç¿¡¼­ ÀĞ¾î¿À±â
+								// ì„¸ì…˜ì—ì„œ ì½ì–´ì˜¤ê¸°
 			update_time = (long)session.getAttribute("update_time_"+bno);
 		}
-		// ½Ã½ºÅÛÀÇ ÇöÀç½Ã°£À» current_time¿¡ ÀúÀå
+		// ì‹œìŠ¤í…œì˜ í˜„ì¬ì‹œê°„ì„ current_timeì— ì €ì¥
 		long current_time = System.currentTimeMillis();
-		// ÀÏÁ¤½Ã°£ÀÌ °æ°ú ÈÄ Á¶È¸¼ö Áõ°¡ Ã³¸® 24*60*60*1000(24½Ã°£)
-		 // ½Ã½ºÅÛÇöÀç½Ã°£ - ¿­¶÷½Ã°£ > ÀÏÁ¤½Ã°£(Á¶È¸¼ö Áõ°¡°¡ °¡´ÉÇÏµµ·Ï ÁöÁ¤ÇÑ ½Ã°£)
+		// ì¼ì •ì‹œê°„ì´ ê²½ê³¼ í›„ ì¡°íšŒìˆ˜ ì¦ê°€ ì²˜ë¦¬ 24*60*60*1000(24ì‹œê°„)
+		 // ì‹œìŠ¤í…œí˜„ì¬ì‹œê°„ - ì—´ëŒì‹œê°„ > ì¼ì •ì‹œê°„(ì¡°íšŒìˆ˜ ì¦ê°€ê°€ ê°€ëŠ¥í•˜ë„ë¡ ì§€ì •í•œ ì‹œê°„)
 		if(current_time - update_time > 5*1000){
 			boardDao.increaseViewcnt(bno);
-			// ¼¼¼Ç¿¡ ½Ã°£À» ÀúÀå : "update_time_"+bno´Â ´Ù¸¥º¯¼ö¿Í Áßº¹µÇÁö ¾Ê°Ô ¸í¸íÇÑ °Í
+			// ì„¸ì…˜ì— ì‹œê°„ì„ ì €ì¥ : "update_time_"+bnoëŠ” ë‹¤ë¥¸ë³€ìˆ˜ì™€ ì¤‘ë³µë˜ì§€ ì•Šê²Œ ëª…ëª…í•œ ê²ƒ
 			session.setAttribute("update_time_"+bno, current_time);
 			
 		}
 	}*/
-	// 07. °Ô½Ã±Û ·¹ÄÚµå °¹¼ö
+	// 07. ê²Œì‹œê¸€ ë ˆì½”ë“œ ê°¯ìˆ˜
 	@Override
 	public int countArticle(String searchOption, String keyword) throws Exception {
 		return freeboardDao.countArticle(searchOption, keyword);
 	}
 /*	
-	// 08. °Ô½Ã±ÛÀÇ Ã·ºÎÆÄÀÏ ¸ñ·Ï
+	// 08. ê²Œì‹œê¸€ì˜ ì²¨ë¶€íŒŒì¼ ëª©ë¡
 	@Override
 	public List<String> getAttach(int bno) {
 		return boardDao.getAttach(bno);
 	}
-	// 09. °Ô½Ã±ÛÀÇ Ã·ºÎÆÄÀÏ »èÁ¦ Ã³¸®
+	// 09. ê²Œì‹œê¸€ì˜ ì²¨ë¶€íŒŒì¼ ì‚­ì œ ì²˜ë¦¬
 	@Override
 	public void deleteFile(String fullname) {
 		boardDao.deleteFile(fullname);
