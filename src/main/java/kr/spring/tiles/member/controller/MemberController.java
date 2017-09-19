@@ -1,7 +1,7 @@
 package kr.spring.tiles.member.controller;
 
 import java.util.List;
-
+import java.util.Random;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -11,11 +11,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.spring.tiles.member.model.dto.MemberVO;
 import kr.spring.tiles.member.service.MemberService;
+import kr.spring.tiles.util.MailService;
 
 @Controller // 현재의 클래스를 controller bean에 등록시킴
 public class MemberController {
@@ -26,6 +29,9 @@ public class MemberController {
 	@Inject
 	MemberService memberService;
 	
+	 @Inject
+	 MailService mailService;
+
 	// 01 회원 목록
 	// url pattern mapping
 	@RequestMapping("member/list.do")
@@ -129,4 +135,37 @@ public class MemberController {
     }
 	
 	
+    @RequestMapping(value = "member/sendMail.do", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    private boolean sendMail(HttpSession session, @RequestParam String email) {
+        int randomCode = new Random().nextInt(10000) + 1000;
+        String joinCode = String.valueOf(randomCode);
+        session.setAttribute("joinCode", joinCode);
+        session.setMaxInactiveInterval(60*5);
+        logger.info("키워드값3"+email);
+        String subject = "회원가입 승인 번호 입니다.";
+        StringBuilder sb = new StringBuilder();
+        sb.append("회원가입 승인번호는 ").append(joinCode).append(" 입니다.");
+        return mailService.send(subject, sb.toString(), "rycleproject@gmail.com", email);
+        }
+    
+    
+
+    @RequestMapping(value = "member/checkMail.do", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    private boolean checkMail(HttpSession session, @RequestParam String auth) {
+    
+    	String authNum = (String) session.getAttribute("joinCode");
+    	 logger.info("답"+authNum);
+    	 logger.info("요청값"+auth);
+      
+        return mailService.check(authNum,auth);
+        }
+    
+    
+
+
+    
+    
+    
 }
