@@ -60,7 +60,10 @@
                     titleStep,
                     $titleStepSpan,
                     nextStep;
-
+                //초기화
+                $btnNext.removeAttr('disabled');
+                
+                
                 if (settings.disableNextButton){
                     $btnNext.attr('disabled', 'disabled');
                 }
@@ -133,7 +136,9 @@
                 nextStep,
                 $nextStep,
                 newTitle;
-
+            //버튼 넘기기 초기화
+          
+            
             steps = $modal.find('div[data-step]').length;
 
             // Callback on Complete
@@ -192,6 +197,7 @@
             // Just a check for the class of previous button
             if (parseInt($btnPrevious.attr('data-step')) > 0 ){
                 $btnPrevious.removeAttr('disabled');
+              
             } else {
                 $btnPrevious.attr('disabled', 'disabled');
             }
@@ -199,10 +205,23 @@
             if (orientation === 'previous'){
                 $btnNext.removeAttr('disabled');
             }
+            
 
             // Get the next step
             $nextStep = $modal.find('[data-step=' + nextStep + ']');
-
+         
+            
+            //메일인증받으면 넘어가게하자
+            if (parseInt($nextStep.attr('data-step')) == 2 ){
+            	if($('#emailCheck').prop("disabled")){
+            		$btnNext.removeAttr('disabled');
+            	}else{
+            		$nextStep.attr('disabled', 'disabled');
+            	} 
+            }
+            
+            
+            
             // Verify if we need to unlock continue btn of the next step
             if ($nextStep.attr('data-unlock-continue')){
                 $btnNext.removeAttr('disabled');

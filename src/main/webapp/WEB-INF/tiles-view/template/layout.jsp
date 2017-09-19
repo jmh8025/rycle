@@ -23,7 +23,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="/SpringTiles/js/common170908.js"></script>
     <script src="/SpringTiles/js/jquery-bootstrap-modal-steps.js"></script>
-    <script src="http://dmaps.daum.net/map_js_init/postcode.js"></script>
+    <script src="/SpringTiles/js/memberreg.js"></script>
 
 </head>
 <body>

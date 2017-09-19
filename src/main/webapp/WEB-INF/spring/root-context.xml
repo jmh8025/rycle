@@ -16,12 +16,24 @@
         <property name="password" value="d8521325"/>
     </bean>
 
-    <!-- 아파치 DBCP 설정 -->
-    <!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> 
-            <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/> 
-            <property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl" /> 
-            <property name="username" value="java" /> <property name="password" value="java1234"/> 
-        </bean> -->
+<!-- 이메일 관련 -->
+<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+    <property name="host" value="smtp.gmail.com" />
+    <property name="port" value="587" />
+    <property name="username" value="rycleproject@gmail.com" />
+    <property name="password" value="d8521325" />
+    <property name="javaMailProperties">
+        <props>
+            <prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+            <prop key="mail.smtp.starttls.enable">true</prop>
+            <prop key="mail.smtp.auth">true</prop>
+        </props>
+    </property>
+</bean>
+
+
+
+
     
     <!-- SqlSessionFactory 객체 주입 -->
     <!-- sqlSessionFactory는 dataSource를 참조 -->

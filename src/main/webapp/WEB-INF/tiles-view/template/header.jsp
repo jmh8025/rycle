@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
-
-
-
-
  <header id="header">
         <ul class="header-inner">
             <li class="pull-left" id="sidebar_menu"><a href="#"><i class="icon-menu"></i> <span class="hidden-xs">MENU</span></a></li>
@@ -36,119 +32,104 @@
       </div>
       <div class="modal-body">
       
-      
-       <div class="row hide" data-step="1" data-title="회원가입">
+      	<!-- 1스텝 -->
+       <div class="row hide" data-step="1" data-title="약관을 읽어주세요!">
           <div class="well">
 			이용약관 넣을예정
           </div>
            </div>
            
-           <!--  -->
-            <div class="row hide" data-step="2" data-title="회원가입">
+           <!-- 2스텝 -->
+            <div class="row hide" data-step="2" data-title="회원님을 알고싶어요!!!">
           <div class="well">
-          
           <form role="form">
           <div class="form-group">
+              <label for="name">이름</label>
+              <input type="text" class="form-control onlyHangul" name="name" id="name" placeholder="이름">
+            </div>
+          <div class="form-group">
               <label for="userid">아이디</label>
-              <input type="text" class="form-control" name="id" id="username" placeholder="아이디">
+              <input type="text" class="form-control onlyAlphabetAndNumber" name="id" id="id" placeholder="아이디">
             </div>
             <div class="form-group">
               <label for="InputPassword1">비밀번호</label>
-              <input type="password" class="form-control" id="InputPassword1" placeholder="비밀번호">
+              <input type="password" class="form-control" id="password" placeholder="비밀번호">
             </div>
             <div class="form-group">
               <label for="InputPassword2">비밀번호 확인</label>
-              <input type="password" class="form-control" id="InputPassword2" placeholder="비밀번호 확인">
-              <p class="help-block">비밀번호 확인을 위해 다시한번 입력 해 주세요</p>
+              <input type="password" class="form-control" id="passwordCheck" placeholder="비밀번호 확인">
+              <span class="help-block" id="pwhelp">비밀번호 확인을 위해 다시한번 요</span>
             </div>
-            <div class="form-group">
-              <label for="InputEmail">이메일 주소</label>
-              <input type="email" class="form-control" id="InputEmail" placeholder="이메일 주소">
+			<!-- 이메일 -->
+			<label for="inputEmail">이메일</label>
+             <div class="input-group">
+             <input type="email" class="form-control" id="inputEmail" placeholder="이메일을 입력해주세요" />
+                 <span class="input-group-btn">
+                    <button class="btn btn-success" type="button" id="email">인증번호 전송<i class="fa fa-mail-forward spaceLeft"></i></button>
+                  </span>
+                </div>
+            <p class="help-block" id="emailmsg"></p> <!-- 이메일 입력 체크 메시지 -->
+            <!-- 이메일 끝 -->
+            <!-- 이메일 체크 -->
+        <div class="input-group" id="hidecheckmail">
+           <span class="input-group-addon">인증번호 확인</span>
+              <input class="form-control" id="inputEmailCheck" type="text" placeholder="인증번호">
+              <span class="input-group-btn">
+                <button class="btn btn-success" type="button" id="emailCheck">인증번호 확인<i class="fa fa-edit spaceLeft"></i></button>
+              </span>
             </div>
-            <div class="form-group">
-              <label for="username">이름</label>
-              <input type="text" class="form-control" id="username" placeholder="이름을 입력해 주세요">
-            </div>
-     
-			 <div class="form-group">
-              <label for="username">휴대폰 인증</label>
-              <div class="input-group">
-                <input type="tel" class="form-control" id="username" placeholder="- 없이 입력해 주세요">
-                <span class="input-group-btn">
-                  <button class="btn btn-success">인증번호 전송<i class="fa fa-mail-forward spaceLeft"></i></button>
-                </span>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="username">인증번호 입력</label>
-              <div class="input-group">
-                <input type="text" class="form-control" id="username" placeholder="인증번호">
-                <span class="input-group-btn">
-                  <button class="btn btn-success">인증번호 입력<i class="fa fa-edit spaceLeft"></i></button>
-                </span>
-              </div>
-            </div>
-            <div class="form-group">
-                <label>약관 동의</label>
-              <div data-toggle="buttons">
-              <label class="btn btn-primary active">
-                  <span class="fa fa-check"></span>
-                  <input id="agree" type="checkbox" autocomplete="off" checked>
-              </label>
-              <a href="#">이용약관</a>에 동의합니다.
-              </div>
-            </div>
-            <div class="form-group text-center">
-              <button type="submit" class="btn btn-info">회원가입<i class="fa fa-check spaceLeft"></i></button>
-              <button type="submit" class="btn btn-warning">가입취소<i class="fa fa-times spaceLeft"></i></button>
-            </div>
-            <div class = "row">
-        <div class = "col-md-4">
-            <div class = "input-group">
-                <span class = "input-group-addon">우편번호</span>
-                <input type = "text" class = "form-control" id = "zip_code" name = "zip_code">
-                <span class = "input-group-addon"><a href = "#" id = "zip_codeBtn" data-toggle="modal" data-target="#zip_codeModal">검색하기</a></span>                
-            </div>
-        </div>
-    </div>
-    <div class = "row">
-        <div class = "col-md-4">
-            <div class = "input-group">
-                <span class = "input-group-addon">주소</span>
-                <input type = "text" class = "form-control" id = "address1">                
-            </div>
-        </div>
-    </div>        
-    <div class = "row">
-        <div class = "col-md-4">
-            <div class = "input-group">
-                <span class = "input-group-addon">상세주소</span>
-                <input type = "text" class = "form-control" id = "address2">        
-            </div>
-        </div>
-    </div>    
-          </form>
-          	
-          	
+            <p class="help-block" id="emailcheckmsg"></p><!-- 인증번호 체크 메시지 --> 
+             <p class="help-block" id="emailsend"><!-- 이메일을 보내고 난뒤 노출 --> 
+            <a href="" id="emaillink" target="_blank">메일을 보낸 사이트로 이동하기</a>
+            <span class="msg" id="emailtime"></span>
+            </p><!-- 이메일을 보내고난뒤 노출 끝 -->
+        <!-- 이메일 체크 끝 -->
+
+        
           </div>
-           </div>
+         </div>
            
-           
-              <!--  -->
-        <div class="row hide" data-step="3" data-title="This is the second and last step!">
+              <!-- 3스텝 -->
+        <div class="row hide" data-step="3" data-title="거의 다 오셨습니다!">
           <div class="well">
-          <table border="1">
-          <tr>
-				<td>이메일주소</td>
-				<td><input name="userEmail"></td>
-			</tr>
-			<tr>
-				<td colspan="2" align="center">
-					<input type="submit" value="확인">
-					<input type="reset" value="취소">
-				</td>
-			</tr>
-          	</table>
+          
+            <label for="inputPhoneNumber">성별</label>
+         <div class="form-group">
+                <div class="col-lg-12">
+                    <select class="form-control" id="gender">
+                        <option value="M">남</option>
+                        <option value="F">여</option>
+                    </select>
+                </div>
+                </div>
+                <br> <br>
+                      <!-- 주소 -->
+                       <div class="form-group">
+              <label for="birth">생일</label>
+              <input type="text" class="form-control" name="birth" id="birth" placeholder="ex)920630">
+            </div> 
+              <div class="form-group">
+              <label for="tel">전화번호</label>
+              <input type="text" class="form-control onlyNumber" name="phoneNumber" id="phoneNumber" placeholder="-빼고 입력하세요">
+            </div> 
+<label for="postcode">주소</label>
+ 	<div class="input-group">
+      <input type="text" class="form-control" id="postcode" name="postcode" placeholder="우편번호">
+       
+      <input type="text" class="form-control" id="address" name="address" placeholder="한글주소">
+       <span class="input-group-btn">
+        <button class="btn btn-secondary" type="button" onclick="execDaumPostcode()">주소검색</button>
+      </span>
+    <!--  <input type="text" class="form-control" id="address" name="address" placeholder="한글주소"> -->
+    </div>
+ 
+
+
+<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
+			<div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative">
+<img src="//t1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
+</div>
+<!--  주소끝 -->     
           </div>
         </div>
            </form>	
@@ -156,61 +137,15 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default js-btn-step pull-left" data-orientation="cancel" data-dismiss="modal"></button>
         <button type="button" class="btn btn-warning js-btn-step" data-orientation="previous"></button>
-        <button type="button" class="btn btn-success js-btn-step" data-orientation="next"></button>
+        <button type="button" class="btn btn-success js-btn-step" data-orientation="next" id="nextbt"></button>
       </div>
     </div>
   </div>
 </div>
 
 
-<div class="modal fade" id="zip_codeModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header text-center">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-                <h3 class="modal-title" id="myModalLabel">우편번호</h3>
-            </div>    
-            <div class="modal-body text-center">
-                 <form id = "zip_codeForm">
-                         <div class = "input-group">
-                            <span class = "input-group-addon">동 입력</span>
-                            <input type="text" class = "form-control" name="query" id="query">
-                            <span class = "input-group-btn">                                                
-                                <input type="submit" class = "btn btn-warning" value="검색" id="searchBtn" onkeydown="javascript:if(event.keyCode==13)">                                            
-                            </span>
-                        </div>
-                </form>
-                <p>
-                </p>
-                <div>
-                <div style="width:100%; height:200px; overflow:auto">
-                       <table class = "table text-center">
-                        <thead>
-                            <tr>
-                                <th style="width:150px;">우편번호</th>
-                                <th style="width:600px;">주소</th>
-                                </tr>
-                        </thead>
-                        <tbody id="zip_codeList"></tbody>
-                    </table>
-                </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-
-
-
-<script>
-$('#myModal').modalSteps();
-</script>
+    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	<script src="/SpringTiles/js/jusoapi.js"></script>
 
     
     

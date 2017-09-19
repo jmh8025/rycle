@@ -193,6 +193,24 @@
 			<scope>test</scope>
 		</dependency>
 		
+		<!-- mail -->
+		<dependency>
+    <groupId>javax.mail</groupId>
+    <artifactId>mail</artifactId>
+    <version>1.4</version>
+</dependency>
+<!-- 메일컴포넌트 -->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-context-support</artifactId>
+    <version>4.3.0.RELEASE</version>
+</dependency>
+
+
+
+
+
+		
 		<!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
     <dependency>
         <groupId>org.jsoup</groupId>
