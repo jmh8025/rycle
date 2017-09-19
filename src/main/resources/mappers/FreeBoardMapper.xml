@@ -3,6 +3,28 @@
 
 <!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
 <mapper namespace="free_board">
+
+	<!-- 02. 게시글 작성 -->
+    <insert id="insert">
+        INSERT INTO free_board (
+          id,
+          writer, 
+          subject,
+          content,
+          k_date,
+          readcount,
+          cate_chk
+        ) VALUES (
+		  #{id},
+		  #{writer},
+		  #{subject},
+		  #{content},
+		  now(),
+		  0,
+		  #{cate_chk}
+        )
+    </insert>
+    
 	<!-- 02_02. 게시글 레코드 갯수 -->
 	<select id="countArticle" parameterType="map" resultType="int">
 		SELECT COUNT(*) 
@@ -20,6 +42,12 @@
 	        <include refid="board_search" />
 	        <include refid="pagingFooter" />
 	</select>
+	 
+    <!-- 04. 게시글 조회수 증가처리 -->
+    <update id="increaseViewcnt">
+        UPDATE free_board SET readcount = readcount + 1 
+        WHERE no = #{no}
+    </update>
 	 
 	<!-- 검색 조건 sql -->
 	<sql id="board_search">

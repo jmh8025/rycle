@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,7 +23,6 @@ import kr.spring.tiles.board.free.model.dto.Free_boardVO;
 import kr.spring.tiles.board.free.model.dto.Fb_categoryVO;
 
 import kr.spring.tiles.board.free.service.FreeBoardService;
-import kr.spring.tiles.board.free.service.FbCategoryService;
 
 @Controller // 현재의 클래스를 controller bean에 등록시킴
 public class Free_BoardController {
@@ -33,9 +33,6 @@ public class Free_BoardController {
 
 	@Inject
 	FreeBoardService freeBoardService;
-	
-	@Inject
-	FbCategoryService fbcategoryservice;
 
 	// 01 회원 목록
 	// url pattern mapping
@@ -71,7 +68,7 @@ public class Free_BoardController {
 	    map.put("keyword", keyword); // 검색키워드
 	    map.put("boardPager", boardPager);
 	    map.put("PAGE_SCALE", PAGE_SCALE); //페이지당 게시물 수 	    
-	    logger.info("키워드값3"+keyword);
+	    map.put("board_name", "free_board"); //게시물명
 	    model.addAttribute("map", map);
 	    
 		return "free_board_list";
@@ -79,9 +76,9 @@ public class Free_BoardController {
 	
 	
 	@RequestMapping("/board/free_board_write.do")
-	public String memberWrite(Model model) throws Exception{
+	public String free_Board_Write(Model model) throws Exception{
 		
-		List<Fb_categoryVO> fblist = fbcategoryservice.listAll();
+		List<Fb_categoryVO> fblist = freeBoardService.listAll();
 		
 		Map<String, Object> fbmap = new HashMap<String, Object>();
 		fbmap.put("fblist", fblist);
@@ -90,5 +87,22 @@ public class Free_BoardController {
 	    
 		return "free_board_write";
 	}
+  
 	
+	//게시글 작성처리
+	@RequestMapping("/board/free_board_insert.do")
+	public String insert(@ModelAttribute Free_boardVO freeboard , HttpSession session) throws Exception{
+		
+		// session에 저장된 userId를 writer에 저장
+/*		String id = (String) session.getAttribute("userId");
+		String writer = (String) session.getAttribute("userWriter");*/		
+
+		// vo에 writer를 세팅
+		freeboard.setId("slr2");
+		freeboard.setWriter("홍길동");
+		
+		freeBoardService.create(freeboard);
+		
+		return "redirect:/board/free_board_list.do";
+	}
 }

@@ -33,7 +33,7 @@ public class Free_boardDAOImpl implements Free_boardDAO {
 	// 01_01. 게시글 작성
 	@Override
 	public void create(Free_boardVO vo) throws Exception {
-		sqlSession.insert("board.insert", vo);
+		sqlSession.insert("free_board.insert", vo);
 	}
 	
 	/*	// 01_02 게시물 첨부파일 추가
@@ -74,11 +74,12 @@ public class Free_boardDAOImpl implements Free_boardDAO {
 		return sqlSession.selectList("free_board.listAll", map);
 	}
 	
-/*	// 06. 게시글 조회수 증가
+	// 06. 게시글 조회수 증가
 	@Override
-	public void increaseViewcnt(int bno) throws Exception {
-		sqlSession.update("board.increaseViewcnt", bno);
-	}*/
+	public void increaseViewcnt(int no) throws Exception {
+		sqlSession.update("free_board.increaseViewcnt", no);
+	}
+	
 	// 07. 게시글 레코드 갯수
 	@Override
 	public int countArticle(String searchOption, String keyword) throws Exception {
