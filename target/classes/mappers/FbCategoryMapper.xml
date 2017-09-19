@@ -7,7 +7,7 @@
 	<!-- 게시글 카테고리 -->
 	<select id="listAll" resultType="kr.spring.tiles.board.free.model.dto.Fb_categoryVO">
 	        SELECT cate_chk, cate_name
-	        FROM fb_category
+	        FROM fb_category 
 	</select>
 	 
 </mapper>

@@ -7,23 +7,23 @@ import kr.spring.tiles.board.free.model.dto.Free_boardVO;
 
 public interface FreeBoardService {
 	
-	// 01. °Ô½Ã±Û ÀÛ¼º
+	// 01. ê²Œì‹œê¸€ ì‘ì„±
 	public void create(Free_boardVO vo) throws Exception;
-	/*	// 02. °Ô½Ã±Û »ó¼¼º¸±â
+	/*	// 02. ê²Œì‹œê¸€ ìƒì„¸ë³´ê¸°
 	public Free_boardVO read(int bno) throws Exception;
-	// 03. °Ô½Ã±Û ¼öÁ¤
+	// 03. ê²Œì‹œê¸€ ìˆ˜ì •
 	public void update(Free_boardVO vo) throws Exception;
-	// 04. °Ô½Ã±Û »èÁ¦
+	// 04. ê²Œì‹œê¸€ ì‚­ì œ
 	public void delete(int bno) throws Exception;*/
-	// 05. °Ô½Ã±Û ÀüÃ¼ ¸ñ·Ï
+	// 05. ê²Œì‹œê¸€ ì „ì²´ ëª©ë¡
 	public List<Free_boardVO> listAll(int start, int end, String searchOption, String keyword) throws Exception;
-/*	// 06. °Ô½Ã±Û Á¶È¸
+/*	// 06. ê²Œì‹œê¸€ ì¡°íšŒ
 	public void increaseViewcnt(int bno, HttpSession session) throws Exception;
-	// 07. °Ô½Ã±Û ·¹ÄÚµå °¹¼ö
+	// 07. ê²Œì‹œê¸€ ë ˆì½”ë“œ ê°¯ìˆ˜
 */	public int countArticle(String searchOption, String keyword) throws Exception;
-/*	// 08. °Ô½Ã±Û Ã·ºÎÆÄÀÏ ¸ñ·Ï
+/*	// 08. ê²Œì‹œê¸€ ì²¨ë¶€íŒŒì¼ ëª©ë¡
 	public List<String> getAttach(int bno);
-	// 09. °Ô½Ã±Û Ã·ºÎÆÄÀÏ »èÁ¦
+	// 09. ê²Œì‹œê¸€ ì²¨ë¶€íŒŒì¼ ì‚­ì œ
 	public void deleteFile(String fullname);*/
 	
 }

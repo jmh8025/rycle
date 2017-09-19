@@ -10,20 +10,18 @@
     <title>LYCLEs</title>
 
     <!-- font -->
-    <link href='https://cdn.rawgit.com/openhiun/hangul/14c0f6faa2941116bb53001d6a7dcd5e82300c3f/nanumbarungothic.css' rel='stylesheet' type='text/css'>
+    <link rel='stylesheet' href='https://cdn.rawgit.com/openhiun/hangul/14c0f6faa2941116bb53001d6a7dcd5e82300c3f/nanumbarungothic.css'>
     
-    <!-- CSS -->
-    <link rel="stylesheet" href="/SpringTiles/css/bootstrap.css">
-    <link rel="stylesheet" href="/SpringTiles/css/reset.css">
-    <link rel="stylesheet" href="/SpringTiles/css/fontello.css">
-    <link rel="stylesheet" href="/SpringTiles/css/style.css">
-
-    <link rel="stylesheet" href="/SpringTiles/css/board.css">
-
+    <!-- css -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/SpringTiles/css/reset1.css">
+    <link rel="stylesheet" href="/SpringTiles/css/fontello.css"> 
+    <link rel="stylesheet" href="/SpringTiles/css/style1.css">
+    
     <!-- js -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="/SpringTiles/js/common.js"></script>   
-    <script src="/SpringTiles/js/kb.js"></script>    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="/SpringTiles/js/common170908.js"></script>
 </head>
 <body>
     <!-- header -->
@@ -32,7 +30,7 @@
     <section id="main">
     	<!-- sidebar -->
     	<tiles:insertAttribute name="sidebar" />
-        
+       
         <section id="content">
 			<tiles:insertAttribute name="content" />            
         </section>

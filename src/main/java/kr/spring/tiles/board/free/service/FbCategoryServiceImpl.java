@@ -9,15 +9,15 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.spring.tiles.board.free.model.dao.Fb_categoryDAOImpl;
 import kr.spring.tiles.board.free.model.dto.Fb_categoryVO;
 
-// ÇöÀç Å¬·¡½º¸¦ ½ºÇÁ¸µ¿¡¼­ °ü¸®ÇÏ´Â service beanÀ¸·Î µî·Ï
+// í˜„ì¬ í´ë˜ìŠ¤ë¥¼ ìŠ¤í”„ë§ì—ì„œ ê´€ë¦¬í•˜ëŠ” service beanìœ¼ë¡œ ë“±ë¡
 @Service
 public class FbCategoryServiceImpl implements FbCategoryService {
 	
-	// MemberDAOImpl °´Ã¼¸¦ ½ºÇÁ¸µ¿¡¼­ »ı¼ºÇÏ¿© ÁÖÀÔ½ÃÅ´
+	// MemberDAOImpl ê°ì²´ë¥¼ ìŠ¤í”„ë§ì—ì„œ ìƒì„±í•˜ì—¬ ì£¼ì…ì‹œí‚´
 	@Inject
 	Fb_categoryDAOImpl fbcategoryDao;
 	
-	// 01. Ä«Å×°í¸® °¡Á®¿À±â
+	// 01. ì¹´í…Œê³ ë¦¬ ê°€ì ¸ì˜¤ê¸°
 	public List<Fb_categoryVO> listAll() throws Exception{
 	    return fbcategoryDao.listAll();
 	}
