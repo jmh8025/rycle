@@ -87,14 +87,8 @@
             <!-- padding -->
          <%@ include file="../include/list_page_foot.jsp" %>
          <!-- btnArea -->
-<div class="pagingWrap"  style="float:right">
-	<div class="btnArea">
-		<p class="floatR">
-			<a href="/SpringTiles/board/free_board_write.do" class="btn"><span>글쓰기</span></a>
-		</p>
-	</div>
+
 </div>
-        </div>
 
 
 

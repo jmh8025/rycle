@@ -19,8 +19,8 @@ public interface Free_boardDAO {
 	public void delete(int bno) throws Exception;*/
 	// 05. 게시글 전체 목록
 	public List<Free_boardVO> listAll(int start, int end, String searchOption, String keyword) throws Exception;
-/*	// 06. 게시글 조회 증가
-	public void increaseViewcnt(int bno) throws Exception;*/
+	// 06. 게시글 조회 증가
+	public void increaseViewcnt(int no) throws Exception;
 	// 07. 게시글 레코드 갯수 메서드 추가
 	public int countArticle(String searchOption, String keyword) throws Exception;
 /*	// 08. 게시물 첨부파일 추가
