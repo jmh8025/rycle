@@ -3,7 +3,7 @@ package kr.spring.tiles.board.free.controller;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.Iterator;
+
 import java.util.List;
 import java.util.Map;
 
@@ -38,11 +38,6 @@ public class Free_BoardController {
    @Inject
    FreeBoardService freeBoardService;
    
-    // xml에 설정된 리소스 참조
-    // bean의 id가 uploadPath인 태그를 참조
-    @Resource(name="uploadPath")
-    String uploadPath;
-   
    // 01 회원 목록
    // url pattern mapping
    @RequestMapping("/board/free_board_list.do")
@@ -51,7 +46,7 @@ public class Free_BoardController {
             @RequestParam(value="searchKeyword", defaultValue="") String keyword,
             @RequestParam(value="curPage", defaultValue="1") int curPage) throws Exception{
 
-     
+         logger.info("키워드값"+keyword);
         
 
       //게시판 목록s
@@ -101,52 +96,13 @@ public class Free_BoardController {
    //게시글 작성처리
    
    @RequestMapping(value = "/board/free_board_insert.do", method= RequestMethod.POST , consumes ={"multipart/form-data"})
-   
-   public String insert( /*@ModelAttribute Free_boardVO freeboard, */ MultipartHttpServletRequest multi , HttpSession session) throws Exception{
-      
-      //저장경로 설정
-      String path = "/SpringTiles/fileupload";
-      
-        String newFileName = ""; // 업로드 되는 파일명
-        
-        File dir = new File(path);
-        
-        //경로 없을 경우 생성
-        if(!dir.isDirectory()){
-            dir.mkdir();
-        }
-
-        Iterator<String> files = multi.getFileNames();
-        while(files.hasNext()){
-            String uploadFile = files.next();
-                         
-            MultipartFile mFile = multi.getFile(uploadFile);
-            String fileName = mFile.getOriginalFilename();
-            System.out.println("실제 파일 이름 : " +fileName);
-            newFileName = System.currentTimeMillis()+"."
-                    +fileName.substring(fileName.lastIndexOf(".")+1);
-             
-            try {
-                mFile.transferTo(new File(path+newFileName));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        System.out.println("id : " + multi.getParameter("id"));
-        System.out.println("pw : " + multi.getParameter("pw"));
-         
+   public String insert( @ModelAttribute Free_boardVO freeboard , HttpSession session) throws Exception{
 
 
-      
-      
-      
-      
-      
       // session에 저장된 userId를 writer에 저장
 /*      String id = (String) session.getAttribute("userId");
       String writer = (String) session.getAttribute("userWriter");*/      
-/*      
+      
       // vo에 writer를 세팅
       freeboard.setId("slr2"); 
       freeboard.setWriter("홍길동");
@@ -160,25 +116,11 @@ public class Free_BoardController {
             + "freeboard.Writer="+freeboard.getWriter()+", subject="+freeboard.getSubject() 
             + "content="+freeboard.getContent()+", cate_chk="+freeboard.getCate_chk() 
             );
-      */
-      
-/*      //파일 s
-        logger.info("파일이름 :"+file.getOriginalFilename());
-        logger.info("파일크기 : "+file.getSize());
-        logger.info("컨텐트 타입 : "+file.getContentType());
 
-        String savedName = file.getOriginalFilename();
-
-        File target = new File(uploadPath, savedName);
-        
-        // 임시디렉토리에 저장된 업로드된 파일을 지정된 디렉토리로 복사
-        // FileCopyUtils.copy(바이트배열, 파일객체)
-        FileCopyUtils.copy(file.getBytes(), target);     */   
-        
         //파일 e
-        /*
+        
       freeBoardService.create(freeboard);
-      */
+      
       return "redirect:/board/free_board_list.do";
    }
 }
