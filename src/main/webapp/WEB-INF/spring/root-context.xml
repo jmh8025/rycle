@@ -30,11 +30,6 @@
         </props>
     </property>
 </bean>
-
-
-
-
-    
     <!-- SqlSessionFactory 객체 주입 -->
     <!-- sqlSessionFactory는 dataSource를 참조 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -55,3 +50,7 @@
     </bean>
  
 </beans>
+
+
+
+
