@@ -1,4 +1,5 @@
 $(function(){ 
+	$('#havenothave').hide()
 	/*이메일부분*/
 	$('#emailmsg').hide()
 	$('#emaillink').hide()
@@ -6,7 +7,8 @@ $(function(){
 	$('#hidecheckmail').hide()
 	var auth;
 	var authTime=300; //인증번호 타이머
-	$('#email').click(function(){			
+	$('#email').click(function(){	
+		
 		var $email = $('#inputEmail').val()
 		var $regEmail = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
 		var $emailsite = $email.slice($email.indexOf("@")+1,$email.length)
@@ -19,6 +21,8 @@ $(function(){
 			$('#emailmsg').show()
 			$('#emailmsg').text('올바른 이메일을 입력해주세요.')
 		}else{
+			$('#emailmsg').show()
+			$('#emailmsg').text('전송중입니다. 잠시만 기다려주세요.')
         $.ajax({
                 type : "POST",
                 url : "member/sendMail.do", //mv로 전송후
@@ -164,11 +168,6 @@ $(function(){
                         divName.addClass("has-success");
                     }
                 });
-                 
-        
-                 
-          
-                 
                 $('#phoneNumber').keyup(function(event){
                      
                     var divPhoneNumber = $('#divPhoneNumber');
@@ -180,16 +179,17 @@ $(function(){
                         divPhoneNumber.removeClass("has-error");
                         divPhoneNumber.addClass("has-success");
                     }
+                    
                 });
-
-
-
-
-	
-	
-	
-	
-	
-	
+                $("#havecycle").change(function(){
+                	if($("#havecycle").val()=='y'){
+                		$('#havenothave').show()
+                	}else if($("#havecycle").val()=='n'){
+                		$('#havenothave').hide()
+                	}
+                	
+                });
+                
+             
 	
 })//jquery

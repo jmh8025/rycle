@@ -7,6 +7,11 @@ public class MemberVO {
 	private String userPw;
 	private String userName; 
 	private String userEmail; 
+	private String userSex; 
+	private String userBirth; 
+	private String userTel; 
+	private String userPostcode; 
+	private String userAddress; 
 	private Date userRegdate; // java.sql.Date
 	private Date userUpdatedate;
 	
@@ -48,11 +53,43 @@ public class MemberVO {
 		this.userUpdatedate = userUpdatedate;
 	}
 	
+	
+	public String getUserSex() {
+		return userSex;
+	}
+	public void setUserSex(String userSex) {
+		this.userSex = userSex;
+	}
+	public String getUserBirth() {
+		return userBirth;
+	}
+	public void setUserBirth(String userBirth) {
+		this.userBirth = userBirth;
+	}
+	public String getUserTel() {
+		return userTel;
+	}
+	public void setUserTel(String userTel) {
+		this.userTel = userTel;
+	}
+	public String getUserPostcode() {
+		return userPostcode;
+	}
+	public void setUserPostcode(String userPostcode) {
+		this.userPostcode = userPostcode;
+	}
+	public String getUserAddress() {
+		return userAddress;
+	}
+	public void setUserAddress(String userAddress) {
+		this.userAddress = userAddress;
+	}
 	// toString()
 	@Override
 	public String toString() {
 		return "MemberVO [userId=" + userId + ", userPw=" + userPw + ", userName=" + userName + ", userEmail="
-				+ userEmail + ", userRegdate=" + userRegdate + ", userUpdatedate=" + userUpdatedate + "]";
+				+ userEmail + ", userRegdate=" + userRegdate + ", userUpdatedate=" + userUpdatedate 
+				+ ", userSex=" + userSex + ", userBirth=" + userBirth + ", userTel=" + userTel
+				+ ", userPostcode=" + userPostcode + ", userAddress=" + userAddress +"]";
 	}
-	
 }
