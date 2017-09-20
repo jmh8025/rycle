@@ -105,6 +105,12 @@ public class Free_BoardController {
 		freeboard.setId("slr2");
 		freeboard.setWriter("홍길동");
 		
+		logger.info("freeboard 값 체크 [ "
+				+ "freeboard.getNo="+freeboard.getNo()+ ", freeboard.getId()"+freeboard.getId()
+				+ "freeboard.Writer="+freeboard.getWriter()+", subject="+freeboard.getSubject() 
+				+ "content="+freeboard.getContent()+", cate_chk="+freeboard.getCate_chk() 
+				);
+		
 		freeBoardService.create(freeboard);
 		
 		return "redirect:/board/free_board_list.do";
