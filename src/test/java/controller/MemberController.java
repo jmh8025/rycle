@@ -25,7 +25,6 @@ import org.springframework.web.context.WebApplicationContext;
 )
 // 애플리케이션, 서블릿 컨텍스트(환경설정)을 사용함
 public class MemberController {
-    
     // @Inject: Java에서 DI 기능을 제공하기 위한 어노테이션
     // @Autowired: Spring에서 DI 기능을 제공하기 위한 어노테이션
     // 같은 기능
@@ -57,8 +56,9 @@ public class MemberController {
         logger.info("testSample2 호출");
         // MockMvc 객체를 사용해서 콘트롤러 메소드에게
         // GET 또는 POST 리퀘스트(요청)를 전달
-        RequestBuilder req = MockMvcRequestBuilders.post("/member/sendMail.do")
+        RequestBuilder req = MockMvcRequestBuilders.post("/member/mail.do")
                 .param("email", "jmh8025@nate.com");
+        		
         // 매핑된 "/test1"의 메소드를 불러옴
         mock.perform(req);
     }

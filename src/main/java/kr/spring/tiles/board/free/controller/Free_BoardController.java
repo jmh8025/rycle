@@ -36,8 +36,7 @@ public class Free_BoardController {
 	
     // xml에 설정된 리소스 참조
     // bean의 id가 uploadPath인 태그를 참조
-    @Resource(name="uploadPath")
-    String uploadPath;
+   
 	
 	// 01 회원 목록
 	// url pattern mapping
