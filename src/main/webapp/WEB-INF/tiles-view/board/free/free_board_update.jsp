@@ -2,10 +2,12 @@
 <script src="//code.jquery.com/jquery.min.js"></script>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
+
+<div class="content_inner">
 	<div class="content">
 	
 		<p class="tbTopTxt"><span><b class="star" title="필수항목">*</b> 필수입력</span></p>
-		<form method="post" id="writeform" name="writeform" action="/SpringTiles/board/free_board_insert.do"> 
+		<form method="post" id="writeform" name="writeform" action="/SpringTiles/board/free_board_update.do?bno=${map.dto.no}"> 
 			<input type="hidden" name="id" value="slr2">
 			<input type="hidden" name="writer" value="작성자">
 			
@@ -18,8 +20,10 @@
 						<td>
 							<select name="cate_chk" id="cate_chk">
 									<option value="">--선택하세요--</option>
-								<c:forEach var="fb_article" items="${fbmap.fblist}">
-									<option value="${fb_article.cate_chk}">${fb_article.cate_name}</option>
+								<c:forEach var="fb_article" items="${map.fblist}">
+									<option value="${fb_article.cate_chk}" 
+										<c:out value="${fb_article.cate_chk == map.dto.cate_chk?'selected':''}" /> 
+									>${fb_article.cate_name}</option>
 								</c:forEach>
 							</select>
 						</td>
@@ -28,7 +32,7 @@
 						<th>제목<b class="star" title="필수항목">*</b>
 							<br><span id="ssubject"></span>
 						</th>
-						<td><input type="text" id="subject" name="subject" title="제목" class="w100" value="">
+						<td><input type="text" id="subject" name="subject" title="제목" class="w100" value="${map.dto.subject}">
 						<br>
 						</td>
 					</tr>
@@ -37,7 +41,7 @@
 							<br><span id="scontent"></span>
 						</th>
 						<td>
-							<textarea name="content" id="bcontent" class="textarea" title="내용입력"></textarea>
+							<textarea name="content" id="bcontent" class="textarea" title="내용입력">${map.dto.content}</textarea>
 							<span class="cmt">2.000 Bytes 이내로 작성 하세요.</span>
 						
 						</td>
@@ -56,8 +60,6 @@
 				</table>
 			</div>
 			
-			
-			
 			<!-- btnArea -->
 			<div class="btnArea">
 			
@@ -71,4 +73,4 @@
 			
 		</form>
 	</div>
-
+</div>

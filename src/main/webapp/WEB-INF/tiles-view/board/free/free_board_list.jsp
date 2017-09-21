@@ -24,6 +24,8 @@
 	<c:set var="keyword" value="${map.keyword}" />
 </otherwise> 
 
+<!-- 링크페이지 -->
+<c:set var="board_link" value="&curPage=${map.boardPager.curPage}&searchOption=${map.searchOption}&keyword=${map.keyword}" />
 
 <div class="content_inner">
             <!-- boardSearch -->
@@ -75,7 +77,7 @@
 	<c:forEach var="article" items="${map.list}"  varStatus="status">
 		<tr>
 			<td align="center">${(map.count) - ( (map.boardPager.curPage - 1)  *  map.PAGE_SCALE + status.index ) }</td>
-			<td><a href="/board/free_board_list.do?no=${article.no}&curPage=${map.boardPager.curPage}&searchOption=${map.searchOption}&keyword=${map.keyword}">${article.subject}</a></td>
+			<td><a href="/SpringTiles/board/free_board_view.do?bno=${article.no}&cate_chk=${article.cate_chk}${board_link}">${article.subject}</a></td>
 			<td>${article.writer}</td>
 			<td>${article.k_date}</td>
 			<td>${article.readcount}</td>
