@@ -14,11 +14,14 @@ public interface FreeBoardService {
 	
 	// 01. 게시글 작성
 	public void create(Free_boardVO vo) throws Exception;
-	/*	// 02. 게시글 상세보기
+	// 02. 게시글 상세보기
 	public Free_boardVO read(int bno) throws Exception;
+	// 02-2 카테고리명 가져오기
+	public Fb_categoryVO cateName(String cate_chk) throws Exception;
+	
 	// 03. 게시글 수정
 	public void update(Free_boardVO vo) throws Exception;
-	// 04. 게시글 삭제
+	/*// 04. 게시글 삭제
 	public void delete(int bno) throws Exception;*/
 	// 05. 게시글 전체 목록
 	public List<Free_boardVO> listAll(int start, int end, String searchOption, String keyword) throws Exception;

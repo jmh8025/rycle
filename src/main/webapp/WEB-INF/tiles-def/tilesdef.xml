@@ -38,6 +38,18 @@
 		<put-attribute name="content" value="/WEB-INF/tiles-view/board/free/free_board_write.jsp" />
 	</definition>
 	
+	<!-- 자유게시판 보기 -->
+	<definition name="free_board_view" extends="index">
+		<put-attribute name="title" value="자유게시판_뷰" />
+		<put-attribute name="content" value="/WEB-INF/tiles-view/board/free/free_board_view.jsp" />
+	</definition>
+	
+	<!-- 자유게시판 수정-->
+	<definition name="free_board_update" extends="index">
+		<put-attribute name="title" value="자유게시판_수정" />
+		<put-attribute name="content" value="/WEB-INF/tiles-view/board/free/free_board_update.jsp" />
+	</definition>
+	
 	<!-- 자유게시판 e -->
 	
 </tiles-definitions>

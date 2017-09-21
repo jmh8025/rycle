@@ -1,5 +1,4 @@
 
-
 function write_submit(board) {
 
 	if (board == "free_board") {

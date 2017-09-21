@@ -9,14 +9,19 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import kr.spring.tiles.board.free.controller.Free_BoardController;
 import kr.spring.tiles.board.free.model.dto.Fb_categoryVO;
 
 //현재 클래스를 DAO bean으로 등록시킴
 @Repository
 public class Fb_categoryDAOImpl implements Fb_categoryDAO {
 	
+	private static final Logger logger = LoggerFactory.getLogger(Free_BoardController.class);
+
 	// SqlSession 객체를 스프링에서 생성하여 주입시켜준다.
 	// 의존관계 주입(Dependency Injection, DI)
 	// 느스한 결함
@@ -31,6 +36,14 @@ public class Fb_categoryDAOImpl implements Fb_categoryDAO {
 	@Override
 	public List<Fb_categoryVO> listAll() throws Exception {
 		return sqlSession.selectList("fb_category.listAll");
+	}
+	
+	// 01. 카테고리 가져오기
+	@Override
+	public Fb_categoryVO cateName(String cate_chk) throws Exception {
+	       logger.info("Fb_categoryDAO->cate_chk="+cate_chk);
+		
+		return sqlSession.selectOne("fb_category.cateName", cate_chk);
 	}
 
 }
