@@ -5,7 +5,7 @@
 	<div class="content">
 	
 		<p class="tbTopTxt"><span><b class="star" title="필수항목">*</b> 필수입력</span></p>
-		<form method="post" id="writeform" name="writeform" action="/SpringTiles/board/free_board_insert.do"  enctype="multipart/form-data"> 
+		<form method="post" id="writeform" name="writeform" action="/SpringTiles/board/free_board_insert.do"> 
 			<input type="hidden" name="id" value="slr2">
 			<input type="hidden" name="writer" value="작성자">
 			
@@ -52,18 +52,6 @@
 							<p class="txtCmt">총 10MBytes 이하</p>
 						</td>
 					</tr> -->
-					
-		File1 to upload: <input type="file" name="file">
- 
-		Name1: <input type="text" name="name">
- 
- 
-		File2 to upload: <input type="file" name="file">
- 
-		Name2: <input type="text" name="name">
- 
-
-		<input type="submit" value="Upload"> 
 
 				</table>
 			</div>

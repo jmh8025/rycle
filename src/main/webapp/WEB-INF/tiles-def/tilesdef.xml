@@ -52,11 +52,4 @@
 	
 	<!-- 자유게시판 e -->
 	
-		<!-- 자유게시판 수정-->
-	<definition name="uploadMultipleFile" extends="index">
-		<put-attribute name="title" value="자유게시판_수정" />
-		<put-attribute name="content" value="/WEB-INF/tiles-view/board/free/uploadMultiple.jsp" />
-	</definition>
-	
-	
 </tiles-definitions>
