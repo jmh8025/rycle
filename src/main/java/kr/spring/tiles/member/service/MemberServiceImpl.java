@@ -50,8 +50,8 @@ public class MemberServiceImpl implements MemberService {
         if (result) { // true일 경우 세션에 등록
             MemberVO vo2 = viewMember(vo);
             // 세션 변수 등록
-            session.setAttribute("userId", vo2.getUserId());
-            session.setAttribute("userName", vo2.getUserName());
+            session.setAttribute("userId", vo2.getId());
+            session.setAttribute("userName", vo2.getName());
         } 
         return result;
     }
@@ -70,5 +70,12 @@ public class MemberServiceImpl implements MemberService {
         // 세션 정보를 초기화 시킴
         session.invalidate();
     }
+
+	@Override
+	public boolean idcheck(String id) {
+		// TODO Auto-generated method stub
+		//아이디 중복확인
+		return memberDao.idcheck(id);
+	}
 
 }

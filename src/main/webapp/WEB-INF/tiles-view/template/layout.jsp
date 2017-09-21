@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -21,10 +23,10 @@
     <!-- js -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="/SpringTiles/js/memberreg.js"></script>
     <script src="/SpringTiles/js/common170908.js"></script>
     <script src="/SpringTiles/js/board.js"></script>
-    <script src="/SpringTiles/js/jquery-bootstrap-modal-steps.js"></script>
-    <script src="/SpringTiles/js/memberreg.js"></script>
+    
 
 </head>
 <body>

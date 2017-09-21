@@ -62,32 +62,36 @@ $('#radioBtn a').on('click', function(){
 				<!-- 2스텝 -->
 				<div class="row hide" data-step="2" data-title="회원님을 알고싶어요!!!">
 					<div class="well">
-						<form role="form">
-							<div class="form-group">
+						<form role="form" name="reg" id="reg" action="destination.html" method="post">
+							<div class="form-group" id="divName">
 								<label for="name">이름</label> 
 								<input type="text"class="form-control onlyHangul" name="name" id="name"
 									placeholder="이름">
 							</div>
-							<div class="form-group">
+							<div class="form-group" id="divId">
 								<label for="id">아이디</label> <input type="text"
 									class="form-control onlyAlphabetAndNumber" name="id" id="id"
 									placeholder="아이디">
+									<span class="help-block"
+									id="idhelp"></span>
 							</div>
-							<div class="form-group">
+							<div class="form-group" id="divPassword">
 								<label for="InputPassword1">비밀번호</label> <input type="password"
-									class="form-control" id="password" placeholder="비밀번호">
+									class="form-control" name="pw" id="password" placeholder="비밀번호">
+									<span class="help-block"
+									id="pwhelp"></span>
 							</div>
-							<div class="form-group">
+							<div class="form-group" id="divPasswordCheck">
 								<label for="InputPassword2">비밀번호 확인</label> <input
 									type="password" class="form-control" id="passwordCheck"
 									placeholder="비밀번호 확인"> <span class="help-block"
-									id="pwhelp"></span>
+									id="pwckhelp"></span>
 							</div>
 							<br>
 							<!-- 이메일 -->
 							<label for="inputEmail">이메일</label>
-							<div class="input-group">
-								<input type="email" class="form-control" id="inputEmail"
+							<div class="input-group" id="divEmail">
+								<input type="email" class="form-control" id="inputEmail" name="email"
 									placeholder="이메일을 입력해주세요" /> <span class="input-group-btn">
 									<button class="btn btn-success" type="button" id="email">
 										인증번호 전송<i class="fa fa-mail-forward spaceLeft"></i>
@@ -111,7 +115,7 @@ $('#radioBtn a').on('click', function(){
 							<!-- 인증번호 체크 메시지 -->
 							<p class="help-block" id="emailsend">
 								<!-- 이메일을 보내고 난뒤 노출 -->
-								<a href="" id="emaillink" target="_blank">메일을 보낸 사이트로 이동하기</a> <span
+								<a href="" id="emaillink" target="_blank">메일을 보낸사이트 새창띄우기!</a> <span
 									class="msg" id="emailtime"></span>
 							</p>
 							<!-- 이메일을 보내고난뒤 노출 끝 -->
@@ -123,17 +127,19 @@ $('#radioBtn a').on('click', function(){
 				<div class="row hide" data-step="3" data-title="거의 다 오셨습니다!">
 					<div class="well">
 						<!-- 성별 -->
-						<label for="sex">성별</label>
-						<div class="input-group">
-							<div id="affected">
-								<input type="radio" name="sex" title="남자" value="m">
-								 <input type="radio" name="sex" title="여자" value="f">
-							</div>
-						</div>
+							<label>성별</label>										
+<div class="btn-group" data-toggle="buttons" id="divgender">
+  <label class="btn btn-success">
+    <input type="radio" name="gender" id="gender" autocomplete="off" value="m" > 남자
+  </label>
+  <label class="btn btn-success">
+    <input type="radio" name="gender" id="gender" autocomplete="off" value="f"> 여자
+  </label>
+</div>
 						<!-- /성별 -->
 
 						<!-- 생일 -->
-						<div class="form-group">
+						<div class="form-group" id="divBirth">
 							<label for="birth">생일</label> <input type="text"
 								class="form-control onlyNumber" name="birth" id="birth"
 								placeholder="ex)930608">
@@ -141,22 +147,22 @@ $('#radioBtn a').on('click', function(){
 						<!-- /생일 -->
 
 						<!-- 전화번호 -->
-						<div class="form-group">
+						<div class="form-group" id="divPhoneNumber">
 							<label for="tel">전화번호</label> <input type="text"
-								class="form-control onlyNumber" name="phoneNumber"
+								class="form-control onlyNumber" name="tel"
 								id="phoneNumber" placeholder="-빼고 입력하세요">
 						</div>
 						<!-- 전화번호 -->
 
 						<!-- 주소 -->
 						<label for="postcode">주소</label>
-						<div class="input-group">
+						<div class="input-group" id="divAddress">
 							<input type="text" class="form-control" id="postcode"
-								name="postcode" placeholder="우편번호"> <input type="text"
+								name="postcode" placeholder="우편번호" readonly> <input type="text"
 								class="form-control" id="address" name="address"
-								placeholder="한글주소"> <span class="input-group-btn">
+								placeholder="한글주소" > <span class="input-group-btn">
 								<button class="btn btn-success" type="button"
-									onclick="execDaumPostcode()">주소검색</button>
+									onclick="execDaumPostcode()" >주소검색</button>
 							</span>
 						</div>
 						<!-- 주소 -->
@@ -176,18 +182,19 @@ $('#radioBtn a').on('click', function(){
 					<div class="well">
 					
 		<label>집에 자전거 있나요?</label>										
-<div class="btn-group" data-toggle="buttons">
+<div class="btn-group" data-toggle="buttons" id="divBikeyn">
   <label class="btn btn-success">
-    <input type="radio" name="havecycle" id="havecycle" autocomplete="off" value="y" > 자전거가 있어요
+    <input type="radio" name="bike_yn" id="bike_yn" autocomplete="off" value="y" > 자전거가 있어요
   </label>
-  <label class="btn btn-success active">
-    <input type="radio" name="havecycle" id="havecycle" autocomplete="off" value="n"> 자전거가 없어요
+  <label class="btn btn-success">
+    <input type="radio" name="bike_yn" id="bike_yn2" autocomplete="off" value="n"> 자전거가 없어요
   </label>
 </div>
 <br><br><br>
 <div id="havenothave">
 <label>자전거의 종류를 알려주세요!</label>
-<select class="form-control">
+<select class="form-control" name="bike_type">
+   <option value="default" selected>자전거 종류</option>
    <option value="로드">로드</option>
    <option value="MTB">MTB</option>
    <option value="하이브리드">하이브리드</option>
@@ -200,30 +207,30 @@ $('#radioBtn a').on('click', function(){
 <label>혹시 일주일에 자전거를 몇번 타세요?</label>
 <div class="btn-group" data-toggle="buttons">
   <label class="btn btn-success active">
-    <input type="radio" name="cycleweek" id="option1" autocomplete="off" >0~1번
+    <input type="radio" name="how_many" id="option1" autocomplete="off" value="01" >0~1번
   </label>
   <label class="btn btn-success">
-    <input type="radio" name="cycleweek" id="option1" autocomplete="off" >2~3번
+    <input type="radio" name="how_many" id="option1" autocomplete="off" value="23" >2~3번
   </label>
   <label class="btn btn-success">
-    <input type="radio" name="cycleweek" id="option1" autocomplete="off" >4~5번
+    <input type="radio" name="how_many" id="option1" autocomplete="off" value="45" >4~5번
   </label>
   <label class="btn btn-success">
-    <input type="radio" name="cycleweek" id="option1" autocomplete="off" >6~7번
+    <input type="radio" name="how_many" id="option1" autocomplete="off" value="67">6~7번
   </label>
 </div>
 <br><br><br>
 <label>가입하신 동호회가 있으신가요?</label>
- <label class="btn btn-success active">
-    <input type="radio" name="dongho" id="option1" autocomplete="off" > 가입한 동호회가 있어요
+ <label class="btn btn-success">
+    <input type="radio" name="club_yn" id="option1" autocomplete="off" value="y"> 가입한 동호회가 있어요
   </label>
   <label class="btn btn-success">
-    <input type="radio" name="dongho" id="option1" autocomplete="off" > 가입한 동호회가 없어요
+    <input type="radio" name="club_yn" id="option1" autocomplete="off" value="n"> 가입한 동호회가 없어요
   </label>
   </div>
 <br><br><br>
 <div class="form-group">
-<input type="text" class="form-control" name="" id="name" placeholder="저희 사이트의 가입경로를 알려주세요">
+<input type="text" class="form-control" name="join_root" id="name" placeholder="저희 사이트의 가입경로를 알려주세요">
 </div>
 <!-- 끝 ㅜㅜ -->						
 </div>
@@ -241,10 +248,34 @@ $('#radioBtn a').on('click', function(){
 		</div>
 	</div>
 </div>
+<!-- 회원가입모달끝 -->
+
+<!-- 회원가입완료모달 -->
+  <!-- Modal -->
+  <div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" id="title"></h4>
+        </div>
+        <div class="modal-body">
+          <p id="content"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>  
+<!-- 회원가입완료모달 끝 -->
 
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script src="/SpringTiles/js/jusoapi.js"></script>
+<script src="/SpringTiles/js/regfooter.js"></script>
 
 
 

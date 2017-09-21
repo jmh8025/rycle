@@ -1,9 +1,11 @@
 package kr.spring.tiles.member.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,7 +63,8 @@ public class MemberController {
 		// /member/list.do : 루트 디렉토리를 기준
 		// member/list.do : 현재 디렉토리를 기준
 		// member_list.jsp로 리다이렉트
-		return "index";
+		
+		return vo.getId();
 	}
 	
 
@@ -150,7 +153,7 @@ public class MemberController {
         }
     
     
-
+    //메일인증번호확인
     @RequestMapping(value = "member/checkMail.do", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     private boolean checkMail(HttpSession session, @RequestParam String auth) {
@@ -162,10 +165,10 @@ public class MemberController {
         return mailService.check(authNum,auth);
         }
     
-    
-
-
-    
-    
-    
+  //아이디중복확인
+    @RequestMapping(value = "member/checkId.do", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    private boolean checkId(HttpSession session, @RequestParam String Id) {  
+        return memberService.idcheck(Id);
+        }
 }

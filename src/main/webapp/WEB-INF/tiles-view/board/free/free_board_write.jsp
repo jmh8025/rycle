@@ -10,7 +10,7 @@
 	<div class="content">
 	
 		<p class="tbTopTxt"><span><b class="star" title="필수항목">*</b> 필수입력</span></p>
-		<form method="post" id="writeform" name="writeform" action="/SpringTiles/board/free_board_insert.do" enctype="multipart/form-data"> 
+		<form method="post" id="writeform" name="writeform" action="/SpringTiles/board/free_board_insert.do"> 
 			<input type="hidden" name="id" value="slr2">
 			<input type="hidden" name="writer" value="작성자">
 			
