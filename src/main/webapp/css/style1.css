@@ -372,3 +372,79 @@ body {
 .paging .num a:hover,.paging strong.on {background: #eff0f0;color: #0d6fb8}
 .paging .btnWrite { float:right; background-color:#23527c; color: #fff; height:34px; line-height: 34px; border: 1px solid #e1e2e2; padding: 0 26px; cursor: pointer;}
 
+
+/*radiobutton*/
+.zInputWrapper{
+background-color:#F5F5F5;
+padding: 4px;
+margin: 2px;
+border-radius:12px;
+display:inline-block;
+}
+.zInput{
+display:inline-block;
+width: 200px;
+height:50px;
+background-color: white;
+margin:20px;
+padding: 12px;
+text-align:center;
+cursor:default;
+color: #5CB85C;
+border: #5CB85C 1px solid;
+border-radius:10px;
+font-size: 18px;
+overflow:hidden;
+-webkit-touch-callout: none;
+-webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
+
+.zCheckbox{
+color: #000099;
+border: #000099 1px solid;
+}
+
+.zSelected{
+color: white;
+background-color:#5CB85C;
+}
+
+.zSelected.zCheckbox{
+background-color: #000099;
+}
+
+/* 라디오버튼 */
+#radioBtn .notActive{
+    color: #3276b1;
+    background-color: #fff;
+}
+/* 회원등록 */
+.input-group-addon.primary {
+    color: rgb(255, 255, 255);
+    background-color: rgb(50, 118, 177);
+    border-color: rgb(40, 94, 142);
+}
+.input-group-addon.success {
+    color: rgb(255, 255, 255);
+    background-color: rgb(92, 184, 92);
+    border-color: rgb(76, 174, 76);
+}
+.input-group-addon.info {
+    color: rgb(255, 255, 255);
+    background-color: rgb(57, 179, 215);
+    border-color: rgb(38, 154, 188);
+}
+.input-group-addon.warning {
+    color: rgb(255, 255, 255);
+    background-color: rgb(240, 173, 78);
+    border-color: rgb(238, 162, 54);
+}
+.input-group-addon.danger {
+    color: rgb(255, 255, 255);
+    background-color: rgb(217, 83, 79);
+    border-color: rgb(212, 63, 58);
+}

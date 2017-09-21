@@ -22,7 +22,8 @@ public interface MemberService {
     public MemberVO viewMember(MemberVO vo);
     // 02. 회원 로그아웃
     public void logout(HttpSession session);
-	
+  //아이디 중복확인
+    public boolean idcheck(String id);
 	
 	
 }

@@ -11,6 +11,8 @@
         var currentScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);
         new daum.Postcode({
             oncomplete: function(data) {
+                $('#divAddress').removeClass("has-error");
+                $('#divAddress').addClass("has-success");
                 // 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
                 // 각 주소의 노출 규칙에 따라 주소를 조합한다.
@@ -51,6 +53,9 @@
             height : '100%'
         }).embed(element_wrap);
 
-        // iframe을 넣은 element를 보이게 한다.
+        // iframe을 넣은 element를 보이게 한다.	
         element_wrap.style.display = 'block';
     }
+
+  
+ 

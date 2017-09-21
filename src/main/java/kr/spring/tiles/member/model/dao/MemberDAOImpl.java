@@ -9,14 +9,17 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import kr.spring.tiles.member.controller.MemberController;
 import kr.spring.tiles.member.model.dto.MemberVO;
 
 //현재 클래스를 DAO bean으로 등록시킴
 @Repository
 public class MemberDAOImpl implements MemberDAO {
-	
+	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	// SqlSession 객체를 스프링에서 생성하여 주입시켜준다.
 	// 의존관계 주입(Dependency Injection, DI)
 	// 느스한 결함
@@ -40,8 +43,8 @@ public class MemberDAOImpl implements MemberDAO {
 
 	// 04. 회원 정보 수정 처리
 	@Override
-	public void deleteMember(String userId) {
-		sqlSession.delete("member.deleteMember",userId);
+	public void deleteMember(String id) {
+		sqlSession.delete("member.deleteMember",id);
 	}
 	// 05. 회원 정보 삭제 처리
 	@Override
@@ -51,11 +54,11 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 	// 06. 회원 정보 수정 및 삭제를 위한 비밀번호 체크
 	@Override
-	public boolean checkPw(String userId, String userPw) {
+	public boolean checkPw(String id, String pw) {
 		boolean result = false;
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("userId", userId);
-		map.put("userPw", userPw);
+		map.put("id", id);
+		map.put("pw", pw);
 		int count = sqlSession.selectOne("member.checkPw", map);
 		if(count == 1) result= true;
 		return result;
@@ -75,5 +78,14 @@ public class MemberDAOImpl implements MemberDAO {
     @Override
     public void logout(HttpSession sessin) {
     }
+    
+    //아이디 중복체크
+	@Override
+	public boolean idcheck(String id) {
+		// TODO Auto-generated method stub
+		String regidcheck = sqlSession.selectOne("member.idcheck",id);
+		logger.info("아이디"+regidcheck);
+		return (regidcheck == null) ? false : true;
+	}
 
 }
