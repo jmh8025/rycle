@@ -11,11 +11,11 @@ public interface MemberDAO {
 	// 회원 입력
 	public void insertMember(MemberVO vo);
 	// 회원삭제
-	public void deleteMember(String userId);
+	public void deleteMember(String id);
 	// 회원정보 수정
 	public void updateMember(MemberVO vo);
 	// 비밀번호 체크
-	public boolean checkPw(String userId, String userPw);
+	public boolean checkPw(String id, String pw);
 	
 	  // 01_01. 회원 로그인 체크
     public boolean loginCheck(MemberVO vo);
@@ -23,5 +23,8 @@ public interface MemberDAO {
     public MemberVO viewMember(MemberVO vo);
     // 02. 회원 로그아웃
     public void logout(HttpSession session);
+    
+    //아이디 중복확인
+    public boolean idcheck(String id);
 	
 }
