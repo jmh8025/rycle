@@ -40,20 +40,21 @@ public class Free_boardDAOImpl implements Free_boardDAO {
 	@Override
 	public void addAttach(String fullName) {
 		sqlSession.insert("board.addAttach", fullName);
-	}
+	} */
 	
 	// 02. 게시글 상세보기
 	@Override
-	public BoardVO read(int bno) throws Exception {
-		return sqlSession.selectOne("board.view", bno);
-	}
+	public Free_boardVO read(int bno) throws Exception {
+		return sqlSession.selectOne("free_board.view", bno);
+	}	
+	
 	// 03. 게시글 수정
 	@Override
-	public void update(BoardVO vo) throws Exception {
-		sqlSession.update("board.updateArticle", vo);
-
+	public void update(Free_boardVO vo) throws Exception {
+		sqlSession.update("free_board.update", vo);
 	}
-	// 04. 게시글 삭제
+	
+	/*// 04. 게시글 삭제
 	@Override
 	public void delete(int bno) throws Exception {
 		sqlSession.delete("board.deleteArticle",bno);

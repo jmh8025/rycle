@@ -85,7 +85,7 @@ public class Free_BoardController {
       List<Fb_categoryVO> fblist = freeBoardService.listAll();
       
       Map<String, Object> fbmap = new HashMap<String, Object>();
-      fbmap.put("fblist", fblist);
+       fbmap.put("fblist", fblist);
       
        model.addAttribute("fbmap", fbmap);
        
@@ -94,9 +94,8 @@ public class Free_BoardController {
   
    
    //게시글 작성처리
-   
-   @RequestMapping(value = "/board/free_board_insert.do", method= RequestMethod.POST , consumes ={"multipart/form-data"})
-   public String insert( @ModelAttribute Free_boardVO freeboard , HttpSession session) throws Exception{
+   @RequestMapping(value = "/board/free_board_insert.do", method= RequestMethod.POST )
+   public String free_Board_insert( @ModelAttribute Free_boardVO freeboard , HttpSession session) throws Exception{
 
 
       // session에 저장된 userId를 writer에 저장
@@ -106,10 +105,7 @@ public class Free_BoardController {
       // vo에 writer를 세팅
       freeboard.setId("slr2"); 
       freeboard.setWriter("홍길동");
-      
-      freeboard.setSubject("홍길동");
-      freeboard.setContent("홍길동");
-      freeboard.setCate_chk("홍길동");
+
 
       logger.info("freeboard 값 체크 [ "
             + "freeboard.getId()"+freeboard.getId()
@@ -123,4 +119,85 @@ public class Free_BoardController {
       
       return "redirect:/board/free_board_list.do";
    }
+   
+   // 03. 게시글 상세내용 조회, 게시글 조회수 증가 처리
+   // @RequestParam : get/post방식으로 전달된 변수 1개
+   // HttpSession 세션객체
+   @RequestMapping("/board/free_board_view.do")
+   public String free_Board_View(@RequestParam int bno, @RequestParam String cate_chk, HttpSession session, Model model) throws Exception{
+       // 조회수 증가 처리
+	   freeBoardService.increaseViewcnt(bno, session);
+	   
+       // 데이터를 맵에 저장
+       Map<String, Object> map = new HashMap<String, Object>();
+       map.put("dto",  freeBoardService.read(bno)); // view     
+       
+       logger.info("cate_chk"+cate_chk);
+       map.put("cdto",  freeBoardService.cateName(cate_chk)); // view       
+       
+       model.addAttribute("map", map);
+       
+       return "free_board_view";
+   }
+   
+   
+   // 04. 게시글 수정
+   // 폼에서 입력한 내용들은 @ModelAttribute BoardVO vo로 전달됨
+   @RequestMapping(value="/board/free_board_update.do", method=RequestMethod.GET)
+   public String free_Board_Update(int bno, Model model) throws Exception{
+	   
+	   List<Fb_categoryVO> fblist = freeBoardService.listAll();
+
+       // 데이터를 맵에 저장
+       Map<String, Object> map = new HashMap<String, Object>();
+       map.put("dto",  freeBoardService.read(bno)); // view    
+       map.put("fblist",  fblist); // 카테고리 목록
+       
+       model.addAttribute("map", map);
+       
+       return "free_board_update";
+   }
+   
+   
+   // 04. 게시글 수정
+   // 폼에서 입력한 내용들은 @ModelAttribute BoardVO vo로 전달됨
+   @RequestMapping(value="/board/free_board_update.do", method=RequestMethod.POST)
+   
+   public String free_Board_Update(@RequestParam int bno, @ModelAttribute Free_boardVO freeboard, HttpSession session, Model model) throws Exception{
+      
+	   
+	   logger.info("free_Board_Update실행[ bno="+bno+"]");
+	      // session에 저장된 userId를 writer에 저장
+	   /*      String id = (String) session.getAttribute("userId");
+	         String writer = (String) session.getAttribute("userWriter");*/      
+	         
+	         // vo에 writer를 세팅
+	     freeboard.setId("slr2_m"); 
+	     freeboard.setWriter("홍길동_m");
+	     
+	     freeboard.setNo(bno); 
+	      logger.info("freeboard 값 체크 [ "
+	              + "freeboard.getId()"+freeboard.getId()
+	              + "freeboard.Writer="+freeboard.getWriter()+", subject="+freeboard.getSubject() 
+	              + "content="+freeboard.getContent()+", cate_chk="+freeboard.getCate_chk() 
+	              );
+
+	          //파일 e
+	          
+	        freeBoardService.update(freeboard);
+
+	        free_Board_View(bno, freeboard.getCate_chk(), session, model);
+	        
+	        return "free_board_view";
+   }
+   
+   /*
+   // 05. 게시글 삭제
+   @RequestMapping("delete.do")
+   public String free_Board_Delete(@RequestParam int bno) throws Exception{
+       boardService.delete(bno);
+       return "redirect:list.do";
+   }*/
+   
+   
 }

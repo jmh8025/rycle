@@ -63,26 +63,31 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		// 게시물의 첨부파일 정보 등록
 		
 	}
-	/*	// 02. 게시글 상세보기
+		// 02. 게시글 상세보기
 	@Override
 	public Free_boardVO read(int bno) throws Exception {
-		return boardDao.read(bno);
+		return freeboardDao.read(bno);
 	}
+	
+@Override
+public Fb_categoryVO cateName(String cate_chk) throws Exception {
+	// TODO Auto-generated method stub
+	return fbcategoryDao.cateName(cate_chk);
+} 
+
 	// 03. 게시글 수정
 	@Transactional
 	@Override
 	public void update(Free_boardVO vo) throws Exception {
-		boardDao.update(vo);
-		// 첨부파일 정보 등록
-		String[] files = vo.getFiles(); // 첨부파일 배열
-		// 첨부파일이 없으면 종료
-		if(files == null) return;
-		// 첨부파일들의 정보를 tbl_attach 테이블에 insert
+		freeboardDao.update(vo);
+
+		/*		// 첨부파일들의 정보를 tbl_attach 테이블에 insert
 		for(String name : files){
-			boardDao.updateAttach(name, vo.getBno());
-		}
+			freeboardDao.updateAttach(name, vo.getBno());
+		}*/
 	}
-	// 04. 게시글 삭제
+	
+	/*// 04. 게시글 삭제
 	@Override
 	public void delete(int bno) throws Exception {
 		boardDao.delete(bno);
