@@ -28,13 +28,13 @@
 	<!-- 03. 회원정보 상세조회 -->
 	<select id="viewMember" resultType="kr.spring.tiles.member.model.dto.MemberVO">
 		SELECT 
-		  userId, 
-		  userName,
-		  userEmail,
-		  userRegdate,
-		  userUpdatedate
-		FROM tbl_member
-		WHERE userId = #{userId}
+		  id, 
+		  name,
+		  email,
+		  reg_dt,
+		  pw_dt
+		FROM member
+		WHERE id = #{id}
 	</select>
 	
 	<!-- 04. 회원정보 수정처리 -->
@@ -65,7 +65,7 @@
 	
 	<!-- 07. 로그인처리 -->
 	<select id="loginCheck" resultType="String">
-        SELECT NAME FROM member
+        SELECT name FROM member
         WHERE id = #{id} AND pw = #{pw}
     </select>
     

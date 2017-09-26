@@ -52,6 +52,8 @@ public class MemberServiceImpl implements MemberService {
             // 세션 변수 등록
             session.setAttribute("id", vo2.getId());
             session.setAttribute("name", vo2.getName());
+            session.setMaxInactiveInterval(60*60*12);
+            
         } 
         return result;
     }

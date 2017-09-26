@@ -1,7 +1,11 @@
 
 
-$(function(){ 
+$(document).ready(function() {
 	
+	var path=location.host + location.pathname.slice(0,location.pathname.indexOf("/",2)+1);
+
+
+/*	var sendMail = "http://"+path+"member/sendMail.do";*/
 	$('#havenothave').hide()
 	/*이메일부분*/
 	$('#emailmsg').hide()
@@ -11,6 +15,7 @@ $(function(){
 	var auth;
 	var authTime=300; //인증번호 타이머
 	$('#email').click(function(){	
+
 		var $email = $('#inputEmail').val()
 		var $regEmail = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
 		var $emailsite = $email.slice($email.indexOf("@")+1,$email.length)
@@ -27,7 +32,7 @@ $(function(){
 			$('#emailmsg').text('지금 메일을 보내고있어요. 조금만 기다려주세요..').css("color","blue")
         $.ajax({
                 type : "POST",
-                url : rooturl+"http://localhost:8090/SpringTiles/member/sendMail.do", //mv로 전송후
+                url : "http://"+path+"member/sendMail.do", //mv로 전송후
                 dataType: "json",
                 data : {
                 	"email":$email
@@ -65,7 +70,7 @@ $(function(){
 		var $EmailCheck2=$('#inputEmailCheck').val()
  		$.ajax({
             type : "POST",
-            url : "http://localhost:8090/SpringTiles/member/checkMail.do", //mv로 전송후
+            url : "http://"+path+"member/checkMail.do", //mv로 전송후
             data : {
             	"auth":$EmailCheck2 //사용자가입력한 인증번호전송
             },
@@ -135,7 +140,7 @@ $(function(){
                 	}else{
                     $.ajax({
                         type : "POST",
-                        url : "http://localhost:8090/SpringTiles/member/checkId.do", //mv로 전송후
+                        url : "http://"+path+"member/checkId.do", //mv로 전송후
                         dataType: "json",
                         data : {
                         	"Id":$('#id').val()
@@ -222,9 +227,7 @@ $(function(){
                     
                 });
               
-                
-})//jquery
-$(document).ready(function() {
+
     $('input[name=bike_yn]').change(function(){
     	$('#divBikeyn').removeClass("has-error");
     	$('#divBikeyn').addClass("has-success");
@@ -238,13 +241,13 @@ $(document).ready(function() {
     	$('#divgender').removeClass("has-error");
     	$('#divgender').addClass("has-success");
     });
-})
+
 
 
 
 //모달스텝
 /* global jQuery */
-(function($){
+
     'use strict';
 
     $.fn.modalSteps = function(options){
@@ -260,13 +263,13 @@ $(document).ready(function() {
             //완료버튼누르면 모든걸 확인
             		  $.ajax({
             	            type : "POST",
-            	            url : "member/insert.do", //mv로 전송후
+            	            url : "http://"+path+"member/insert.do", //mv로 전송후
             	            data : $('#reg').serialize(), //폼값전부 전송
             	            dataType: "text",
             	            success : function(data) {
-            	            	//얻어온 값을 이용하여, modal 에서 동적으로 바뀌어야 하는 값을 바꾸어 준다..  
-            	        	    $("#title").html(data.name+"님 환영합니다!!");
-            	        	    $("#content").html("");
+            	            	//얻어온 값을 이용하여, modal 에서 동적으로 바뀌어야 하는 값을 바꾸어 준다..
+            	        	    $("#content").html("<h2>"+data+"님 환영해요!!</h2><br>" +
+            	        	    		"<img src='img/reg.png'>");
 
             	        	    //modal을 띄워준다.  
             	        	    $("#myModal2").modal('show');
@@ -348,7 +351,7 @@ $(document).ready(function() {
                 $btnNext.attr('data-step', nextStep);
                 titleStep = $modal.find('[data-step=' + actualStep + ']').data('title');
                 $titleStepSpan = $('<span>')
-                                    .addClass('label label-success')
+                                    .addClass('label label-primary')
                                     .html(actualStep);
                 $modal
                     .find('.js-title-step')
@@ -466,7 +469,7 @@ $(document).ready(function() {
             // Set the title of step
             newTitle = $nextStep.attr('data-title');
             var $titleStepSpan = $('<span>')
-                                .addClass('label label-success')
+                                .addClass('label label-primary')
                                 .html(nextStep);
             $title
                 .html($titleStepSpan)
@@ -479,4 +482,4 @@ $(document).ready(function() {
         });
         return this;
     };
-}(jQuery));
+})
