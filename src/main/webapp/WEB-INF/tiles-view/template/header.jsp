@@ -11,6 +11,7 @@ $('#radioBtn a').on('click', function(){
     
     $('a[data-toggle="'+tog+'"]').not('[data-title="'+sel+'"]').removeClass('active').addClass('notActive');
     $('a[data-toggle="'+tog+'"][data-title="'+sel+'"]').removeClass('notActive').addClass('active');
+    alert()
 })
 
 </script>
@@ -23,15 +24,15 @@ $('#radioBtn a').on('click', function(){
 				class="icon-menu"></i> <span class="hidden-xs">MENU</span></a></li>
 		<li class="pull-left" id="top-search"><a href="#"><i
 				class="icon-search"></i></a></li>
-		<li class="logo"><a href="#">LYCLE</a></li>
+		<li class="logo"><a href="${path}/index.do">LYCLE</a></li>
 		<c:choose>
-			<c:when test="${sessionScope.userId == null}">
+			<c:when test="${sessionScope.id == null}">
 				<li class="pull-right"><a href="#" data-toggle="modal"
 					data-target="#myModal">JOIN</a> &nbsp;/&nbsp; <a href="#" data-toggle="modal"
 					data-target="#Login">LOGIN</a></li>
 			</c:when>
 			<c:otherwise>
-				<li class="pull-right">${sessionScope.userName}님이로그인중입니다.
+				<li class="pull-right">${sessionScope.name}님이로그인중입니다.
 					&nbsp;/&nbsp; <a href="${path}/member/logout.do">로그아웃</a>
 				</li>
 			</c:otherwise>
@@ -94,7 +95,7 @@ $('#radioBtn a').on('click', function(){
 							<div class="input-group" id="divEmail">
 								<input type="email" class="form-control" id="inputEmail" name="email"
 									placeholder="이메일을 입력해주세요" /> <span class="input-group-btn">
-									<button class="btn btn-success" type="button" id="email">
+									<button class="btn btn-primary" type="button" id="email">
 										인증번호 전송<i class="fa fa-mail-forward spaceLeft"></i>
 									</button>
 								</span>
@@ -107,7 +108,7 @@ $('#radioBtn a').on('click', function(){
 								<span class="input-group-addon">인증번호 확인</span> <input
 									class="form-control" id="inputEmailCheck" type="text"
 									placeholder="인증번호"> <span class="input-group-btn">
-									<button class="btn btn-success" type="button" id="emailCheck">
+									<button class="btn btn-primary" type="button" id="emailCheck">
 										인증번호 확인<i class="fa fa-edit spaceLeft"></i>
 									</button>
 								</span>
@@ -130,10 +131,10 @@ $('#radioBtn a').on('click', function(){
 						<!-- 성별 -->
 							<label>성별</label>										
 <div class="btn-group" data-toggle="buttons" id="divgender">
-  <label class="btn btn-success">
+  <label class="btn btn-primary">
     <input type="radio" name="gender" id="gender" autocomplete="off" value="m" > 남자
   </label>
-  <label class="btn btn-success">
+  <label class="btn btn-primary">
     <input type="radio" name="gender" id="gender" autocomplete="off" value="f"> 여자
   </label>
 </div>
@@ -162,7 +163,7 @@ $('#radioBtn a').on('click', function(){
 								name="postcode" placeholder="우편번호" readonly> <input type="text"
 								class="form-control" id="address" name="address"
 								placeholder="한글주소" > <span class="input-group-btn">
-								<button class="btn btn-success" type="button"
+								<button class="btn btn-primary" type="button"
 									onclick="execDaumPostcode()" >주소검색</button>
 							</span>
 						</div>
@@ -184,10 +185,10 @@ $('#radioBtn a').on('click', function(){
 					
 		<label>집에 자전거 있나요?</label>										
 <div class="btn-group" data-toggle="buttons" id="divBikeyn">
-  <label class="btn btn-success">
+  <label class="btn btn-primary">
     <input type="radio" name="bike_yn" id="bike_yn" autocomplete="off" value="y" > 자전거가 있어요
   </label>
-  <label class="btn btn-success">
+  <label class="btn btn-primary">
     <input type="radio" name="bike_yn" id="bike_yn2" autocomplete="off" value="n"> 자전거가 없어요
   </label>
 </div>
@@ -207,26 +208,26 @@ $('#radioBtn a').on('click', function(){
 <br><br><br>
 <label>혹시 일주일에 자전거를 몇번 타세요?</label>
 <div class="btn-group" data-toggle="buttons">
-  <label class="btn btn-success active">
-    <input type="radio" name="how_many" id="option1" autocomplete="off" value="01" >0~1번
+  <label class="btn btn-primary">
+    <input type="radio" name="how_many" id="option1" autocomplete="off" value="01" checked="checked" >0~1번
   </label>
-  <label class="btn btn-success">
+  <label class="btn btn-primary">
     <input type="radio" name="how_many" id="option1" autocomplete="off" value="23" >2~3번
   </label>
-  <label class="btn btn-success">
+  <label class="btn btn-primary">
     <input type="radio" name="how_many" id="option1" autocomplete="off" value="45" >4~5번
   </label>
-  <label class="btn btn-success">
+  <label class="btn btn-primary">
     <input type="radio" name="how_many" id="option1" autocomplete="off" value="67">6~7번
   </label>
 </div>
 <br><br><br>
 <label>가입하신 동호회가 있으신가요?</label>
- <label class="btn btn-success">
-    <input type="radio" name="club_yn" id="option1" autocomplete="off" value="y"> 가입한 동호회가 있어요
+ <label class="btn btn-primary active">
+    <input type="radio" name="club_yn" id="option2" autocomplete="off" value="y" checked="checked"> 가입한 동호회가 있어요
   </label>
-  <label class="btn btn-success">
-    <input type="radio" name="club_yn" id="option1" autocomplete="off" value="n"> 가입한 동호회가 없어요
+  <label class="btn btn-primary">
+    <input type="radio" name="club_yn" id="option2" autocomplete="off" value="n"> 가입한 동호회가 없어요
   </label>
   </div>
 <br><br><br>
@@ -243,7 +244,7 @@ $('#radioBtn a').on('click', function(){
 					data-orientation="cancel" data-dismiss="modal"></button>
 				<button type="button" class="btn btn-warning js-btn-step"
 					data-orientation="previous"></button>
-				<button type="button" class="btn btn-success js-btn-step"
+				<button type="button" class="btn btn-primary js-btn-step"
 					data-orientation="next" id="nextbt"></button>
 			</div>
 		</div>
@@ -253,15 +254,12 @@ $('#radioBtn a').on('click', function(){
 
 <!-- 회원가입완료모달 -->
   <!-- Modal -->
-  <div class="modal fade" id="myModal2" role="dialog">
-    <div class="modal-dialog">
+  <div class="modal fade" id="myModal2" role="dialog" >
+    <div class="modal-dialog modal-center" style="width:350px">
     
       <!-- Modal content-->
       <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title" id="title"></h4>
-        </div>
+
         <div class="modal-body">
           <p id="content"></p>
         </div>
@@ -289,11 +287,11 @@ $('#radioBtn a').on('click', function(){
         
         <div class="login-top">
             <h1 class="login-header">SIGN IN</h1>
-            <form action="#" method="post">
-                <input type="text" id="user-name" name="user-name" />
+            <form action="${path}/member/loginCheck.do" method="post">
+                <input type="text" id="user-name" name="id" />
                 <label for="user-name" class="input-prefix">Username</label>
                 
-                <input type="password" id="password" name="password" />
+                <input type="password" id="password" name="pw" />
                 <label for="password" class="input-prefix">Password</label>
             <span>
                 <input type="submit" class="sign-in-button" id="sign-in" name="Sign-in" value="Sign in" /> 
