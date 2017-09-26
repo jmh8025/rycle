@@ -27,7 +27,8 @@ $('#radioBtn a').on('click', function(){
 		<c:choose>
 			<c:when test="${sessionScope.userId == null}">
 				<li class="pull-right"><a href="#" data-toggle="modal"
-					data-target="#myModal">JOIN</a> &nbsp;/&nbsp; <a href="#">LOGIN</a></li>
+					data-target="#myModal">JOIN</a> &nbsp;/&nbsp; <a href="#" data-toggle="modal"
+					data-target="#Login">LOGIN</a></li>
 			</c:when>
 			<c:otherwise>
 				<li class="pull-right">${sessionScope.userName}님이로그인중입니다.
@@ -273,6 +274,47 @@ $('#radioBtn a').on('click', function(){
   </div>  
 <!-- 회원가입완료모달 끝 -->
 
+<!-- 로그인 모달 -->
+  <!-- Modal -->
+  <div class="modal fade" id="Login" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+    
+       
+        <div class="modal-body">
+          <!-- 본문 -->
+      
+<div class="login-form">
+        
+        <div class="login-top">
+            <h1 class="login-header">SIGN IN</h1>
+            <form action="#" method="post">
+                <input type="text" id="user-name" name="user-name" />
+                <label for="user-name" class="input-prefix">Username</label>
+                
+                <input type="password" id="password" name="password" />
+                <label for="password" class="input-prefix">Password</label>
+            <span>
+                <input type="submit" class="sign-in-button" id="sign-in" name="Sign-in" value="Sign in" /> 
+            </form>
+           <input type="button" class="sign-in-button"  id="sign-in" name="Sign-in" value="Sign in2" /> 
+              </span>      
+        </div>
+   
+        <div class="login-bottom">
+            <a href="#" class="forgot-password">비밀번호가 뭐였죠?</a>
+        </div>
+
+    </div>
+<!-- 본문끝 -->
+        </div>
+      
+      </div>
+      
+    </div>
+  
+<!-- 로그인 모달끝 -->
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="/SpringTiles/js/regfooter.js"></script>

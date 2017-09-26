@@ -59,20 +59,20 @@
 	<select id="checkPw" resultType="int">
 		SELECT 
 			COUNT(*) 
-		FROM tbl_member
-		WHERE userId = #{userId} AND userPw = #{userPw}
+		FROM member
+		WHERE id = #{id} AND pw = #{pw}
 	</select>
 	
 	<!-- 07. 로그인처리 -->
 	<select id="loginCheck" resultType="String">
-        SELECT userName FROM tbl_member
-        WHERE userId = #{userId} AND userPw = #{userPw}
+        SELECT NAME FROM member
+        WHERE id = #{id} AND pw = #{pw}
     </select>
     
     <!-- 08. 아이디중복체크 -->
     <select id="idcheck" resultType="String">
     	SELECT id from member
-    	WHERE id = #{Id,jdbcType=VARCHAR}
+    	WHERE id = #{id,jdbcType=VARCHAR}
     </select>
     
 </mapper>
