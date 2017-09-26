@@ -1,4 +1,5 @@
 
+
 $(function(){ 
 	
 	$('#havenothave').hide()
@@ -26,7 +27,7 @@ $(function(){
 			$('#emailmsg').text('지금 메일을 보내고있어요. 조금만 기다려주세요..').css("color","blue")
         $.ajax({
                 type : "POST",
-                url : "member/sendMail.do", //mv로 전송후
+                url : rooturl+"http://localhost:8090/SpringTiles/member/sendMail.do", //mv로 전송후
                 dataType: "json",
                 data : {
                 	"email":$email
@@ -64,7 +65,7 @@ $(function(){
 		var $EmailCheck2=$('#inputEmailCheck').val()
  		$.ajax({
             type : "POST",
-            url : "member/checkMail.do", //mv로 전송후
+            url : "http://localhost:8090/SpringTiles/member/checkMail.do", //mv로 전송후
             data : {
             	"auth":$EmailCheck2 //사용자가입력한 인증번호전송
             },

@@ -50,8 +50,8 @@ public class MemberServiceImpl implements MemberService {
         if (result) { // true일 경우 세션에 등록
             MemberVO vo2 = viewMember(vo);
             // 세션 변수 등록
-            session.setAttribute("userId", vo2.getId());
-            session.setAttribute("userName", vo2.getName());
+            session.setAttribute("id", vo2.getId());
+            session.setAttribute("name", vo2.getName());
         } 
         return result;
     }

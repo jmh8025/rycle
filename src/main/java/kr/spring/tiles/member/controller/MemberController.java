@@ -23,6 +23,7 @@ import kr.spring.tiles.member.service.MemberService;
 import kr.spring.tiles.util.MailService;
 
 @Controller // 현재의 클래스를 controller bean에 등록시킴
+@RequestMapping("/member/*") // 모든맵핑은 /member/를 상속
 public class MemberController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
@@ -154,7 +155,7 @@ public class MemberController {
     
     
     //메일인증번호확인
-    @RequestMapping(value = "member/checkMail.do", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/member/checkMail.do", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     private boolean checkMail(HttpSession session, @RequestParam String auth) {
     
