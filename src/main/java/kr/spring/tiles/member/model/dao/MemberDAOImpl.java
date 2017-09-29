@@ -54,9 +54,11 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 	// 06. 회원 정보 수정 및 삭제를 위한 비밀번호 체크
 	@Override
-	public boolean checkPw(String id, String pw) {
+	public boolean checkPw(MemberVO vo) {
 		boolean result = false;
 		Map<String, String> map = new HashMap<String, String>();
+		String id = vo.getId();
+		String pw = vo.getPw();
 		map.put("id", id);
 		map.put("pw", pw);
 		int count = sqlSession.selectOne("member.checkPw", map);

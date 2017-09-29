@@ -39,8 +39,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 	// 06. 회원 정보 수정 및 삭제를 위한 비밀번호 체크
 	@Override
-	public boolean checkPw(String userId, String userPw) {
-		return memberDao.checkPw(userId, userPw);
+	public boolean checkPw(MemberVO vo) {
+		return memberDao.checkPw(vo);
 	}
 
 	   // 01_01. 회원 로그인체크

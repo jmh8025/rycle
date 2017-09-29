@@ -2,19 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
-<script>
 
-$('#radioBtn a').on('click', function(){
-    var sel = $(this).data('title');
-    var tog = $(this).data('toggle');
-    $('#'+tog).prop('value', sel);
-    
-    $('a[data-toggle="'+tog+'"]').not('[data-title="'+sel+'"]').removeClass('active').addClass('notActive');
-    $('a[data-toggle="'+tog+'"][data-title="'+sel+'"]').removeClass('notActive').addClass('active');
-    alert()
-})
-
-</script>
 
 
 
@@ -32,7 +20,9 @@ $('#radioBtn a').on('click', function(){
 					data-target="#Login">LOGIN</a></li>
 			</c:when>
 			<c:otherwise>
-				<li class="pull-right">${sessionScope.name}님이로그인중입니다.
+				<li class="pull-right">
+				${sessionScope.name}님이로그인중입니다.
+				&nbsp;/&nbsp;<a href="${path}/member/pwcheck.do">정보보기</a>
 					&nbsp;/&nbsp; <a href="${path}/member/logout.do">로그아웃</a>
 				</li>
 			</c:otherwise>
@@ -223,7 +213,7 @@ $('#radioBtn a').on('click', function(){
 </div>
 <br><br><br>
 <label>가입하신 동호회가 있으신가요?</label>
- <label class="btn btn-primary active">
+ <label class="btn btn-primary">
     <input type="radio" name="club_yn" id="option2" autocomplete="off" value="y" checked="checked"> 가입한 동호회가 있어요
   </label>
   <label class="btn btn-primary">
@@ -256,10 +246,8 @@ $('#radioBtn a').on('click', function(){
   <!-- Modal -->
   <div class="modal fade" id="myModal2" role="dialog" >
     <div class="modal-dialog modal-center" style="width:350px">
-    
       <!-- Modal content-->
       <div class="modal-content">
-
         <div class="modal-body">
           <p id="content"></p>
         </div>
@@ -267,7 +255,6 @@ $('#radioBtn a').on('click', function(){
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
-      
     </div>
   </div>  
 <!-- 회원가입완료모달 끝 -->
@@ -276,43 +263,38 @@ $('#radioBtn a').on('click', function(){
   <!-- Modal -->
   <div class="modal fade" id="Login" role="dialog">
     <div class="modal-dialog">
-    
       <!-- Modal content-->
-    
-       
         <div class="modal-body">
           <!-- 본문 -->
-      
 <div class="login-form">
-        
         <div class="login-top">
             <h1 class="login-header">SIGN IN</h1>
-            <form action="${path}/member/loginCheck.do" method="post">
+            <form method="post" id="loginform">
                 <input type="text" id="user-name" name="id" />
-                <label for="user-name" class="input-prefix">Username</label>
+                <label for="user-name" class="input-prefix">Id</label>
                 
-                <input type="password" id="password" name="pw" />
+                <input type="password" id="user-password" name="pw" />
                 <label for="password" class="input-prefix">Password</label>
+                <span class="help-block" id="loginpwhelp"></span>
             <span>
-                <input type="submit" class="sign-in-button" id="sign-in" name="Sign-in" value="Sign in" /> 
+                <input type="button" class="sign-in-button" id="sign-in" name="Sign-in" value="로그인" /> 
             </form>
-           <input type="button" class="sign-in-button"  id="sign-in" name="Sign-in" value="Sign in2" /> 
+           <input type="button" class="sign-in-button"  id="sign-up" name="Sign-up" value="가입할래요" /> 
               </span>      
         </div>
-   
         <div class="login-bottom">
             <a href="#" class="forgot-password">비밀번호가 뭐였죠?</a>
         </div>
-
     </div>
 <!-- 본문끝 -->
         </div>
-      
       </div>
-      
     </div>
-  
 <!-- 로그인 모달끝 -->
+
+
+
+
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="/SpringTiles/js/regfooter.js"></script>

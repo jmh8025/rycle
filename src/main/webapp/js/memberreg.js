@@ -14,6 +14,7 @@ $(document).ready(function() {
 	$('#hidecheckmail').hide()
 	var auth;
 	var authTime=300; //인증번호 타이머
+
 	$('#email').click(function(){	
 
 		var $email = $('#inputEmail').val()
@@ -482,4 +483,63 @@ $(document).ready(function() {
         });
         return this;
     };
+    
+	$('#sign-up').click(function(){
+		$("#Login").modal('hide');
+		$('#myModal').modal('show');
+		
+	});
+	
+	//로그인버튼 클릭시
+	$('#sign-in').click(function(){
+		 $.ajax({
+	            type : "POST",
+	            url : "http://"+path+"member/loginCheck.do", //mv로 전송후
+	            data : $('#loginform').serialize(), //폼값전부 전송
+	            dataType: "json",
+	            success : function(data) {
+	            	//얻어온 값을 이용하여, modal 에서 동적으로 바뀌어야 하는 값을 바꾸어 준다..
+	        	  if(data==true){
+	        		  $("#Login").modal('hide');
+	        		  location.reload();
+	        	  }
+	        	  else if(data==false){
+	        		  $('#loginpwhelp').show();
+	        		  $('#user-password').text();
+	        		  $('#loginpwhelp').text("아이디 혹은 비밀번호를 확인해 주세요").css("color","red");
+	        	  }
+	            },
+	            error:function(request,status,error){
+	                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	           }
+	           })//ajax
+	});
+	
+	//엔터키를 눌렀을때도 동작하도록
+	$('#user-password').keypress(function(event){
+	     if ( event.which == 13 ) {
+	         $('#sign-in').click();
+	         return false;
+	     }
+	});
+	$('#user-name').keypress(function(event){
+	     if ( event.which == 13 ) {
+	         $('#sign-in').click();
+	         return false;
+	     }
+	});
+	
+	//아이디나 비밀번호 포커스시
+	$('#user-password').focus(function(){
+		$('#loginpwhelp').hide();
+		});
+	$('#user-name').focus(function(){
+		$('#loginpwhelp').hide();
+		});
+	
+	$('#pwchk').focus(function(){
+		$('#chkpw').hide();
+	});
+
+    
 })

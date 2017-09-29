@@ -32,7 +32,10 @@
 		  name,
 		  email,
 		  reg_dt,
-		  pw_dt
+		  pw_dt,
+		  tel,
+		  zip,
+		  pw
 		FROM member
 		WHERE id = #{id}
 	</select>
