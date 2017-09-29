@@ -15,7 +15,7 @@ public interface MemberService {
 	// 회원정보 수정
 	public void updateMember(MemberVO vo);
 	// 비밀번호 체크
-	public boolean checkPw(String userId, String userPw);
+	public boolean checkPw(MemberVO vo);
 	  // 01_01. 회원 로그인 체크
     public boolean loginCheck(MemberVO vo, HttpSession session);
     // 01_02. 회원 로그인 정보

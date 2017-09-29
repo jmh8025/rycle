@@ -291,6 +291,8 @@ body {
     }
 }
 
+
+
 /* sub */
 .content_inner {
     min-height: 500px;
@@ -311,12 +313,26 @@ body {
     margin: 20px 10px;
 }
 
+.pwchk_inner {
+    min-height: 500px;
+    font-size: 13px;
+    background: #fff;
+    border-radius: 12px;    
+    padding: 10px;
+    margin: 0 auto;
+    text-align:center;
+}
+
 @media (min-width: 768px) {
     .content_inner {
         padding: 25px;
         margin: 40px 0;
     }
     .bcontent_inner {
+        padding: 25px;
+        margin: 40px 0;
+    }
+    .pwchk_inner {
         padding: 25px;
         margin: 40px 0;
     }
@@ -489,7 +505,7 @@ body
     font-family: Montserrat;
     font-weight: normal;
     font-size: 40px;
-    color: #5CB85C;
+    color: #23527C;
     letter-spacing: -1.7px;
 }
 
@@ -508,7 +524,7 @@ body
     border: 1px solid #CCC;
     box-shadow: 0 1px 2px 1px #F5F5F5 inset;
     background-color: #FEFEFE;
-    color: #5CB85C;
+    color: #23527C;
     width: 100%;
     transition: 0.3s all;
 }
@@ -540,13 +556,13 @@ body
     left: 0;
     height: 2px;
     width: 0;
-    background-color: #5CB85C;
+    background-color: #23527C;
     transition: 0.3s all;
 }
 
 .login-form input:focus + .input-prefix
 {
-    color: #5CB85C;
+    color: #23527C;
 }
 
 .login-form input:focus + .input-prefix:after
@@ -558,7 +574,7 @@ body
 .login-form .sign-in-button
 {
     border: none;
-    background-image: linear-gradient(135deg, #5CB85C 70%, #96D196);
+    background-image: linear-gradient(135deg, #47759E 70%, #23527C);
     color: #FFF;
     font-weight: 700;
     padding: 12px 47px;
@@ -584,7 +600,7 @@ body
     z-index: 10;
     position: relative;
     padding: 20px;
-    background-color: #2FBEE8;
+    background-color: #F0AD4E;
  
 }
 
@@ -607,6 +623,21 @@ body
     position: absolute;
     top: 100%;
     left: 0px;
-    border-bottom-color: #56596a;
+    border-bottom-color: #F0AD4E;
     margin-top: -30px;
+}
+
+/* pwcheck */
+.pwchk_content
+{
+	left:35%;
+	position:absolute;
+  top:50%;
+	text-align: center;
+	 margin: 0 auto;   
+}
+
+.chkpw
+{
+	color:red;
 }

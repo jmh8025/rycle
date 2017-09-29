@@ -75,7 +75,7 @@ public class Free_BoardController {
        map.put("board_name", "free_board"); //게시물명
        model.addAttribute("map", map);
        
-      return "free_board_list";
+      return "board/free/free_board_list";
    }
    
    
@@ -89,7 +89,7 @@ public class Free_BoardController {
       
        model.addAttribute("fbmap", fbmap);
        
-      return "free_board_write";
+      return "board/free/free_board_write";
    }
   
    
@@ -137,7 +137,7 @@ public class Free_BoardController {
        
        model.addAttribute("map", map);
        
-       return "free_board_view";
+       return "board/free/free_board_view";
    }
    
    
@@ -155,7 +155,7 @@ public class Free_BoardController {
        
        model.addAttribute("map", map);
        
-       return "free_board_update";
+       return "board/free/free_board_update";
    }
    
    
@@ -188,7 +188,7 @@ public class Free_BoardController {
 
 	        free_Board_View(bno, freeboard.getCate_chk(), session, model);
 	        
-	        return "free_board_view";
+	        return "board/free/free_board_view";
    }
    
    /*

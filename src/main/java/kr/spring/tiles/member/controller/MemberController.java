@@ -37,7 +37,7 @@ public class MemberController {
 
 	// 01 회원 목록
 	// url pattern mapping
-	@RequestMapping("member/list.do")
+	@RequestMapping("/member/list.do")
 	public String memberList(Model model){
 	// controller => service => dao 요청
 		List<MemberVO> list = memberService.memberList();
@@ -45,14 +45,8 @@ public class MemberController {
 		return "index";
 	}
 
-	// 02_01 회원 등록 페이지로 이동
-	@RequestMapping("member/write.do")
-	public String memberWrite(){
-		return "member_write";
-	}
-	
 
-	@RequestMapping(value ="member/insert.do",method = RequestMethod.POST, produces = "application/json; charset=utf8")
+	@RequestMapping(value ="/member/insert.do",method = RequestMethod.POST, produces = "application/json; charset=utf8")
 	@ResponseBody
 	// * 폼에서 입력한 데이터를 받아오는 법 3가지 
 	//public String memberInsert(HttpServlet request){
@@ -69,34 +63,25 @@ public class MemberController {
 	}
 
     // 01. 로그인 처리
-    @RequestMapping("member/loginCheck.do")
-    public ModelAndView loginCheck(@ModelAttribute MemberVO vo, HttpSession session){
+    @RequestMapping(value ="/member/loginCheck.do" , method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public boolean loginCheck(@ModelAttribute MemberVO vo, HttpSession session){
         boolean result = memberService.loginCheck(vo, session);
-        ModelAndView mav = new ModelAndView();
-        if (result == true) { // 로그인 성공
-            // main.jsp로 이동
-            mav.setViewName("index");
-            mav.addObject("msg", "success");
-        } else {    // 로그인 실패
-            // login.jsp로 이동
-            mav.setViewName("member_login");
-            mav.addObject("msg", "failure");
-        }
-        return mav;
+        return result;
     }
     
     // 02. 로그아웃 처리
-    @RequestMapping("member/logout.do")
+    @RequestMapping("/member/logout.do")
     public ModelAndView logout(HttpSession session){
         memberService.logout(session);
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("index");
+        mav.setViewName("redirect:/index.do");
        /* mav.addObject("msg", "logout");*/
         return mav;
     }
 	
 	
-    @RequestMapping(value = "member/sendMail.do", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/member/sendMail.do", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     private boolean sendMail(HttpSession session, @RequestParam String email) {
     	
@@ -112,7 +97,7 @@ public class MemberController {
     
     
     //메일인증번호확인
-    @RequestMapping(value = "member/checkMail.do", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/member/checkMail.do", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     private boolean checkMail(HttpSession session, @RequestParam String auth) {
     
@@ -124,10 +109,36 @@ public class MemberController {
         }
     
   //아이디중복확인
-    @RequestMapping(value = "member/checkId.do", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/member/checkId.do", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     private boolean checkId(HttpSession session, @RequestParam String Id) {  
         return memberService.idcheck(Id);
+        }
+    
+    //회원정보 수정페이지
+    	@RequestMapping(value="/member/pwcheck.do",method=RequestMethod.GET)
+    	public String process(){
+    		return "member/pwcheck";		
+    	}
+    
+    
+    
+    //회원정보 수정을 위한 비밀번호 확인
+    @RequestMapping(value="/member/pwcheck.do",method=RequestMethod.POST)
+    private ModelAndView pwcheckupdate(@ModelAttribute MemberVO vo) {
+    	ModelAndView mav = new ModelAndView();
+        boolean result = memberService.checkPw(vo);
+        if(result) {
+        	MemberVO vo2 = memberService.viewMember(vo);
+        	mav.setViewName("member/detail");
+        	mav.addObject("msg", "fail");
+        	mav.addObject("user", vo2);
+        	return mav;
+        }else{
+        	mav.setViewName("member/pwcheck");
+        	mav.addObject("msg", "fail");
+        	return mav;
+        }
         }
     
     
