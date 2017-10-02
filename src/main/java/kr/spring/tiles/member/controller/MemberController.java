@@ -23,6 +23,7 @@ import kr.spring.tiles.member.service.MemberService;
 import kr.spring.tiles.util.MailService;
 
 @Controller // 현재의 클래스를 controller bean에 등록시킴
+@RequestMapping("/member/*") // 모든맵핑은 /member/를 상속
 public class MemberController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
@@ -36,7 +37,7 @@ public class MemberController {
 
 	// 01 회원 목록
 	// url pattern mapping
-	@RequestMapping("member/list.do")
+	@RequestMapping("/member/list.do")
 	public String memberList(Model model){
 	// controller => service => dao 요청
 		List<MemberVO> list = memberService.memberList();
@@ -44,15 +45,9 @@ public class MemberController {
 		return "index";
 	}
 
-	// 02_01 회원 등록 페이지로 이동
-	@RequestMapping("member/write.do")
-	public String memberWrite(){
-		return "member_write";
-	}
-	
-	// 02_02 회원 등록 처리 후 ==> 회원목록으로 리다이렉트
-	// @ModelAttribute에 폼에서 입력한 데이터가 저장된다.
-	@RequestMapping("member/insert.do")
+
+	@RequestMapping(value ="/member/insert.do",method = RequestMethod.POST, produces = "application/json; charset=utf8")
+	@ResponseBody
 	// * 폼에서 입력한 데이터를 받아오는 법 3가지 
 	//public String memberInsert(HttpServlet request){
 	//public String memberInsert(String userId, String userPw, String userName, String userEmail){
@@ -63,12 +58,91 @@ public class MemberController {
 		// /member/list.do : 루트 디렉토리를 기준
 		// member/list.do : 현재 디렉토리를 기준
 		// member_list.jsp로 리다이렉트
-		
-		return vo.getId();
+		logger.info(vo.getName());
+		return vo.getName();
 	}
-	
 
-/*	// 04. 회원 정보 수정 처리
+    // 01. 로그인 처리
+    @RequestMapping(value ="/member/loginCheck.do" , method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public boolean loginCheck(@ModelAttribute MemberVO vo, HttpSession session){
+        boolean result = memberService.loginCheck(vo, session);
+        return result;
+    }
+    
+    // 02. 로그아웃 처리
+    @RequestMapping("/member/logout.do")
+    public ModelAndView logout(HttpSession session){
+        memberService.logout(session);
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("redirect:/index.do");
+       /* mav.addObject("msg", "logout");*/
+        return mav;
+    }
+	
+	
+    @RequestMapping(value = "/member/sendMail.do", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    private boolean sendMail(HttpSession session, @RequestParam String email) {
+    	
+        int randomCode = new Random().nextInt(10000) + 1000;
+        String joinCode = String.valueOf(randomCode);
+        session.setAttribute("joinCode", joinCode);
+        session.setMaxInactiveInterval(60*5);
+        String subject = "회원가입 승인 번호 입니다.";
+        StringBuilder sb = new StringBuilder();
+        sb.append("회원가입 승인번호는 ").append(joinCode).append(" 입니다.");
+        return mailService.send(subject, sb.toString(), "rycleproject@gmail.com", email);
+        }
+    
+    
+    //메일인증번호확인
+    @RequestMapping(value = "/member/checkMail.do", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    private boolean checkMail(HttpSession session, @RequestParam String auth) {
+    
+    	String authNum = (String) session.getAttribute("joinCode");
+    	 logger.info("답"+authNum);
+    	 logger.info("요청값"+auth);
+      
+        return mailService.check(authNum,auth);
+        }
+    
+  //아이디중복확인
+    @RequestMapping(value = "/member/checkId.do", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    private boolean checkId(HttpSession session, @RequestParam String Id) {  
+        return memberService.idcheck(Id);
+        }
+    
+    //회원정보 수정페이지
+    	@RequestMapping(value="/member/pwcheck.do",method=RequestMethod.GET)
+    	public String process(){
+    		return "member/pwcheck";		
+    	}
+    
+    
+    
+    //회원정보 수정을 위한 비밀번호 확인
+    @RequestMapping(value="/member/pwcheck.do",method=RequestMethod.POST)
+    private ModelAndView pwcheckupdate(@ModelAttribute MemberVO vo) {
+    	ModelAndView mav = new ModelAndView();
+        boolean result = memberService.checkPw(vo);
+        if(result) {
+        	MemberVO vo2 = memberService.viewMember(vo);
+        	mav.setViewName("member/detail");
+        	mav.addObject("msg", "fail");
+        	mav.addObject("user", vo2);
+        	return mav;
+        }else{
+        	mav.setViewName("member/pwcheck");
+        	mav.addObject("msg", "fail");
+        	return mav;
+        }
+        }
+    
+    
+    /*	// 04. 회원 정보 수정 처리
 	@RequestMapping("member/update.do")
 	public String memberUpdate(@ModelAttribute MemberVO vo, Model model){
 		// 비밀번호 체크
@@ -103,72 +177,5 @@ public class MemberController {
 			return "member/member_view";
 		}
 	}*/
-	
-	// 01. 로그인 화면 
-    @RequestMapping("member/login.do")
-    public String login(){
-        return "member_login";    // views/member/login.jsp로 포워드
-    }
-    
-    // 02. 로그인 처리
-    @RequestMapping("member/loginCheck.do")
-    public ModelAndView loginCheck(@ModelAttribute MemberVO vo, HttpSession session){
-        boolean result = memberService.loginCheck(vo, session);
-        ModelAndView mav = new ModelAndView();
-        if (result == true) { // 로그인 성공
-            // main.jsp로 이동
-            mav.setViewName("index");
-            mav.addObject("msg", "success");
-        } else {    // 로그인 실패
-            // login.jsp로 이동
-            mav.setViewName("member_login");
-            mav.addObject("msg", "failure");
-        }
-        return mav;
-    }
-    
-    // 03. 로그아웃 처리
-    @RequestMapping("member/logout.do")
-    public ModelAndView logout(HttpSession session){
-        memberService.logout(session);
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("member_login");
-        mav.addObject("msg", "logout");
-        return mav;
-    }
-	
-	
-    @RequestMapping(value = "member/sendMail.do", method = RequestMethod.POST, produces = "application/json")
-    @ResponseBody
-    private boolean sendMail(HttpSession session, @RequestParam String email) {
-        int randomCode = new Random().nextInt(10000) + 1000;
-        String joinCode = String.valueOf(randomCode);
-        session.setAttribute("joinCode", joinCode);
-        session.setMaxInactiveInterval(60*5);
-        logger.info("키워드값3"+email);
-        String subject = "회원가입 승인 번호 입니다.";
-        StringBuilder sb = new StringBuilder();
-        sb.append("회원가입 승인번호는 ").append(joinCode).append(" 입니다.");
-        return mailService.send(subject, sb.toString(), "rycleproject@gmail.com", email);
-        }
-    
-    
-    //메일인증번호확인
-    @RequestMapping(value = "member/checkMail.do", method = RequestMethod.POST, produces = "application/json")
-    @ResponseBody
-    private boolean checkMail(HttpSession session, @RequestParam String auth) {
-    
-    	String authNum = (String) session.getAttribute("joinCode");
-    	 logger.info("답"+authNum);
-    	 logger.info("요청값"+auth);
-      
-        return mailService.check(authNum,auth);
-        }
-    
-  //아이디중복확인
-    @RequestMapping(value = "member/checkId.do", method = RequestMethod.POST, produces = "application/json")
-    @ResponseBody
-    private boolean checkId(HttpSession session, @RequestParam String Id) {  
-        return memberService.idcheck(Id);
-        }
+
 }

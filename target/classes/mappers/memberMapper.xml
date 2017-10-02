@@ -28,13 +28,16 @@
 	<!-- 03. 회원정보 상세조회 -->
 	<select id="viewMember" resultType="kr.spring.tiles.member.model.dto.MemberVO">
 		SELECT 
-		  userId, 
-		  userName,
-		  userEmail,
-		  userRegdate,
-		  userUpdatedate
-		FROM tbl_member
-		WHERE userId = #{userId}
+		  id, 
+		  name,
+		  email,
+		  reg_dt,
+		  pw_dt,
+		  tel,
+		  zip,
+		  pw
+		FROM member
+		WHERE id = #{id}
 	</select>
 	
 	<!-- 04. 회원정보 수정처리 -->
@@ -59,20 +62,20 @@
 	<select id="checkPw" resultType="int">
 		SELECT 
 			COUNT(*) 
-		FROM tbl_member
-		WHERE userId = #{userId} AND userPw = #{userPw}
+		FROM member
+		WHERE id = #{id} AND pw = #{pw}
 	</select>
 	
 	<!-- 07. 로그인처리 -->
 	<select id="loginCheck" resultType="String">
-        SELECT userName FROM tbl_member
-        WHERE userId = #{userId} AND userPw = #{userPw}
+        SELECT name FROM member
+        WHERE id = #{id} AND pw = #{pw}
     </select>
     
     <!-- 08. 아이디중복체크 -->
     <select id="idcheck" resultType="String">
     	SELECT id from member
-    	WHERE id = #{Id,jdbcType=VARCHAR}
+    	WHERE id = #{id,jdbcType=VARCHAR}
     </select>
     
 </mapper>

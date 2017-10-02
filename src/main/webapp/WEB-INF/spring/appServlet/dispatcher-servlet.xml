@@ -27,10 +27,6 @@
 	</beans:bean>
 	<!-- 컴포넌트(bean) 자동검색해서 객체 생성 - com.example.spring01 이하의 모든 패키지에서 자동검색하겠다는 의미 -->
 	<context:component-scan base-package="kr.spring.tiles" />
-	
-
-
-
 
 <!-- 파일업로드에 필요한 bean -->
 <beans:bean id="mulitpartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -43,13 +39,4 @@
     <!-- 파일업로드 디렉토리-->
     <beans:constructor-arg value="C:\webtest\uploadfile"/>
 </beans:bean>
-
-
-
-
-
-
-
-
-
 </beans:beans>

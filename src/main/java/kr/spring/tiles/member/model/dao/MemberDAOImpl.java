@@ -54,16 +54,18 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 	// 06. 회원 정보 수정 및 삭제를 위한 비밀번호 체크
 	@Override
-	public boolean checkPw(String id, String pw) {
+	public boolean checkPw(MemberVO vo) {
 		boolean result = false;
 		Map<String, String> map = new HashMap<String, String>();
+		String id = vo.getId();
+		String pw = vo.getPw();
 		map.put("id", id);
 		map.put("pw", pw);
 		int count = sqlSession.selectOne("member.checkPw", map);
 		if(count == 1) result= true;
 		return result;
 	}
-	// 01_01. 회원 로그인체크
+	  // 01_01. 회원 로그인체크
     @Override
     public boolean loginCheck(MemberVO vo) {
         String name = sqlSession.selectOne("member.loginCheck", vo);
@@ -74,9 +76,9 @@ public class MemberDAOImpl implements MemberDAO {
     public MemberVO viewMember(MemberVO vo) {
         return sqlSession.selectOne("member.viewMember", vo);
     }
- // 02. 회원 로그아웃
+    // 02. 회원 로그아웃
     @Override
-    public void logout(HttpSession sessin) {
+    public void logout(HttpSession session) {
     }
     
     //아이디 중복체크

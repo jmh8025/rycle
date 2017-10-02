@@ -4,10 +4,6 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 	<definition name="index" template="/WEB-INF/tiles-view/template/layout.jsp">
-		<put-attribute name="css"
-			value="/WEB-INF/tiles-view/script/boardDefaultCss.jsp" />
-		<put-attribute name="js"
-			value="/WEB-INF/tiles-view/script/boardSearchJs.jsp" />
 		<put-attribute name="title" value="메인 페이지" />
 		<put-attribute name="menu" value="/WEB-INF/tiles-view/template/menu.jsp" />
 		<put-attribute name="header" value="/WEB-INF/tiles-view/template/header.jsp" />
@@ -15,41 +11,16 @@
 		<put-attribute name="content" value="/WEB-INF/tiles-view/main.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/tiles-view/template/footer.jsp" />
 	</definition>
-	<definition name="member_write" extends="index">
-		<put-attribute name="title" value="회원가입" />
-		<put-attribute name="content" value="/WEB-INF/tiles-view/member/member_write.jsp" />
-	</definition>
-	<definition name="member_login" extends="index">
-		<put-attribute name="title" value="로그인" />
-		<put-attribute name="content" value="/WEB-INF/tiles-view/member/login.jsp" />
+	
+	<definition name="*/*/*" extends="index">
+		<put-attribute name="content" value="/WEB-INF/tiles-view/{1}.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/tiles-view/{1}/{2}.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/tiles-view/{1}/{2}/{3}.jsp"/>
 	</definition>
 	
-	<!-- 자유게시판 s-->
-	
-	<!-- 자유게시판 목록 -->
-	<definition name="free_board_list" extends="index">
-		<put-attribute name="title" value="자유게시판_목록" />
-		<put-attribute name="content" value="/WEB-INF/tiles-view/board/free/free_board_list.jsp" />
+	<definition name="*/*" extends="index">
+		<put-attribute name="content" value="/WEB-INF/tiles-view/{1}.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/tiles-view/{1}/{2}.jsp"/>
 	</definition>
-	
-	<!-- 자유게시판 글쓰기 -->
-	<definition name="free_board_write" extends="index">
-		<put-attribute name="title" value="자유게시판_글쓰기" />
-		<put-attribute name="content" value="/WEB-INF/tiles-view/board/free/free_board_write.jsp" />
-	</definition>
-	
-	<!-- 자유게시판 보기 -->
-	<definition name="free_board_view" extends="index">
-		<put-attribute name="title" value="자유게시판_뷰" />
-		<put-attribute name="content" value="/WEB-INF/tiles-view/board/free/free_board_view.jsp" />
-	</definition>
-	
-	<!-- 자유게시판 수정-->
-	<definition name="free_board_update" extends="index">
-		<put-attribute name="title" value="자유게시판_수정" />
-		<put-attribute name="content" value="/WEB-INF/tiles-view/board/free/free_board_update.jsp" />
-	</definition>
-	
-	<!-- 자유게시판 e -->
-	
+
 </tiles-definitions>

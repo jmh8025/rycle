@@ -39,8 +39,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 	// 06. 회원 정보 수정 및 삭제를 위한 비밀번호 체크
 	@Override
-	public boolean checkPw(String userId, String userPw) {
-		return memberDao.checkPw(userId, userPw);
+	public boolean checkPw(MemberVO vo) {
+		return memberDao.checkPw(vo);
 	}
 
 	   // 01_01. 회원 로그인체크
@@ -50,8 +50,10 @@ public class MemberServiceImpl implements MemberService {
         if (result) { // true일 경우 세션에 등록
             MemberVO vo2 = viewMember(vo);
             // 세션 변수 등록
-            session.setAttribute("userId", vo2.getId());
-            session.setAttribute("userName", vo2.getName());
+            session.setAttribute("id", vo2.getId());
+            session.setAttribute("name", vo2.getName());
+            session.setMaxInactiveInterval(60*60*12);
+            
         } 
         return result;
     }
