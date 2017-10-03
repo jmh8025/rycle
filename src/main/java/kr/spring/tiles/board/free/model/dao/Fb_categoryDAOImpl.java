@@ -9,28 +9,41 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import kr.spring.tiles.board.free.controller.Free_BoardController;
 import kr.spring.tiles.board.free.model.dto.Fb_categoryVO;
 
-//ÇöÀç Å¬·¡½º¸¦ DAO beanÀ¸·Î µî·Ï½ÃÅ´
+//í˜„ì¬ í´ë˜ìŠ¤ë¥¼ DAO beanìœ¼ë¡œ ë“±ë¡ì‹œí‚´
 @Repository
 public class Fb_categoryDAOImpl implements Fb_categoryDAO {
 	
-	// SqlSession °´Ã¼¸¦ ½ºÇÁ¸µ¿¡¼­ »ı¼ºÇÏ¿© ÁÖÀÔ½ÃÄÑÁØ´Ù.
-	// ÀÇÁ¸°ü°è ÁÖÀÔ(Dependency Injection, DI)
-	// ´À½ºÇÑ °áÇÔ
-	// IoC(Inversion of Control, Á¦¾îÀÇ ¿ªÀü)
+	private static final Logger logger = LoggerFactory.getLogger(Free_BoardController.class);
+
+	// SqlSession ê°ì²´ë¥¼ ìŠ¤í”„ë§ì—ì„œ ìƒì„±í•˜ì—¬ ì£¼ì…ì‹œì¼œì¤€ë‹¤.
+	// ì˜ì¡´ê´€ê³„ ì£¼ì…(Dependency Injection, DI)
+	// ëŠìŠ¤í•œ ê²°í•¨
+	// IoC(Inversion of Control, ì œì–´ì˜ ì—­ì „)
 	@Inject
-	// Inject¾Ö³ëÅ×ÀÌ¼ÇÀÌ ¾øÀ¸¸é sqlSessionÀº null»óÅÂÀÌÁö¸¸
-	// Inject¾Ö³ëÅ×ÀÌ¼ÇÀÌ ÀÖÀ¸¸é ¿ÜºÎ¿¡¼­ °´Ã¼¸¦ ÁÖÀÔ½ÃÄÑÁÖ°Ô µÈ´Ù. 
-	// try catch¹®, finally¹®, °´Ã¼¸¦ closeÇÒ ÇÊ¿ä°¡ ¾ø¾îÁ³´Ù.
+	// Injectì• ë…¸í…Œì´ì…˜ì´ ì—†ìœ¼ë©´ sqlSessionì€ nullìƒíƒœì´ì§€ë§Œ
+	// Injectì• ë…¸í…Œì´ì…˜ì´ ìˆìœ¼ë©´ ì™¸ë¶€ì—ì„œ ê°ì²´ë¥¼ ì£¼ì…ì‹œì¼œì£¼ê²Œ ëœë‹¤. 
+	// try catchë¬¸, finallyë¬¸, ê°ì²´ë¥¼ closeí•  í•„ìš”ê°€ ì—†ì–´ì¡Œë‹¤.
 	SqlSession sqlSession;
 
-	// 01. Ä«Å×°í¸® °¡Á®¿À±â
+	// 01. ì¹´í…Œê³ ë¦¬ ê°€ì ¸ì˜¤ê¸°
 	@Override
 	public List<Fb_categoryVO> listAll() throws Exception {
 		return sqlSession.selectList("fb_category.listAll");
+	}
+	
+	// 01. ì¹´í…Œê³ ë¦¬ ê°€ì ¸ì˜¤ê¸°
+	@Override
+	public Fb_categoryVO cateName(String cate_chk) throws Exception {
+	       logger.info("Fb_categoryDAO->cate_chk="+cate_chk);
+		
+		return sqlSession.selectOne("fb_category.cateName", cate_chk);
 	}
 
 }

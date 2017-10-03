@@ -6,23 +6,24 @@ import javax.servlet.http.HttpSession;
 import kr.spring.tiles.member.model.dto.MemberVO;
 
 public interface MemberService {
-	// È¸¿ø ¸ñ·Ï 
+	// íšŒì› ëª©ë¡ 
 	public List<MemberVO> memberList();
-	// È¸¿ø ÀÔ·Â
+	// íšŒì› ì…ë ¥
 	public void insertMember(MemberVO vo);
-	// È¸¿ø»èÁ¦
+	// íšŒì›ì‚­ì œ
 	public void deleteMember(String userId);
-	// È¸¿øÁ¤º¸ ¼öÁ¤
+	// íšŒì›ì •ë³´ ìˆ˜ì •
 	public void updateMember(MemberVO vo);
-	// ºñ¹Ğ¹øÈ£ Ã¼Å©
-	public boolean checkPw(String userId, String userPw);
-	  // 01_01. È¸¿ø ·Î±×ÀÎ Ã¼Å©
+	// ë¹„ë°€ë²ˆí˜¸ ì²´í¬
+	public boolean checkPw(MemberVO vo);
+	  // 01_01. íšŒì› ë¡œê·¸ì¸ ì²´í¬
     public boolean loginCheck(MemberVO vo, HttpSession session);
-    // 01_02. È¸¿ø ·Î±×ÀÎ Á¤º¸
+    // 01_02. íšŒì› ë¡œê·¸ì¸ ì •ë³´
     public MemberVO viewMember(MemberVO vo);
-    // 02. È¸¿ø ·Î±×¾Æ¿ô
+    // 02. íšŒì› ë¡œê·¸ì•„ì›ƒ
     public void logout(HttpSession session);
-	
+  //ì•„ì´ë”” ì¤‘ë³µí™•ì¸
+    public boolean idcheck(String id);
 	
 	
 }

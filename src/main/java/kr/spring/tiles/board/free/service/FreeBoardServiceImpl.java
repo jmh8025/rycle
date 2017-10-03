@@ -3,119 +3,123 @@ package kr.spring.tiles.board.free.service;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.spring.tiles.board.free.controller.Free_BoardController;
+import kr.spring.tiles.board.free.model.dao.Fb_categoryDAOImpl;
 import kr.spring.tiles.board.free.model.dao.Free_boardDAOImpl;
+import kr.spring.tiles.board.free.model.dto.Fb_categoryVO;
 import kr.spring.tiles.board.free.model.dto.Free_boardVO;
 
-// ÇöÀç Å¬·¡½º¸¦ ½ºÇÁ¸µ¿¡¼­ °ü¸®ÇÏ´Â service beanÀ¸·Î µî·Ï
+// í˜„ì¬ í´ë˜ìŠ¤ë¥¼ ìŠ¤í”„ë§ì—ì„œ ê´€ë¦¬í•˜ëŠ” service beanìœ¼ë¡œ ë“±ë¡
 @Service
 public class FreeBoardServiceImpl implements FreeBoardService {
 	
-	// MemberDAOImpl °´Ã¼¸¦ ½ºÇÁ¸µ¿¡¼­ »ı¼ºÇÏ¿© ÁÖÀÔ½ÃÅ´
+	private static final Logger logger = LoggerFactory.getLogger(Free_BoardController.class);
+
+	// MemberDAOImpl ê°ì²´ë¥¼ ìŠ¤í”„ë§ì—ì„œ ìƒì„±í•˜ì—¬ ì£¼ì…ì‹œí‚´
 	@Inject
 	Free_boardDAOImpl freeboardDao;
 	
-	// 01. ÀüÃ¼ È¸¿ø ¸ñ·Ï Á¶È¸
-
+	@Inject
+	Fb_categoryDAOImpl fbcategoryDao;
 	
-	// 01. °Ô½Ã±Û¾²±â
-	@Transactional // Æ®·£Àè¼Ç Ã³¸® ¸Ş¼­µå·Î ¼³Á¤
+	// ì¹´í…Œê³ ë¦¬ ê°€ì ¸ì˜¤ê¸°
+	public List<Fb_categoryVO> listAll() throws Exception{
+	    return fbcategoryDao.listAll();
+	}
+	
+	// 01. ê²Œì‹œê¸€ì“°ê¸°
+	@Transactional // íŠ¸ëœì­ì…˜ ì²˜ë¦¬ ë©”ì„œë“œë¡œ ì„¤ì •
 	@Override
 	public void create(Free_boardVO vo) throws Exception {
-/*		String title = vo.getTitle();
+		
+		String cate_chk = vo.getCate_chk();
+		String title = vo.getSubject();
 		String content = vo.getContent();
-		String writer = vo.getWriter();
-		// *ÅÂ±×¹®ÀÚ Ã³¸® (< ==> &lt; > ==> &gt;)
-		// replace(A, B) A¸¦ B·Î º¯°æ
+		// *íƒœê·¸ë¬¸ì ì²˜ë¦¬ (< ==> &lt; > ==> &gt;)
+		// replace(A, B) Aë¥¼ Bë¡œ ë³€ê²½
+		
 		title = title.replace("<", "&lt;");
 		title = title.replace("<", "&gt;");
-		writer = writer.replace("<", "&lt;");
-		writer = writer.replace("<", "&gt;");
-		// *°ø¹é¹®ÀÚ Ã³¸®  
+		content = content.replace("<", "&lt;");
+		content = content.replace("<", "&gt;");
+		
+		// *ê³µë°±ë¬¸ì ì²˜ë¦¬  
 		title = title.replace("  ",	"&nbsp;&nbsp;");
-		writer = writer.replace("  ",	"&nbsp;&nbsp;");
-		// *ÁÙ¹Ù²Ş ¹®ÀÚÃ³¸®
+
+		// *ì¤„ë°”ê¿ˆ ë¬¸ìì²˜ë¦¬
 		content = content.replace("\n", "<br>");
-		vo.setTitle(title);
+		vo.setSubject(title);
 		vo.setContent(content);
-		vo.setWriter(writer);
-		// °Ô½Ã¹° µî·Ï
-		boardDao.create(vo);
-		// °Ô½Ã¹°ÀÇ Ã·ºÎÆÄÀÏ Á¤º¸ µî·Ï
-		String[] files = vo.getFiles(); // Ã·ºÎÆÄÀÏ ¹è¿­
-		if(files == null) return; // Ã·ºÎÆÄÀÏÀÌ ¾øÀ¸¸é ¸Ş¼­µå Á¾·á
-		// Ã·ºÎÆÄÀÏµéÀÇ Á¤º¸¸¦ tbl_attach Å×ÀÌºí¿¡ insert
-		for(String name : files){ 
-			boardDao.addAttach(name);
-		}*/
+		vo.setContent(content);
+		
+		// ê²Œì‹œë¬¼ ë“±ë¡
+		freeboardDao.create(vo);
+		// ê²Œì‹œë¬¼ì˜ ì²¨ë¶€íŒŒì¼ ì •ë³´ ë“±ë¡
 		
 	}
-	/*	// 02. °Ô½Ã±Û »ó¼¼º¸±â
+		// 02. ê²Œì‹œê¸€ ìƒì„¸ë³´ê¸°
 	@Override
 	public Free_boardVO read(int bno) throws Exception {
-		return boardDao.read(bno);
+		return freeboardDao.read(bno);
 	}
-	// 03. °Ô½Ã±Û ¼öÁ¤
+	
+@Override
+public Fb_categoryVO cateName(String cate_chk) throws Exception {
+	// TODO Auto-generated method stub
+	return fbcategoryDao.cateName(cate_chk);
+} 
+
+	// 03. ê²Œì‹œê¸€ ìˆ˜ì •
 	@Transactional
 	@Override
 	public void update(Free_boardVO vo) throws Exception {
-		boardDao.update(vo);
-		// Ã·ºÎÆÄÀÏ Á¤º¸ µî·Ï
-		String[] files = vo.getFiles(); // Ã·ºÎÆÄÀÏ ¹è¿­
-		// Ã·ºÎÆÄÀÏÀÌ ¾øÀ¸¸é Á¾·á
-		if(files == null) return;
-		// Ã·ºÎÆÄÀÏµéÀÇ Á¤º¸¸¦ tbl_attach Å×ÀÌºí¿¡ insert
+		freeboardDao.update(vo);
+
+		/*		// ì²¨ë¶€íŒŒì¼ë“¤ì˜ ì •ë³´ë¥¼ tbl_attach í…Œì´ë¸”ì— insert
 		for(String name : files){
-			boardDao.updateAttach(name, vo.getBno());
-		}
+			freeboardDao.updateAttach(name, vo.getBno());
+		}*/
 	}
-	// 04. °Ô½Ã±Û »èÁ¦
+	
+	/*// 04. ê²Œì‹œê¸€ ì‚­ì œ
 	@Override
 	public void delete(int bno) throws Exception {
 		boardDao.delete(bno);
 	}*/
 	
-	// 05. °Ô½Ã±Û ÀüÃ¼ ¸ñ·Ï
+	// 05. ê²Œì‹œê¸€ ì „ì²´ ëª©ë¡
 	@Override
-	public List<Free_boardVO> listAll(int start, int end, String searchOption, String searchKeyword) throws Exception {
-	    return freeboardDao.listAll(start, end, searchOption, searchKeyword);
+	public List<Free_boardVO> listAll(int start, int end, String searchOption, String keyword) throws Exception {
+		 logger.info("í‚¤ì›Œë“œê°’333"+keyword);
+		return freeboardDao.listAll(start, end, searchOption, keyword);
 	}
 	
-/*	// 06. °Ô½Ã±Û Á¶È¸¼ö Áõ°¡
+	// 06. ê²Œì‹œê¸€ ì¡°íšŒìˆ˜ ì¦ê°€
 	@Override
-	public void increaseViewcnt(int bno, HttpSession session) throws Exception {
-		long update_time = 0;
-		// ¼¼¼Ç¿¡ ÀúÀåµÈ Á¶È¸½Ã°£ °Ë»ö
-		// ÃÖÃÊ·Î Á¶È¸ÇÒ °æ¿ì ¼¼¼Ç¿¡ ÀúÀåµÈ °ªÀÌ ¾ø±â ¶§¹®¿¡ if¹®Àº ½ÇÇàX
-		if(session.getAttribute("update_time_"+bno) != null){
-								// ¼¼¼Ç¿¡¼­ ÀĞ¾î¿À±â
-			update_time = (long)session.getAttribute("update_time_"+bno);
-		}
-		// ½Ã½ºÅÛÀÇ ÇöÀç½Ã°£À» current_time¿¡ ÀúÀå
-		long current_time = System.currentTimeMillis();
-		// ÀÏÁ¤½Ã°£ÀÌ °æ°ú ÈÄ Á¶È¸¼ö Áõ°¡ Ã³¸® 24*60*60*1000(24½Ã°£)
-		 // ½Ã½ºÅÛÇöÀç½Ã°£ - ¿­¶÷½Ã°£ > ÀÏÁ¤½Ã°£(Á¶È¸¼ö Áõ°¡°¡ °¡´ÉÇÏµµ·Ï ÁöÁ¤ÇÑ ½Ã°£)
-		if(current_time - update_time > 5*1000){
-			boardDao.increaseViewcnt(bno);
-			// ¼¼¼Ç¿¡ ½Ã°£À» ÀúÀå : "update_time_"+bno´Â ´Ù¸¥º¯¼ö¿Í Áßº¹µÇÁö ¾Ê°Ô ¸í¸íÇÑ °Í
-			session.setAttribute("update_time_"+bno, current_time);
+	public void increaseViewcnt(int no, HttpSession session) throws Exception {
+
+		freeboardDao.increaseViewcnt(no);
 			
-		}
-	}*/
-	// 07. °Ô½Ã±Û ·¹ÄÚµå °¹¼ö
+	}
+	
+	// 07. ê²Œì‹œê¸€ ë ˆì½”ë“œ ê°¯ìˆ˜
 	@Override
 	public int countArticle(String searchOption, String keyword) throws Exception {
 		return freeboardDao.countArticle(searchOption, keyword);
 	}
 /*	
-	// 08. °Ô½Ã±ÛÀÇ Ã·ºÎÆÄÀÏ ¸ñ·Ï
+	// 08. ê²Œì‹œê¸€ì˜ ì²¨ë¶€íŒŒì¼ ëª©ë¡
 	@Override
 	public List<String> getAttach(int bno) {
 		return boardDao.getAttach(bno);
 	}
-	// 09. °Ô½Ã±ÛÀÇ Ã·ºÎÆÄÀÏ »èÁ¦ Ã³¸®
+	// 09. ê²Œì‹œê¸€ì˜ ì²¨ë¶€íŒŒì¼ ì‚­ì œ ì²˜ë¦¬
 	@Override
 	public void deleteFile(String fullname) {
 		boardDao.deleteFile(fullname);

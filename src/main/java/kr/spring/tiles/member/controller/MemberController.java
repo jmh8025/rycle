@@ -1,9 +1,11 @@
 package kr.spring.tiles.member.controller;
 
 import java.util.List;
-
+import java.util.Map;
+import java.util.Random;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,122 +13,169 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.spring.tiles.member.model.dto.MemberVO;
 import kr.spring.tiles.member.service.MemberService;
+import kr.spring.tiles.util.MailService;
 
-@Controller // ÇöÀçÀÇ Å¬·¡½º¸¦ controller bean¿¡ µî·Ï½ÃÅ´
+@Controller // í˜„ì¬ì˜ í´ë˜ìŠ¤ë¥¼ controller beanì— ë“±ë¡ì‹œí‚´
+@RequestMapping("/member/*") // ëª¨ë“ ë§µí•‘ì€ /member/ë¥¼ ìƒì†
 public class MemberController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	
-	// MemberService °´Ã¼¸¦ ½ºÇÁ¸µ¿¡¼­ »ı¼ºÇÏ¿© ÁÖÀÔ½ÃÅ´
+	// MemberService ê°ì²´ë¥¼ ìŠ¤í”„ë§ì—ì„œ ìƒì„±í•˜ì—¬ ì£¼ì…ì‹œí‚´
 	@Inject
 	MemberService memberService;
 	
-	// 01 È¸¿ø ¸ñ·Ï
+	 @Inject
+	 MailService mailService;
+
+	// 01 íšŒì› ëª©ë¡
 	// url pattern mapping
-	@RequestMapping("member/list.do")
+	@RequestMapping("/member/list.do")
 	public String memberList(Model model){
-	// controller => service => dao ¿äÃ»
+	// controller => service => dao ìš”ì²­
 		List<MemberVO> list = memberService.memberList();
 		model.addAttribute("list", list);
 		return "index";
 	}
 
-	// 02_01 È¸¿ø µî·Ï ÆäÀÌÁö·Î ÀÌµ¿
-	@RequestMapping("member/write.do")
-	public String memberWrite(){
-		return "member_write";
-	}
-	
-	// 02_02 È¸¿ø µî·Ï Ã³¸® ÈÄ ==> È¸¿ø¸ñ·ÏÀ¸·Î ¸®´ÙÀÌ·ºÆ®
-	// @ModelAttribute¿¡ Æû¿¡¼­ ÀÔ·ÂÇÑ µ¥ÀÌÅÍ°¡ ÀúÀåµÈ´Ù.
-	@RequestMapping("member/insert.do")
-	// * Æû¿¡¼­ ÀÔ·ÂÇÑ µ¥ÀÌÅÍ¸¦ ¹Ş¾Æ¿À´Â ¹ı 3°¡Áö 
+
+	@RequestMapping(value ="/member/insert.do",method = RequestMethod.POST, produces = "application/json; charset=utf8")
+	@ResponseBody
+	// * í¼ì—ì„œ ì…ë ¥í•œ ë°ì´í„°ë¥¼ ë°›ì•„ì˜¤ëŠ” ë²• 3ê°€ì§€ 
 	//public String memberInsert(HttpServlet request){
 	//public String memberInsert(String userId, String userPw, String userName, String userEmail){
 	public String memberInsert(@ModelAttribute MemberVO vo){
-		// Å×ÀÌºí¿¡ ·¹ÄÚµå ÀÔ·Â
+		// í…Œì´ë¸”ì— ë ˆì½”ë“œ ì…ë ¥
 		memberService.insertMember(vo);
-		// * (/)ÀÇ À¯¹«¿¡ Â÷ÀÌ
-		// /member/list.do : ·çÆ® µğ·ºÅä¸®¸¦ ±âÁØ
-		// member/list.do : ÇöÀç µğ·ºÅä¸®¸¦ ±âÁØ
-		// member_list.jsp·Î ¸®´ÙÀÌ·ºÆ®
-		return "index";
+		// * (/)ì˜ ìœ ë¬´ì— ì°¨ì´
+		// /member/list.do : ë£¨íŠ¸ ë””ë ‰í† ë¦¬ë¥¼ ê¸°ì¤€
+		// member/list.do : í˜„ì¬ ë””ë ‰í† ë¦¬ë¥¼ ê¸°ì¤€
+		// member_list.jspë¡œ ë¦¬ë‹¤ì´ë ‰íŠ¸
+		logger.info(vo.getName());
+		return vo.getName();
 	}
-	
 
-/*	// 04. È¸¿ø Á¤º¸ ¼öÁ¤ Ã³¸®
+    // 01. ë¡œê·¸ì¸ ì²˜ë¦¬
+    @RequestMapping(value ="/member/loginCheck.do" , method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public boolean loginCheck(@ModelAttribute MemberVO vo, HttpSession session){
+        boolean result = memberService.loginCheck(vo, session);
+        return result;
+    }
+    
+    // 02. ë¡œê·¸ì•„ì›ƒ ì²˜ë¦¬
+    @RequestMapping("/member/logout.do")
+    public ModelAndView logout(HttpSession session){
+        memberService.logout(session);
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("redirect:/index.do");
+       /* mav.addObject("msg", "logout");*/
+        return mav;
+    }
+	
+	
+    @RequestMapping(value = "/member/sendMail.do", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    private boolean sendMail(HttpSession session, @RequestParam String email) {
+    	
+        int randomCode = new Random().nextInt(10000) + 1000;
+        String joinCode = String.valueOf(randomCode);
+        session.setAttribute("joinCode", joinCode);
+        session.setMaxInactiveInterval(60*5);
+        String subject = "íšŒì›ê°€ì… ìŠ¹ì¸ ë²ˆí˜¸ ì…ë‹ˆë‹¤.";
+        StringBuilder sb = new StringBuilder();
+        sb.append("íšŒì›ê°€ì… ìŠ¹ì¸ë²ˆí˜¸ëŠ” ").append(joinCode).append(" ì…ë‹ˆë‹¤.");
+        return mailService.send(subject, sb.toString(), "rycleproject@gmail.com", email);
+        }
+    
+    
+    //ë©”ì¼ì¸ì¦ë²ˆí˜¸í™•ì¸
+    @RequestMapping(value = "/member/checkMail.do", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    private boolean checkMail(HttpSession session, @RequestParam String auth) {
+    
+    	String authNum = (String) session.getAttribute("joinCode");
+    	 logger.info("ë‹µ"+authNum);
+    	 logger.info("ìš”ì²­ê°’"+auth);
+      
+        return mailService.check(authNum,auth);
+        }
+    
+  //ì•„ì´ë””ì¤‘ë³µí™•ì¸
+    @RequestMapping(value = "/member/checkId.do", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    private boolean checkId(HttpSession session, @RequestParam String Id) {  
+        return memberService.idcheck(Id);
+        }
+    
+    //íšŒì›ì •ë³´ ìˆ˜ì •í˜ì´ì§€
+    	@RequestMapping(value="/member/pwcheck.do",method=RequestMethod.GET)
+    	public String process(){
+    		return "member/pwcheck";		
+    	}
+    
+    
+    
+    //íšŒì›ì •ë³´ ìˆ˜ì •ì„ ìœ„í•œ ë¹„ë°€ë²ˆí˜¸ í™•ì¸
+    @RequestMapping(value="/member/pwcheck.do",method=RequestMethod.POST)
+    private ModelAndView pwcheckupdate(@ModelAttribute MemberVO vo) {
+    	ModelAndView mav = new ModelAndView();
+        boolean result = memberService.checkPw(vo);
+        if(result) {
+        	MemberVO vo2 = memberService.viewMember(vo);
+        	mav.setViewName("member/detail");
+        	mav.addObject("msg", "fail");
+        	mav.addObject("user", vo2);
+        	return mav;
+        }else{
+        	mav.setViewName("member/pwcheck");
+        	mav.addObject("msg", "fail");
+        	return mav;
+        }
+        }
+    
+    
+    /*	// 04. íšŒì› ì •ë³´ ìˆ˜ì • ì²˜ë¦¬
 	@RequestMapping("member/update.do")
 	public String memberUpdate(@ModelAttribute MemberVO vo, Model model){
-		// ºñ¹Ğ¹øÈ£ Ã¼Å©
+		// ë¹„ë°€ë²ˆí˜¸ ì²´í¬
 		boolean result = memberService.checkPw(vo.getUserId(), vo.getUserPw());
-		if(result){ // ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏ¸é ¼öÁ¤ Ã³¸®ÈÄ, ÀüÃ¼ È¸¿ø ¸ñ·ÏÀ¸·Î ¸®´ÙÀÌ·ºÆ®
+		if(result){ // ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ë©´ ìˆ˜ì • ì²˜ë¦¬í›„, ì „ì²´ íšŒì› ëª©ë¡ìœ¼ë¡œ ë¦¬ë‹¤ì´ë ‰íŠ¸
 			memberService.updateMember(vo);
 			return "redirect:/member/list.do";
-		} else { // ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê´Â´Ù¸é, div¿¡ ºÒÀÏÄ¡ ¹®±¸ Ãâ·Â, viwe.jsp·Î Æ÷¿öµå
-			// °¡ÀÔÀÏÀÚ, ¼öÁ¤ÀÏÀÚ ÀúÀå
+		} else { // ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´, divì— ë¶ˆì¼ì¹˜ ë¬¸êµ¬ ì¶œë ¥, viwe.jspë¡œ í¬ì›Œë“œ
+			// ê°€ì…ì¼ì, ìˆ˜ì •ì¼ì ì €ì¥
 			MemberVO vo2 = memberService.viewMember(vo.getUserId());
 			vo.setUserRegdate(vo2.getUserRegdate());
 			vo.setUserUpdatedate(vo2.getUserUpdatedate());
 			model.addAttribute("dto", vo);
-			model.addAttribute("message", "ºñ¹Ğ¹øÈ£ ºÒÀÏÄ¡");
+			model.addAttribute("message", "ë¹„ë°€ë²ˆí˜¸ ë¶ˆì¼ì¹˜");
 			return "member/member_view";
 		}
 		
 	}*/
-	// 05. È¸¿øÁ¤º¸ »èÁ¦ Ã³¸®
+	// 05. íšŒì›ì •ë³´ ì‚­ì œ ì²˜ë¦¬
 	// @RequestMapping : url mapping
-	// @RequestParam : get or post¹æ½ÄÀ¸·Î Àü´ŞµÈ º¯¼ö°ª
+	// @RequestParam : get or postë°©ì‹ìœ¼ë¡œ ì „ë‹¬ëœ ë³€ìˆ˜ê°’
 /*	@RequestMapping("member/delete.do")
 	public String memberDelete(@RequestParam String userId, @RequestParam String userPw, Model model){
-		// ºñ¹Ğ¹øÈ£ Ã¼Å©
+		// ë¹„ë°€ë²ˆí˜¸ ì²´í¬
 		boolean result = memberService.checkPw(userId, userPw);
-		if(result){ // ºñ¹Ğ¹øÈ£°¡ ¸Â´Ù¸é »èÁ¦ Ã³¸®ÈÄ, ÀüÃ¼ È¸¿ø ¸ñ·ÏÀ¸·Î ¸®´ÙÀÌ·ºÆ®
+		if(result){ // ë¹„ë°€ë²ˆí˜¸ê°€ ë§ë‹¤ë©´ ì‚­ì œ ì²˜ë¦¬í›„, ì „ì²´ íšŒì› ëª©ë¡ìœ¼ë¡œ ë¦¬ë‹¤ì´ë ‰íŠ¸
 			memberService.deleteMember(userId);
 			return "redirect:/member/list.do";
-		} else { // ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê´Â´Ù¸é, div¿¡ ºÒÀÏÄ¡ ¹®±¸ Ãâ·Â, viwe.jsp·Î Æ÷¿öµå
-			model.addAttribute("message", "ºñ¹Ğ¹øÈ£ ºÒÀÏÄ¡");
+		} else { // ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´, divì— ë¶ˆì¼ì¹˜ ë¬¸êµ¬ ì¶œë ¥, viwe.jspë¡œ í¬ì›Œë“œ
+			model.addAttribute("message", "ë¹„ë°€ë²ˆí˜¸ ë¶ˆì¼ì¹˜");
 			model.addAttribute("dto", memberService.viewMember(userId));
 			return "member/member_view";
 		}
 	}*/
-	
-	// 01. ·Î±×ÀÎ È­¸é 
-    @RequestMapping("member/login.do")
-    public String login(){
-        return "member_login";    // views/member/login.jsp·Î Æ÷¿öµå
-    }
-    
-    // 02. ·Î±×ÀÎ Ã³¸®
-    @RequestMapping("member/loginCheck.do")
-    public ModelAndView loginCheck(@ModelAttribute MemberVO vo, HttpSession session){
-        boolean result = memberService.loginCheck(vo, session);
-        ModelAndView mav = new ModelAndView();
-        if (result == true) { // ·Î±×ÀÎ ¼º°ø
-            // main.jsp·Î ÀÌµ¿
-            mav.setViewName("index");
-            mav.addObject("msg", "success");
-        } else {    // ·Î±×ÀÎ ½ÇÆĞ
-            // login.jsp·Î ÀÌµ¿
-            mav.setViewName("member_login");
-            mav.addObject("msg", "failure");
-        }
-        return mav;
-    }
-    
-    // 03. ·Î±×¾Æ¿ô Ã³¸®
-    @RequestMapping("member/logout.do")
-    public ModelAndView logout(HttpSession session){
-        memberService.logout(session);
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("member_login");
-        mav.addObject("msg", "logout");
-        return mav;
-    }
-	
-	
+
 }

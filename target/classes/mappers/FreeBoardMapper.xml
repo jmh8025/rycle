@@ -3,6 +3,28 @@
 
 <!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
 <mapper namespace="free_board">
+
+	<!-- 02. 게시글 작성 -->
+    <insert id="insert">
+        INSERT INTO free_board (
+          id,
+          writer, 
+          subject,
+          content,
+          k_date,
+          readcount,
+          cate_chk
+        ) VALUES (
+		  #{id},
+		  #{writer},
+		  #{subject},
+		  #{content},
+		  now(),
+		  0,
+		  #{cate_chk}
+        )
+    </insert>
+    
 	<!-- 02_02. 게시글 레코드 갯수 -->
 	<select id="countArticle" parameterType="map" resultType="int">
 		SELECT COUNT(*) 
@@ -21,27 +43,55 @@
 	        <include refid="pagingFooter" />
 	</select>
 	 
+    <!--03. 게시글 상세보기 조회 -->
+    <select id="view" parameterType="int" resultType="kr.spring.tiles.board.free.model.dto.Free_boardVO">
+        SELECT * FROM free_board 
+        WHERE no = #{bno}
+    </select>
+	 
+	 
+    <!-- 04. 게시글 조회수 증가처리 -->
+    <update id="increaseViewcnt">
+        UPDATE free_board SET readcount = readcount + 1 
+        WHERE no = #{no}
+    </update>
+	 
+	<!-- 05. 게시글 수정처리 -->
+    <update id="update" parameterType="kr.spring.tiles.board.free.model.dto.Free_boardVO">
+        UPDATE free_board SET
+            id = #{id},
+            writer = #{writer},
+            subject = #{subject},
+            content = #{content},
+            cate_chk = #{cate_chk}
+        WHERE no = #{no}
+    </update>
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 	<!-- 검색 조건 sql -->
 	<sql id="board_search">
-	    <choose>
+	 <if test="keyword != null and keyword !=''">
+	 <where>
+	    <choose> 
 	        <!-- 검색옵션이 전체 검색일 경우 -->
 	        <when test="searchOption == 'all'">
-	            WHERE 
-	            id like '%'||#{keyword}||'%'
-	            OR writer like '%'||#{keyword}||'%'
-	            OR subject like '%'||#{keyword}||'%'
-	            OR content like '%'||#{keyword}||'%'
-	        </when>
-	        <when test="searchOption == 'subject_content'">
-	        	WHERE 
-	        	subject like '%'||#{keyword}||'%'
-	            OR content like '%'||#{keyword}||'%'
+	            id like '%${keyword}%' or
+	            writer like '%${keyword}%' or
+	            subject like '%${keyword}%' or
+	            content like '%${keyword}%'
 	        </when>
 	        <!-- 전체 검색이 아닐 경우 -->
 	        <otherwise>
-	            WHERE ${searchOption} like '%'||#{keyword}||'%'
+	          ${searchOption} like '%${keyword}%'
 	        </otherwise>
 	    </choose>
+	    </where>
+	    </if>
 	</sql>
 	 
 	<!-- 페이징 sql -->

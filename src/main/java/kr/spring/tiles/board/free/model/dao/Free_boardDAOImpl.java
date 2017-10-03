@@ -9,94 +9,100 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import kr.spring.tiles.board.free.controller.Free_BoardController;
 import kr.spring.tiles.board.free.model.dto.Free_boardVO;
 
-//ÇöÀç Å¬·¡½º¸¦ DAO beanÀ¸·Î µî·Ï½ÃÅ´
+//í˜„ì¬ í´ë˜ìŠ¤ë¥¼ DAO beanìœ¼ë¡œ ë“±ë¡ì‹œí‚´
 @Repository
 public class Free_boardDAOImpl implements Free_boardDAO {
-	
-	// SqlSession °´Ã¼¸¦ ½ºÇÁ¸µ¿¡¼­ »ı¼ºÇÏ¿© ÁÖÀÔ½ÃÄÑÁØ´Ù.
-	// ÀÇÁ¸°ü°è ÁÖÀÔ(Dependency Injection, DI)
-	// ´À½ºÇÑ °áÇÔ
-	// IoC(Inversion of Control, Á¦¾îÀÇ ¿ªÀü)
+	private static final Logger logger = LoggerFactory.getLogger(Free_BoardController.class);
+	// SqlSession ê°ì²´ë¥¼ ìŠ¤í”„ë§ì—ì„œ ìƒì„±í•˜ì—¬ ì£¼ì…ì‹œì¼œì¤€ë‹¤.
+	// ì˜ì¡´ê´€ê³„ ì£¼ì…(Dependency Injection, DI)
+	// ëŠìŠ¤í•œ ê²°í•¨
+	// IoC(Inversion of Control, ì œì–´ì˜ ì—­ì „)
 	@Inject
-	// Inject¾Ö³ëÅ×ÀÌ¼ÇÀÌ ¾øÀ¸¸é sqlSessionÀº null»óÅÂÀÌÁö¸¸
-	// Inject¾Ö³ëÅ×ÀÌ¼ÇÀÌ ÀÖÀ¸¸é ¿ÜºÎ¿¡¼­ °´Ã¼¸¦ ÁÖÀÔ½ÃÄÑÁÖ°Ô µÈ´Ù. 
-	// try catch¹®, finally¹®, °´Ã¼¸¦ closeÇÒ ÇÊ¿ä°¡ ¾ø¾îÁ³´Ù.
+	// Injectì• ë…¸í…Œì´ì…˜ì´ ì—†ìœ¼ë©´ sqlSessionì€ nullìƒíƒœì´ì§€ë§Œ
+	// Injectì• ë…¸í…Œì´ì…˜ì´ ìˆìœ¼ë©´ ì™¸ë¶€ì—ì„œ ê°ì²´ë¥¼ ì£¼ì…ì‹œì¼œì£¼ê²Œ ëœë‹¤. 
+	// try catchë¬¸, finallyë¬¸, ê°ì²´ë¥¼ closeí•  í•„ìš”ê°€ ì—†ì–´ì¡Œë‹¤.
 	SqlSession sqlSession;
 	
-	// 01_01. °Ô½Ã±Û ÀÛ¼º
+	// 01_01. ê²Œì‹œê¸€ ì‘ì„±
 	@Override
 	public void create(Free_boardVO vo) throws Exception {
-		sqlSession.insert("board.insert", vo);
+		sqlSession.insert("free_board.insert", vo);
 	}
 	
-	/*	// 01_02 °Ô½Ã¹° Ã·ºÎÆÄÀÏ Ãß°¡
+	/*	// 01_02 ê²Œì‹œë¬¼ ì²¨ë¶€íŒŒì¼ ì¶”ê°€
 	@Override
 	public void addAttach(String fullName) {
 		sqlSession.insert("board.addAttach", fullName);
+	} */
+	
+	// 02. ê²Œì‹œê¸€ ìƒì„¸ë³´ê¸°
+	@Override
+	public Free_boardVO read(int bno) throws Exception {
+		return sqlSession.selectOne("free_board.view", bno);
+	}	
+	
+	// 03. ê²Œì‹œê¸€ ìˆ˜ì •
+	@Override
+	public void update(Free_boardVO vo) throws Exception {
+		sqlSession.update("free_board.update", vo);
 	}
 	
-	// 02. °Ô½Ã±Û »ó¼¼º¸±â
-	@Override
-	public BoardVO read(int bno) throws Exception {
-		return sqlSession.selectOne("board.view", bno);
-	}
-	// 03. °Ô½Ã±Û ¼öÁ¤
-	@Override
-	public void update(BoardVO vo) throws Exception {
-		sqlSession.update("board.updateArticle", vo);
-
-	}
-	// 04. °Ô½Ã±Û »èÁ¦
+	/*// 04. ê²Œì‹œê¸€ ì‚­ì œ
 	@Override
 	public void delete(int bno) throws Exception {
 		sqlSession.delete("board.deleteArticle",bno);
 
 	}*/
 	
-	// 05. °Ô½Ã±Û ÀüÃ¼ ¸ñ·Ï
+	// 05. ê²Œì‹œê¸€ ì „ì²´ ëª©ë¡
 	@Override
 	public List<Free_boardVO> listAll(int start, int end, String searchOption, String keyword) throws Exception {
-		// °Ë»ö¿É¼Ç, Å°¿öµå ¸Ê¿¡ ÀúÀå
+		// ê²€ìƒ‰ì˜µì…˜, í‚¤ì›Œë“œ ë§µì— ì €ì¥
+		 logger.info("í‚¤ì›Œë“œê°’33344"+keyword);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("searchOption", searchOption);
 		map.put("keyword", keyword);
-		// BETWEEN #{start}, #{end}¿¡ ÀÔ·ÂµÉ °ªÀ» ¸Ê¿¡ 
+		// BETWEEN #{start}, #{end}ì— ì…ë ¥ë  ê°’ì„ ë§µì— 
 		map.put("start", start);
 		map.put("end", end);
 		return sqlSession.selectList("free_board.listAll", map);
 	}
 	
-/*	// 06. °Ô½Ã±Û Á¶È¸¼ö Áõ°¡
+	// 06. ê²Œì‹œê¸€ ì¡°íšŒìˆ˜ ì¦ê°€
 	@Override
-	public void increaseViewcnt(int bno) throws Exception {
-		sqlSession.update("board.increaseViewcnt", bno);
-	}*/
-	// 07. °Ô½Ã±Û ·¹ÄÚµå °¹¼ö
+	public void increaseViewcnt(int no) throws Exception {
+		sqlSession.update("free_board.increaseViewcnt", no);
+	}
+	
+	// 07. ê²Œì‹œê¸€ ë ˆì½”ë“œ ê°¯ìˆ˜
 	@Override
 	public int countArticle(String searchOption, String keyword) throws Exception {
-		// °Ë»ö¿É¼Ç, Å°¿öµå ¸Ê¿¡ ÀúÀå
+		// ê²€ìƒ‰ì˜µì…˜, í‚¤ì›Œë“œ ë§µì— ì €ì¥
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("searchOption", searchOption);
 		map.put("keyword", keyword);
 		return sqlSession.selectOne("free_board.countArticle", map);
 	}
 /*	
-	// 08. °Ô½Ã±Û Ã·ºÎÆÄÀÏ ¸ñ·Ï
+	// 08. ê²Œì‹œê¸€ ì²¨ë¶€íŒŒì¼ ëª©ë¡
 	@Override
 	public List<String> getAttach(int bno) {
 		return sqlSession.selectList("board.getAttach", bno);
 	}
 	
-	// 09. °Ô½Ã±Û Ã·ºÎÆÄÀÏ »èÁ¦Ã³¸®
+	// 09. ê²Œì‹œê¸€ ì²¨ë¶€íŒŒì¼ ì‚­ì œì²˜ë¦¬
 	@Override
 	public void deleteFile(String fullname) {
 		sqlSession.delete("board.deleteAttach", fullname);
 	}
-	// 10. °Ô½Ã±Û Ã·ºÎÆÄÀÏ ¾÷µ¥ÀÌÆ® Ã³¸®
+	// 10. ê²Œì‹œê¸€ ì²¨ë¶€íŒŒì¼ ì—…ë°ì´íŠ¸ ì²˜ë¦¬
 	@Override
 	public void updateAttach(String fullName, int bno) {
 		Map<String, Object> map = new HashMap<String, Object>();

@@ -5,12 +5,13 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 import kr.spring.tiles.board.free.model.dto.Fb_categoryVO;
-import kr.spring.tiles.board.free.service.FbCategoryService;
   
 public interface Fb_categoryDAO {
 	
-	// 01. Ä«Å×°í¸® °¡Á®¿À±â
+	// 01. write ì¹´í…Œê³ ë¦¬ ê°€ì ¸ì˜¤ê¸°
 	public List<Fb_categoryVO> listAll() throws Exception;
-
 	
+	// 01. view ì¹´í…Œê³ ë¦¬ ê°€ì ¸ì˜¤ê¸°
+	public Fb_categoryVO cateName(String cate_chk) throws Exception;
+
 }

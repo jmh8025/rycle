@@ -5,31 +5,39 @@
 <mapper namespace="member">
 	<select id="memberList" resultType="kr.spring.tiles.member.model.dto.MemberVO">
 		SELECT 
-		  userId, 
-		  userName,
-		 userEmail,
-		 userRegdate
-		FROM tbl_member
-		ORDER BY userId
+		  id, 
+		  name,
+		 email,
+		 reg_dt
+		FROM member
+		ORDER BY Id
 	</select>
 	<!-- 02. 회원 등록 -->
 	<insert id="insertMember">
-		INSERT INTO tbl_member
-			(userId, userPw, userName, userEmail,userupdatedate,userRegdate)
+		INSERT INTO member
+			(level, reg_dt, id, pw,pw_dt,name,
+			gender,birth,tel,email,
+			zip,addr,bike_yn,bike_type,
+			how_many,club_yn,join_root)
 		VALUES 
-			(#{userId}, #{userPw}, #{userName}, #{userEmail},now(),now())	
+			('a', now(), #{id}, #{pw},now(),#{name},
+			#{gender},#{birth},#{tel},#{email},
+			#{postcode},#{address},#{bike_yn},#{bike_type},
+			#{how_many},#{club_yn},#{join_root})	
 	</insert>
-	
 	<!-- 03. 회원정보 상세조회 -->
 	<select id="viewMember" resultType="kr.spring.tiles.member.model.dto.MemberVO">
 		SELECT 
-		  userId, 
-		  userName,
-		  userEmail,
-		  userRegdate,
-		  userUpdatedate
-		FROM tbl_member
-		WHERE userId = #{userId}
+		  id, 
+		  name,
+		  email,
+		  reg_dt,
+		  pw_dt,
+		  tel,
+		  zip,
+		  pw
+		FROM member
+		WHERE id = #{id}
 	</select>
 	
 	<!-- 04. 회원정보 수정처리 -->
@@ -54,15 +62,20 @@
 	<select id="checkPw" resultType="int">
 		SELECT 
 			COUNT(*) 
-		FROM tbl_member
-		WHERE userId = #{userId} AND userPw = #{userPw}
+		FROM member
+		WHERE id = #{id} AND pw = #{pw}
 	</select>
 	
 	<!-- 07. 로그인처리 -->
 	<select id="loginCheck" resultType="String">
-        SELECT userName FROM tbl_member
-        WHERE userId = #{userId} AND userPw = #{userPw}
+        SELECT name FROM member
+        WHERE id = #{id} AND pw = #{pw}
     </select>
     
- 
+    <!-- 08. 아이디중복체크 -->
+    <select id="idcheck" resultType="String">
+    	SELECT id from member
+    	WHERE id = #{id,jdbcType=VARCHAR}
+    </select>
+    
 </mapper>
