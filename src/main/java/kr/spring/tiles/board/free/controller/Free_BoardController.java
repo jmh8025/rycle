@@ -46,7 +46,8 @@ public class Free_BoardController {
             @RequestParam(value="searchKeyword", defaultValue="") String keyword,
             @RequestParam(value="curPage", defaultValue="1") int curPage) throws Exception{
 
-         logger.info("키워드값"+keyword);
+       logger.info("검색값"+searchOption);
+       logger.info("키워드값"+keyword);
         
 
       //게시판 목록s

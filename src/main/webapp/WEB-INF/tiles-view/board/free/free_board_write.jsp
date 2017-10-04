@@ -2,14 +2,16 @@
 <script src="//code.jquery.com/jquery.min.js"></script>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
+
 	<div class="content">
-	
+
 		<p class="tbTopTxt"><span><b class="star" title="필수항목">*</b> 필수입력</span></p>
 		<form method="post" id="writeform" name="writeform" action="/SpringTiles/board/free_board_insert.do"> 
 			<input type="hidden" name="id" value="slr2">
 			<input type="hidden" name="writer" value="작성자">
 			
 			<!-- boardWrite -->
+			<div class="content_inner">
 			<div class="boardWrite">
 				<table>
 					<tr>
@@ -42,16 +44,19 @@
 						
 						</td>
 					</tr>
-<!-- 					<tr>
+					<tr>
 						<th>첨부파일</th>
 						<td>
-							<div class="fileBox">
-								<input type="text" id="ATTCH_FILE_1" name="ATTCH_FILE_1" class="addFile" readonly="">
-								<span class="btnFile"><input type="file" id="ATTCH_FILEid1" name="ATTCH_FILE_1" title="첨부파일 선택" class="addFile02"></span>
+							<div>
+							    <span class="btxt">※첨부할 파일을 아래 영역에 드래그 해주세요</span>
+							    <!-- 첨부파일 등록영역 -->
+							    <div id="fileDrop" class="fileDrop"></div>
+							    <!-- 첨부파일의 목록 출력영역 
+							    <div class="uploadedList">첨부파일의 목록 출력영역</div>-->
 							</div>
-							<p class="txtCmt">총 10MBytes 이하</p>
+
 						</td>
-					</tr> -->
+					</tr>
 
 				</table>
 			</div>
@@ -68,7 +73,7 @@
 				
 			</div>
 			<!-- //btnArea -->
-			
+			</div>
 		</form>
 	</div>
 
