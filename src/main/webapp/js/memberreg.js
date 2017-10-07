@@ -34,11 +34,14 @@ $(document).ready(function() {
         $.ajax({
                 type : "POST",
                 url : "http://"+path+"member/sendMail.do", //mv로 전송후
-                dataType: "json",
                 data : {
                 	"email":$email
                 },
                 success : function(data) {//return값을 String으로 반환받음
+                	if(data==false){
+                		alert("중복")
+                		$('#emailmsg').text('이미있는 이메일이에요.. 다른 이메일을 입력해주세요').css("color","red")
+                	}else if(data==true){
                 	$('#hidecheckmail').show()
                 	$('#emailmsg').show()
                	   	$('#emailmsg').text('인증번호가 발송되었습니다. 메일을 확인해주세요(인증유효시간 5분)').css("color","blue");
@@ -58,6 +61,7 @@ $(document).ready(function() {
             				  clearinterval(authTimerId)
             			  }
             		},1000)
+                }//else
                 },
                 error:function(request,status,error){
                     alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -195,6 +199,7 @@ $(document).ready(function() {
                         $('#pwckhelp').hide();
                     }
                 });
+        
                  
                 $('#name').keyup(function(event){
                      
@@ -541,5 +546,51 @@ $(document).ready(function() {
 		$('#chkpw').hide();
 	});
 
+	
+	
+    //회원수정
+    $('#password2').keyup(function(event){
+        
+        var pwcheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^~*+=-])(?=.*[0-9]).{10,20}$/;
+    	var pw = $('#password2');
+    	
+        if(!pwcheck.test(pw.val())||pw.val()=="") {
+        	$('#divPassword2').removeClass("has-success");
+        	$('#divPassword2').addClass("has-error");
+    		$('#pwhelp2').html('비밀번호는 10글자 이상 영문자+특수문자+숫자 조합해야함').css('color','red');
+        }	else {
+        	$('#divPassword2').removeClass("has-error");
+        	$('#divPassword2').addClass("has-success");
+            $('#pwhelp2').hide();
+        }
+    });
+     
+    $('#passwordCheck2').keyup(function(event){
+         if($('#password2').val()!=$('#passwordCheck2').val() || $('#passwordCheck2').val()==""){
+        	$('#divPasswordCheck2').removeClass("has-success");
+        	$('#divPasswordCheck2').addClass("has-error");
+            $('#pwckhelp2').text("같은 비밀번호를 입력해주세요").css("color","red");
+        }else{
+        	$('#divPasswordCheck2').removeClass("has-error");
+        	$('#divPasswordCheck2').addClass("has-success");
+            $('#pwckhelp2').hide();
+        }
+    });
+	
+    $('#membermodify').click(function(){
+    	if($('#divPassword2').hasClass('has-success')
+    			&& $('#divPasswordCheck2').hasClass('has-success')){//비밀번호일치시
+    		document.getElementById('membermodi').submit();
+    		alert("정상적으로 수정되었습니다. 다시 로그인해주세요")
+            return false;
+        	 }else{
+        		 alert("입력하신 값을 다시한번 확인해주세요!")
+        	 }
+    })
+    
+		
+	
+	//회원수정끝
+	
     
 })
