@@ -27,12 +27,12 @@ public class MemberServiceImpl implements MemberService {
 		memberDao.insertMember(vo);
 	}
 
-	// 04. 회원 정보 수정 처리
+	// 04. 회원 정보 삭제 처리
 	@Override
 	public void deleteMember(String userId) {
 		memberDao.deleteMember(userId);
 	}
-	// 05. 회원 정보 삭제 처리
+	// 05. 회원 정보 수정 처리
 	@Override
 	public void updateMember(MemberVO vo) {
 		memberDao.updateMember(vo);
@@ -79,5 +79,11 @@ public class MemberServiceImpl implements MemberService {
 		//아이디 중복확인
 		return memberDao.idcheck(id);
 	}
+	
+	// 06. 회원 정보 수정 및 삭제를 위한 비밀번호 체크
+		@Override
+		public boolean emailCheck(String email) {
+			return memberDao.emailCheck(email);
+		}
 
 }

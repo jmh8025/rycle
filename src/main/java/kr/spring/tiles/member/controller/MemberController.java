@@ -84,7 +84,9 @@ public class MemberController {
     @RequestMapping(value = "/member/sendMail.do", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     private boolean sendMail(HttpSession session, @RequestParam String email) {
-    	
+    	if(memberService.emailCheck(email)==true) { //이메일이 이미있는경우
+    		return false;
+    	}else {//없는경우
         int randomCode = new Random().nextInt(10000) + 1000;
         String joinCode = String.valueOf(randomCode);
         session.setAttribute("joinCode", joinCode);
@@ -93,18 +95,17 @@ public class MemberController {
         StringBuilder sb = new StringBuilder();
         sb.append("회원가입 승인번호는 ").append(joinCode).append(" 입니다.");
         return mailService.send(subject, sb.toString(), "rycleproject@gmail.com", email);
-        }
+    	}
+    	}
     
     
     //메일인증번호확인
     @RequestMapping(value = "/member/checkMail.do", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     private boolean checkMail(HttpSession session, @RequestParam String auth) {
-    
     	String authNum = (String) session.getAttribute("joinCode");
     	 logger.info("답"+authNum);
     	 logger.info("요청값"+auth);
-      
         return mailService.check(authNum,auth);
         }
     
@@ -117,7 +118,7 @@ public class MemberController {
     
     //회원정보 수정페이지
     	@RequestMapping(value="/member/pwcheck.do",method=RequestMethod.GET)
-    	public String process(){
+    	public String pwCheckProcess(){
     		return "member/pwcheck";		
     	}
     
@@ -142,25 +143,83 @@ public class MemberController {
         }
     
     
-    /*	// 04. 회원 정보 수정 처리
+    	// 04. 회원 정보 수정 처리
 	@RequestMapping("member/update.do")
 	public String memberUpdate(@ModelAttribute MemberVO vo, Model model){
 		// 비밀번호 체크
-		boolean result = memberService.checkPw(vo.getUserId(), vo.getUserPw());
-		if(result){ // 비밀번호가 일치하면 수정 처리후, 전체 회원 목록으로 리다이렉트
+			logger.info("이메일은"+vo.getEmail());
 			memberService.updateMember(vo);
-			return "redirect:/member/list.do";
-		} else { // 비밀번호가 일치하지 않는다면, div에 불일치 문구 출력, viwe.jsp로 포워드
-			// 가입일자, 수정일자 저장
-			MemberVO vo2 = memberService.viewMember(vo.getUserId());
-			vo.setUserRegdate(vo2.getUserRegdate());
-			vo.setUserUpdatedate(vo2.getUserUpdatedate());
-			model.addAttribute("dto", vo);
-			model.addAttribute("message", "비밀번호 불일치");
-			return "member/member_view";
-		}
-		
-	}*/
+			return "redirect:/member/logout.do";
+	}
+	
+	//05. 비밀번호찾기
+	@RequestMapping(value="/member/findPw.do",method=RequestMethod.GET)
+	public String findPwProcess(){
+		return "member/findpw";		
+	}
+	
+	//비밀번호찾기를위한 이메일전송
+	  @RequestMapping(value="/member/findPw.do",method=RequestMethod.POST)
+	    private ModelAndView findPw(HttpSession session,@RequestParam String email) {
+		  ModelAndView mav = new ModelAndView();
+		  if(memberService.emailCheck(email)==true) {
+			   int randomCode = new Random().nextInt(10000) + 1000;
+		        String findCode = String.valueOf(randomCode);
+		        session.setAttribute("findCode", findCode);
+		        session.setAttribute("email", email);
+		        String subject = "비밀번호 찾기안내드려요.";
+		        StringBuilder sb = new StringBuilder();
+		        sb.append("비밀번호를 찾기위한 인증번호는 ").append(findCode).append(" 입니다.");
+		        mailService.send(subject, sb.toString(), "rycleproject@gmail.com", email);
+		        mav.setViewName("member/findpwauth");
+		        return mav;
+	    	}else {
+	    		mav.addObject("msg", "fail");
+	    		mav.setViewName("member/findpw");
+	    		return mav;
+	    	}
+	        }
+	  
+	  //비밀번호찾기 이메일인증번호확인
+	  @RequestMapping(value="/member/findPwAuth.do",method=RequestMethod.POST)
+	    private ModelAndView findPwAuth(HttpSession session,@RequestParam String auth) {
+		  ModelAndView mav = new ModelAndView();
+		  String authNum = (String) session.getAttribute("findCode");
+	    	 logger.info("답"+authNum);
+	    	 logger.info("요청값"+auth);
+	        boolean pwcheckresult = mailService.check(authNum,auth);
+	        if(pwcheckresult==true) {
+	    		mav.setViewName("member/updatepw");
+	    		return mav;
+	        }else {
+	        	mav.addObject("msg", "fail");
+	    		mav.setViewName("member/findpwauth");
+	    		return mav;
+	        }
+	  }
+	  
+	
+	
+	
+	//비밀번호를 찾기위한 이메일확인
+	/*  @RequestMapping(value="/member/pwcheck.do",method=RequestMethod.POST)
+	    private ModelAndView emailcheckfind(@ModelAttribute MemberVO vo) {
+	    	ModelAndView mav = new ModelAndView();
+	        boolean result = memberService.checkPw(vo);
+	        if(result) {
+	        	MemberVO vo2 = memberService.viewMember(vo);
+	        	mav.setViewName("member/detail");
+	        	mav.addObject("msg", "fail");
+	        	mav.addObject("user", vo2);
+	        	return mav;
+	        }else{
+	        	mav.setViewName("member/pwcheck");
+	        	mav.addObject("msg", "fail");
+	        	return mav;
+	        }
+	        }*/
+	  
+	  
 	// 05. 회원정보 삭제 처리
 	// @RequestMapping : url mapping
 	// @RequestParam : get or post방식으로 전달된 변수값

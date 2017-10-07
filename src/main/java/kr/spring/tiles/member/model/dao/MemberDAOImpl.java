@@ -41,12 +41,12 @@ public class MemberDAOImpl implements MemberDAO {
 		sqlSession.insert("member.insertMember", vo);
 	}
 
-	// 04. 회원 정보 수정 처리
+	// 04.회원 정보 삭제 처리
 	@Override
 	public void deleteMember(String id) {
 		sqlSession.delete("member.deleteMember",id);
 	}
-	// 05. 회원 정보 삭제 처리
+	// 05.  회원 정보 수정 처리
 	@Override
 	public void updateMember(MemberVO vo) {
 		sqlSession.update("member.updateMember", vo);
@@ -89,5 +89,16 @@ public class MemberDAOImpl implements MemberDAO {
 		logger.info("아이디"+regidcheck);
 		return (regidcheck == null) ? false : true;
 	}
+	
+	// 이메일 중복체크
+		@Override
+		public boolean emailCheck(String email) {
+			boolean result = false;
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("email", email);
+			int count = sqlSession.selectOne("member.emailCheck", map);
+			if(count == 1) result= true;
+			return result;
+		}
 
 }

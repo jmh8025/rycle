@@ -54,7 +54,7 @@
 				<!-- 2스텝 -->
 				<div class="row hide" data-step="2" data-title="회원님을 알고싶어요!!!">
 					<div class="well">
-						<form role="form" name="reg" id="reg" action="destination.html" method="post">
+						<form role="form" name="reg" id="reg" method="post">
 							<div class="form-group" id="divName">
 								<label for="name">이름</label> 
 								<input type="text"class="form-control onlyHangul" name="name" id="name"
@@ -283,7 +283,7 @@
               </span>      
         </div>
         <div class="login-bottom">
-            <a href="#" class="forgot-password">비밀번호가 뭐였죠?</a>
+            <a href="${path}/member/findPw.do" class="forgot-password">비밀번호가 뭐였죠?</a>
         </div>
     </div>
 <!-- 본문끝 -->
@@ -296,8 +296,11 @@
 
 
 
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="/SpringTiles/js/regfooter.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
+
+
 
 
 

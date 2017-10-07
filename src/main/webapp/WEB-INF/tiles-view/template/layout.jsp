@@ -14,7 +14,7 @@
     <!-- font -->
     <link rel='stylesheet' href='https://cdn.rawgit.com/openhiun/hangul/14c0f6faa2941116bb53001d6a7dcd5e82300c3f/nanumbarungothic.css'>
     
-    <!-- css -->
+    <!-- css -->j
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/SpringTiles/css/reset1.css">
     <link rel="stylesheet" href="/SpringTiles/css/fontello.css"> 
@@ -43,7 +43,9 @@
     </section>
 
 	<!-- footer -->
+	
 	<tiles:insertAttribute name="footer" />
     
 </body>
+
 </html>
