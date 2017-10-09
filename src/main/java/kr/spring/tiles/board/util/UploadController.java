@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -18,13 +19,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.spring.tiles.board.free.model.dto.Free_boardVO;
 import kr.spring.tiles.board.free.service.FreeBoardService;
 import kr.spring.tiles.board.util.MediaUtils;
 import kr.spring.tiles.board.util.UploadFileUtils;
@@ -110,7 +114,7 @@ public class UploadController {
     // 7. 파일 삭제 매핑
     @ResponseBody // view가 아닌 데이터 리턴
     @RequestMapping(value = "/upload/deleteFile", method = RequestMethod.POST)
-    public ResponseEntity<String> deleteFile(String fileName) {
+    public ResponseEntity<String> deleteFile(String fileName) throws Exception {
         // 파일의 확장자 추출
         String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
         
@@ -135,7 +139,7 @@ public class UploadController {
         new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
         
         // 레코드 삭제
-        //boardService.deleteFile(fileName);
+        boardService.deleteFile(fileName);
         
         // 데이터와 http 상태 코드 전송
         return new ResponseEntity<String>(deleted, HttpStatus.OK);

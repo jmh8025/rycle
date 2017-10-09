@@ -119,27 +119,20 @@ $(document).ready(function() {
 				
 				var hadd = 20;
 				var str = "";
-				
-				console.log("board.js"+data.file_name);
-				console.log("board.js"+data.ufile_name);
-				console.log("board.js"+data.file_date);
-				console.log("board.js"+data.fdate);
+				var file_name = "";
 				
 				// 이미지파일이면 썸네일 이미지 출력
 					if(checkImageType(data)){ 
-					str = "<div><a href='/SpringTiles/upload/displayFile.do?fileName="+getImageLink(data.fdata)+"'>";
+					str = "<div><a href='/SpringTiles/upload/displayFile.do?fileName="+getImageLink(data)+"'>";
 					str += "<img src='/SpringTiles/upload/displayFile.do?fileName="+data+"'></a>";
 					hadd = 100;
 				// 이미지 파일이 아니면 다운로드
 				} else { 
-					str = "<div><a href='/SpringTiles/upload/displayFile.do?fileName="+data+"'>"+data.file_name+"</a>";	
+					str = "<div><a href='/SpringTiles/upload/displayFile.do?fileName="+data+"'>"+getOriginalName(data)+"</a>";	
 				}
+					str += "<span data-src="+data+">[삭제]</span><input type='hidden' name='file_name2' value='"+ getOriginalName(data) +"'><input type='hidden' name='ufile_name2' value='"+ data +"'></div>";					
 					
-					str += "<span data-src="+data+">[삭제]</span>" 
-					+ "<input type='hidden' name='file_name' value='"+ data +"'>";
-					+ "</div>";
-					alert(data);
-				
+					alert(str);
 				var height = document.getElementById('fileDrop' ).offsetHeight;
 				
 				$('.fileDrop').height( height + hadd );
@@ -184,7 +177,8 @@ $(document).ready(function() {
 function getOriginalName(fileName) {
 	// 이미지 파일이면
 	if(checkImageType(fileName)) {
-		return; // 함수종료
+		var idx = fileName.indexOf("_",14)+1;
+		return fileName.substr(idx);
 	}
 	// uuid를 제외한 원래 파일 이름을 리턴
 	var idx = fileName.indexOf("_")+1;
@@ -212,3 +206,152 @@ function checkImageType(fileName) {
 	return fileName.match(pattern); // 규칙이 맞으면 true
 }
 
+//*************************************댓글********************************************************//
+
+
+
+$(document).ready(function() {
+	
+	// 1. 큰댓글
+	$("#writeCmt").on("click", function(event) {
+		event.preventDefault(); // 기본효과를 제한
+		
+		var bno = $("#bno").val();
+		var cid = $("#sid").val();
+		var cname = $("#sname").val();
+		var ccontent = $("#ccontent").val();
+		
+		$("#ccontent").val("");
+		
+		console.log("board_bno:"+bno);
+		console.log("board_cid:"+cid);
+		console.log("board_cname:"+cname);
+		console.log("board_ccontent:"+ccontent);
+		
+		// ajax로 전달할 폼 객체
+	    var allData = { "bno": bno, "cid": cid, "cname": cname, "ccontent": ccontent  };
+		
+		$.ajax({
+			type: "post",
+			url: "/SpringTiles/comment/insertAjax.do",
+			data: allData,
+			success: function(data) {
+				
+	            if(!data) {
+	            	return alert("실패");
+	            }
+
+	            var cmtvo = data.cvo;
+	            var html = '';
+	            	            
+	            html += '<tr><td width="150"><div>';
+	            if (cmtvo.clevel > 1) {
+	            	html += '&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/reply_icon.gif">';
+	            }
+	            html += cmtvo.cid + '<br> <font size="2" color="lightgray">'+ cmtvo.cdate +'</font></div></td>';
+	            html += '<td width="550"><div class="text_wrapper">'+ cmtvo.ccontent+ '</div></td>';
+	            
+	            if(cid != null){
+	            	html += '<td width="150"><div id="btn" style="text-align: center;"><span class="cmReplyOpen">[답변]</span>&nbsp;';
+		            
+	            	if (cid == cmtvo.cid) {
+		            	html += '<span >[수정]</span>&nbsp;<span id="cmDeleteOpen" value='+ cmtvo.cno +'">[삭제]</a>';
+		            }
+	            }
+	            
+	            html += '</div></td></tr>';  
+	            
+	            $("#cmt_tb1").append(html);
+
+			}
+		});
+	});
+
+});
+
+
+//답글창
+function cmReplyOpen(val) {
+
+	var idx = val;
+
+	var cpno = $("#cno_"+idx).val(); 
+	var clevel = parseInt($("#clevel_"+idx).val())+1; //부모 level +1
+	
+	alert ("cpno:"+cpno+", clevel:"+clevel);
+	
+	var html = '';
+    var nbsp = '';
+    
+    $("#tr_"+last_idx).remove();
+    
+    html += '<tr id="tr_"'+last_idx+'><td width="150">';
+    
+    for(var i=1; i<clevel; i++){ nbsp += "&nbsp;&nbsp;&nbsp;&nbsp"; }
+    
+    if (clevel > 1) {
+    	html += nbsp+'ㄴ<img src="img/reply_icon.gif">';
+    }
+    
+    html += cid + '<br> </td>';
+    html += '<td width="550"><div class="text_wrapper"></div>';
+    html += '<textarea id="ccontent_'+last_idx+'" name="ccontent_'+last_idx+'" rows="4" cols="70"></textarea>';
+    html += '<input type="hidden" name="cpno_'+last_idx+'" id="cpno_'+last_idx+'" value="'+cpno+'" >';
+    html += '<input type="hidden" name="clevel_'+last_idx+'" id="clevel_'+last_idx+'" value="'+clevel+'" ></td>';
+    html += '<td width="150"><div id="btn" style="text-align: center;"><a onclick="writeReCmt('+last_idx+');">[댓글등록]</a>&nbsp;';
+    
+    html += '</div></td></tr>';  
+    
+    $("#tr_"+idx).after(html);
+ 
+}
+
+function writeReCmt(idx) {
+	
+	var cpno = $("#cpno_"+idx).val();
+	var ccontent = $("#ccontent_"+idx).val();
+	var clevel = $("#clevel_"+idx).val();
+	
+	alert ("cpno:"+cpno+", ccontent:"+ccontent+", clevel:"+clevel);
+
+	// ajax로 전달할 폼 객체
+    var allData = { "bno": bno, "cid": cid, "cname": cname, "ccontent": ccontent, "cpno":cpno, "clevel" : clevel  };
+	
+	$.ajax({
+		type: "post",
+		url: "/SpringTiles/comment/insertAjax.do",
+		data: allData,
+		
+		success: function(data) {
+			
+            if(!data) {
+            	return alert("실패");
+            }
+
+            var cmtvo = data.cvo;
+            var html = '';
+
+            $("#last_idx").val(parseInt(last_idx)+1);
+            
+            html += '<tr id="tr_'+last_idx+'"><td width="150"><div>';
+            if (cmtvo.clevel > 1) {
+            	html += '&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/reply_icon.gif">';
+            }
+            html += cmtvo.cid + '<br> <font size="2" color="lightgray">'+ cmtvo.cdate +'</font></div></td>';
+            html += '<td width="550"><div class="text_wrapper">'+ cmtvo.ccontent+ '</div></td>';
+            
+            if(cid != null){																	
+            	html += '<td width="150"><div id="btn" style="text-align: center;"><a onclick="cmReplyOpen('+last_idx+');">[답변]</a>&nbsp;';
+	            
+            	if (cid == cmtvo.cid) {
+	            	html += '<span >[수정]</span>&nbsp;<a onclick="cmDeleteOpen('+last_idx+');">[삭제]</a>';
+	            }
+            }
+            
+            html += '</div></td></tr>';  
+            
+            $("#cmt_tb1").append(html);
+
+		}
+	});
+}

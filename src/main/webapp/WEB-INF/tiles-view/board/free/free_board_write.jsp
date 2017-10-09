@@ -73,7 +73,8 @@
 				
 			</div>
 			<!-- //btnArea -->
-			</div>
-		</form>
-	</div>
+			
+		</div>
+	</form>
+</div>
 

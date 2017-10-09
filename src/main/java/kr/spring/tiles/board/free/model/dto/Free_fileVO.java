@@ -8,9 +8,11 @@ public class Free_fileVO {
 	private int no;
 	private int cate_no; 
 	
-	private String[] file_name;		// 원본파일명
-	private String[] ufile_name;	// 업로드파일명
-	private String[] file_date;		// 파일업로드 경로일자
+	private String file_name;
+	private String ufile_name;
+	
+	private String[] file_name2;		// 원본파일명
+	private String[] ufile_name2;	// 업로드파일명
 	
 	// Getter/Setter
 
@@ -39,28 +41,36 @@ public class Free_fileVO {
 	}
 	
 	
-	public String[] getFile_name() {
+	public String[] getFile_name2() {
+		return file_name2;
+	}
+
+	public String[] getUfile_name2() {
+		return ufile_name2;
+	}
+
+	public void setFile_name2(String[] file_name2) {
+		this.file_name2 = file_name2;
+	}
+
+	public void setUfile_name2(String[] ufile_name2) {
+		this.ufile_name2 = ufile_name2;
+	}
+	
+	public String getFile_name() {
 		return file_name;
 	}
 
-	public String[] getUfile_name() {
-		return ufile_name;
-	}
-
-	public void setFile_name(String[] file_name) {
+	public void setFile_name(String file_name) {
 		this.file_name = file_name;
 	}
 
-	public void setUfile_name(String[] ufile_name) {
-		this.ufile_name = ufile_name;
-	}
-	
-	public String[] getFile_date() {
-		return file_date;
+	public String getUfile_name() {
+		return ufile_name;
 	}
 
-	public void setFile_date(String[] file_date) {
-		this.file_date = file_date;
+	public void setUfile_name(String ufile_name) {
+		this.ufile_name = ufile_name;
 	}
 
 	// toString()

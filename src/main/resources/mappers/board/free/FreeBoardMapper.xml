@@ -8,16 +8,15 @@
 	<select id="getBno" resultType="int">
 		SELECT no
 		FROM 
-		free_board order by no desc
+		free_board order by no desc limit 1
 	</select>
 	
 	<!-- 02. 게시글 작성 -->
     <insert id="insert">
-        INSERT INTO free_board (
-          id, writer, subject,content, k_date, readcount, cate_chk
-        ) VALUES (
-		  #{id}, #{writer}, #{subject}, #{content}, now(), 0, #{cate_chk}
-        )
+        INSERT INTO free_board 
+        ( id, writer, subject, content, k_date, readcount, cate_chk ) 
+        VALUES 
+        ( #{id}, #{writer}, #{subject}, #{content}, now(), 0, #{cate_chk} )
     </insert>
     
 	<!-- 02_02. 게시글 레코드 갯수 -->
@@ -88,37 +87,6 @@
 	<sql id="pagingFooter">
 		ORDER BY no DESC limit #{start}, #{end} 
 	</sql>
-	
-	<!-- ******************** 게시글 첨부파일 관련 ********************** -->
-<!-- 	
-	01. 게시물의 첨부파일 목록
-	<select id="getAttach" parameterType="int" resultType="String">
-		SELECT file_name FROM free_file WHERE no = #{bno} ORDER BY file_no
-	</select>
-	
-	02. 게시물 첨부파일 추가
-	<insert id="addAttach" parameterType="map">
-		CURRVAL : 현재의 값
-		INSERT INTO free_file (
-			no, file_name, ufile_name
-		) VALUES (
-			#{bno}, #{fullName}, #{ufile_name}
-		)
-	</insert>
-	
-	
-	03. 게시글의 첨부파일 업데이트처리(입력처리)
-	<insert id="updateAttach">
-		INSERT INTO free_file (
-			no, file_name, ufile_name
-		) VALUES (
-			#{bno}, #{fullName}, #{ufile_name}
-		)
-	</insert>
-	
-	03. 게시글의 첨부파일 삭제처리
-	<delete id="deleteAttach" parameterType="int">
-		DELETE FROM free_file WHERE file_no = #{file_no}
-	</delete> -->
 
+	
 </mapper>
