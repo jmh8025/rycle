@@ -381,9 +381,9 @@ body {
 .boardList table tbody td.subject a, .boardList table tbody td.subject a:hover { color:#5e5e5f }
 
 /* boardWrite */
-.boardWrite {margin-bottom:30px;border-top:2px solid #66575a;border-bottom:1px solid #e1e2e2;background:#fff; position:relative;}
+.boardWrite {margin-bottom:30px;border-top:2px solid #66575a;border-bottom:2px solid #66575a; background:#fff; position:relative;}
 .boardWrite table {width:100%;}
-.boardWrite table th {width:150px;vertical-align:top;text-align:left;padding:10px 19px 0 25px; box-sizing:border-box; border-top:1px solid #d8d8d8;color:#31343f;font-weight:700;}
+.boardWrite table th {width:150px;height:34px;vertical-align:top;text-align:left;padding:10px 19px 0 25px; box-sizing:border-box; border-top:1px solid #d8d8d8;color:#31343f;font-weight:700;}
 .boardWrite .star {color:red;}
 .boardWrite table td {line-height:180%;padding:5px 20px 5px 0;border-top:1px solid #d8d8d8;color:#5e5e5f}
 .boardWrite table td .cont {line-height:170%; padding:45px 20px}
@@ -392,18 +392,33 @@ body {
 .boardWrite .cmt {display:block; font-size:11px; color:#727272; text-align:right;}
 .boardWrite .txtCmt {display:inline-block; vertical-align:middle; margin:0 0 0 15px; color:#6c6e6f; font-family:"notoKrM", sans-serif; font-weight:500} /* inline �꽕紐낃� */
 
+.cmt_sp {color:blue;}
+/*댓글 구분*/
+.cmt_gubun { border-bottom-width: 1px;border-bottom-style: dotted;height: 1px;border-color: #d8d8d8;margin-top:10px;margin-bottom:10px;}
+/* div_center*/
+.vmiddle {vertical-align: middle}
+.center {text-align: center;}
+
 /* 첨부파일을 드래그할 영역의 스타일 */
 .boardWrite .fileDrop {
     width: 600px;
     height: 60px;
     border: 1px solid #d8d8d8;
 }
+
+/* 갤러리 첨부파일을 드래그할 영역의 스타일 */
+.boardWrite .fileDrop {
+    width: 600px;
+    height: 600px;
+    border: 1px solid #d8d8d8;
+}
+
 .boardWrite .btxt {
 	color:blue;
 	pont-size:12px;
 }
 
-.btnArea {width:100%; text-align: center;}
+.btnArea {width:100%; text-align: center; margin-top:15px;}
 .btnArea .btnList {  float:left; background-color:#23527c; color: #fff; height:34px; line-height: 34px; border: 1px solid #23527c; padding: 0 26px; cursor: pointer;}
 .btnArea .btnSubmit { float:center; background-color:#23527c; color: #fff; height:34px; line-height: 34px; border: 1px solid #23527c; padding: 0 26px; cursor: pointer;}
 .btnArea .btnReset { float:center; background-color:#23527c; color: #fff; height:34px; line-height: 34px; border: 1px solid #23527c; padding: 0 26px; cursor: pointer;}

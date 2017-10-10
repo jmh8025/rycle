@@ -26,7 +26,7 @@
                         <li><a href="#">공지사항</a></li>
                         <li><a href="${path}/board/free_board_list.do">자유게시판</a></li>
                         <li><a href="#">질문과답변</a></li>
-                        <li><a href="#">갤러리</a></li>
+                        <li><a href="${path}/board/gallery_board_list.do">갤러리</a></li>
                     </ul>
                 </li>
                 <li class="sub-menu"><a href="#">이벤트</a>
