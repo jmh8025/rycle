@@ -1,26 +1,18 @@
 
 function write_submit(board) {
 
+	//자유게시판은 카테고리명, 내용
 	if (board == "free_board") {
 		var cate_chk = document.getElementById("cate_chk");
 		var scate_chk = document.getElementById("scate_chk");
-
-		var subject = document.getElementById("subject");
-		var ssubject = document.getElementById("ssubject");
-
+		
 		var content = document.getElementById("bcontent");
 		var scontent = document.getElementById("scontent");
-
+		
 		if (cate_chk.value.length == 0) {
 			scate_chk.innerHTML = "<b style='font-size:15px;color:red'>필수 정보입니다<b>";
 		} else {
 			scate_chk.innerHTML = "";
-		}
-
-		if (subject.value.length == 0) {
-			ssubject.innerHTML = "<b style='font-size:15px;color:red'>필수 정보입니다<b>";
-		} else {
-			ssubject.innerHTML = "";
 		}
 
 		if (content.value.length == 0) {
@@ -28,13 +20,23 @@ function write_submit(board) {
 		} else {
 			scontent.innerHTML = "";
 		}
+	}
+
+		var subject = document.getElementById("subject");
+		var ssubject = document.getElementById("ssubject");
+
+
+		if (subject.value.length == 0) {
+			ssubject.innerHTML = "<b style='font-size:15px;color:red'>필수 정보입니다<b>";
+		} else {
+			ssubject.innerHTML = "";
+		}
 
 		if (cate_chk.value.length != 0 && subject.value.length != 0 && content.value.length != 0) {
 			var form = document.writeform;
 			form.submit();
 		}
 
-	}
 }
 
 //file
@@ -47,7 +49,7 @@ function checkImageType(fileName){
 
 // 업로드 파일 정보
 function getFileInfo(fullName){
-	var fileName, imgsrc, getLink, fileLink;
+	var fileName, imgsrc, getLink, fileLink; 
 	// 이미지 파일일 경우
 	if(checkImageType(fullName)){
 		// 이미지 파열 경로(썸네일)
@@ -208,8 +210,6 @@ function checkImageType(fileName) {
 
 //*************************************댓글********************************************************//
 
-
-
 $(document).ready(function() {
 	
 	// 1. 큰댓글
@@ -220,6 +220,12 @@ $(document).ready(function() {
 		var cid = $("#sid").val();
 		var cname = $("#sname").val();
 		var ccontent = $("#ccontent").val();
+		
+		if(ccontent!=null){
+			ccontent = ccontent.replace("<","&lt;");
+			ccontent = ccontent.replace(">","&gt;");
+		}
+		alert(ccontent);
 		
 		$("#ccontent").val("");
 		
@@ -244,23 +250,23 @@ $(document).ready(function() {
 	            var cmtvo = data.cvo;
 	            var html = '';
 	            	            
-	            html += '<tr><td width="150"><div>';
+	            html += '<tr id="tr_'+cmtvo.cno+'"><td width="150"><div>';
 	            if (cmtvo.clevel > 1) {
 	            	html += '&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/reply_icon.gif">';
 	            }
 	            html += cmtvo.cid + '<br> <font size="2" color="lightgray">'+ cmtvo.cdate +'</font></div></td>';
-	            html += '<td width="550"><div class="text_wrapper">'+ cmtvo.ccontent+ '</div></td>';
+	            html += '<td width="550"><div class="text_wrapper"><input type="hidden" id="ccontent_'+cmtvo.cno+'" value="'+cmtvo.ccontent+'">'+cmtvo.ccontent+'</div></td>';
 	            
 	            if(cid != null){
-	            	html += '<td width="150"><div id="btn" style="text-align: center;"><span class="cmReplyOpen">[답변]</span>&nbsp;';
-		            
+	            	html += '<td width="420"><div id="btn" style="text-align: center;">';		            
 	            	if (cid == cmtvo.cid) {
-		            	html += '<span >[수정]</span>&nbsp;<span id="cmDeleteOpen" value='+ cmtvo.cno +'">[삭제]</a>';
-		            }
+		            	html += '<span class="cmt_sp" onclick="cmUpdateOpen('+cmtvo.cno+')">[수정]</span>&nbsp;<span class="cmt_sp" onclick="cmDeleteOpen('+cmtvo.cno+')">[삭제]</a>';
+		       }
+	            	
 	            }
 	            
 	            html += '</div></td></tr>';  
-	            
+	            html += '	<tr><td colspan=3><ul class="cmt_gubun"><li></li></ul></td></tr>';
 	            $("#cmt_tb1").append(html);
 
 			}
@@ -268,6 +274,88 @@ $(document).ready(function() {
 	});
 
 });
+
+
+function cmUpdateOpen(cno){
+	
+	//내용 담기
+	var cid = $("#sid").val();
+	var ccontent = $("#ccontent_"+cno).val();
+	$("#tr_"+cno).empty(); //empty 자식만 제거
+	
+	
+	var html ='<td width="150" class="vmiddle"><p class="p_center">'+cid+'</p></td>';
+	html +='<td width="550"><div><textarea name="ccontent" id="ccontent_'+cno+'" rows="4" cols="70">'+ccontent+'</textarea></div></td>';
+	html +='<td width="100" class="center vmiddle"><p><p class="p_center cmt_sp" onclick="cmUpdateOK('+cno+')">[댓글등록]</p></td>';
+	
+	$("#tr_"+cno).append(html);
+	
+}
+
+// 댓글 수정
+function cmUpdateOK(cno){
+	alert("cmUpdateOK실행!");
+	
+	var cid = $("#sid").val();
+	var ccontent_cno = $("#ccontent_"+cno).val();
+	
+	alert("내용:"+ccontent_cno);
+	
+	// ajax로 전달할 폼 객체
+    var allData = { "cno": cno, "ccontent": ccontent_cno };
+	
+	$.ajax({
+		type: "post",
+		url: "/SpringTiles/comment/updateAjax.do",
+		data: allData,
+		success: function(data) {
+
+			if(!data) {
+            	return alert("실패");
+            }
+			
+			$("#tr_"+cno).empty(); //empty 자식만 제거
+            var cmtvo = data.cvo;
+            
+            var html = "";
+            
+            html += '<td>'+cmtvo.cid+ '<br> <font size="2" color="lightgray">'+ cmtvo.cdate +'</font></div></td>';
+            html += '<td width="550"><div class="text_wrapper"><input type="hidden" id="ccontent_'+cmtvo.cno+'" value="'+cmtvo.ccontent+'">'+cmtvo.ccontent+'</div></td>';
+            html += '<td width="420">';
+            if(cid != null){
+            	html += '<div id="btn" style="text-align: center;">';		            
+            	if (cid == cmtvo.cid) {
+	            	html += '<span class="cmt_sp" onclick="cmUpdateOpen('+cmtvo.cno+')">[수정]</span>&nbsp;<span class="cmt_sp" onclick="cmDeleteOpen('+cmtvo.cno+')">[삭제]</a>';
+            	}
+            	
+           }
+            
+        	$("#tr_"+cno).append(html);
+            
+		}
+	});
+	
+}
+
+//댓글 삭제
+function cmDeleteOpen(cno){
+	
+	// ajax로 전달할 폼 객체
+    var allData = { "cno": cno };
+	
+	$.ajax({
+		type: "post",
+		url: "/SpringTiles/comment/deleteAjax.do",
+		data: allData,
+		success: function(data) {
+			
+            $("#tr_"+data).next().remove();
+            $("#tr_"+data).remove();
+		}
+	});
+	
+}
+
 
 
 //답글창

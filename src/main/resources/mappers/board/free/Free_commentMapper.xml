@@ -16,6 +16,17 @@
 	<select id="cread" resultType="kr.spring.tiles.board.free.model.dto.Free_commentVO">
 		select * from free_comment where bno=#{bno} order by cno desc limit 1
 	</select>
-
+	
+	<update id="cupdate" parameterType="map">
+		update free_comment set ccontent= #{ccontent} where cno = #{cno}
+	</update>
+	
+	<select id="curead" resultType="kr.spring.tiles.board.free.model.dto.Free_commentVO">
+		select * from free_comment where cno=#{cno}
+	</select>
+	
+	<delete id="cdelete" parameterType="int">
+		delete from free_comment where cno = #{cno}
+	</delete>
 </mapper>
 

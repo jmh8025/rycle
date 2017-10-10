@@ -64,10 +64,27 @@ public class UploadController {
 		logger.info("originalName : "+file.getOriginalFilename());
 		logger.info("size : "+file.getSize());
 		logger.info("contentType : "+file.getContentType());
+				
+		//해당 폴더 없는 경우 생성
+		
+        //생성할 파일경로 지정
+        String path = "c://webtest//uploadfile//test.txt";
+        //파일 객체 생성
+        File file2 = new File(path);
+        //!표를 붙여주어 파일이 존재하지 않는 경우의 조건을 걸어줌
+        if(!file2.exists()){
+            //디렉토리 생성 메서드
+        	file2.mkdirs();
+            System.out.println("created directory successfully!");
+        }
+		
 		
 		return new ResponseEntity<String>(UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()), HttpStatus.OK);
 		//return UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
 	}
+	
+
+
 	
     // 6. 이미지 표시 매핑
     @ResponseBody // view가 아닌 data리턴
