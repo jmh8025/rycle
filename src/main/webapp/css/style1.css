@@ -235,7 +235,19 @@ body {
 }    
 .cards .weather {
     background: #666;
+    text-align: center;
+    
 }
+
+.cards .weather p span{
+	display:inline-block;
+	 position: relative;
+   top: -50px;
+	font-size: 30px;
+    line-height: 1.6em;
+    color: #fff;
+}
+
 .cards .today {
     margin-top: 10px;
 }
@@ -244,6 +256,19 @@ body {
     line-height: 1.6em;
     color: #fff;
 }
+
+
+.weather h3 {
+    font-size: 25px;
+    line-height: 1.6em;
+    color: #fff;
+}
+.weather h4 {
+    font-size: 18px;
+    line-height: 1.6em;
+    color: #fff;
+}
+
 .cards h2 small {
     display: block;
     font-size: 14px;

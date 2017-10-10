@@ -11,12 +11,12 @@
 		<form method="post" id="writeform" name="writeform"
 			action="${path}/member/findPwAuth.do">
 			<table>
-				<tr>
+				<tr> 
 					<td>회원님의 이메일로 인증번호를 전송해드렸어요. 이메일을 확인해서 인증번호를 알려주세요.</td>
 				</tr>
 				<tr>
 					<td><input type="text" class="form-control" name="auth"></td>
-					<td><input type="submit" class="sign-in-button" id="findpwbutton"
+					<td><input type="submit" class="sign-in-button btn-primary" id="findpwbutton"
 						name="Sign-in" value="확인" /></td>
 
 				</tr>

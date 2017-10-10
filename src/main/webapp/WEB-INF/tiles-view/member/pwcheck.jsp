@@ -27,7 +27,7 @@ ${sessionScope.name}님! 보안을 위해서 비밀번호를 한번 더 입력�
 </tr>
 <input id="id" name="id" type="hidden" value="${sessionScope.id}">
 						<tr><td><input type="password" class="form-control" name="pw" id="pwchk"></td>
-							<td><input type="submit" class="sign-in-button" id="sign-in"
+							<td><input type="submit" class="sign-in-button btn-primary" id="sign-in"
 								name="Sign-in" value="확인" /></td>
 							
 						</tr>
