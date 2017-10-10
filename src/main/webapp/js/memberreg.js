@@ -506,7 +506,7 @@ $(document).ready(function() {
 	            	//얻어온 값을 이용하여, modal 에서 동적으로 바뀌어야 하는 값을 바꾸어 준다..
 	        	  if(data==true){
 	        		  $("#Login").modal('hide');
-	        		  location.reload();
+	        		  history.go(0);
 	        	  }
 	        	  else if(data==false){
 	        		  $('#loginpwhelp').show();
