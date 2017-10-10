@@ -13,7 +13,6 @@ public interface Free_boardDAO {
 	public void create(Free_boardVO vo) throws Exception;
 	// 02. 게시글 상세보기
 	public Free_boardVO read(int bno) throws Exception;
-	
 	// 03. 게시글 수정
 	public void update(Free_boardVO vo) throws Exception;
 	/*// 04. 게시글 삭제
@@ -24,6 +23,10 @@ public interface Free_boardDAO {
 	public void increaseViewcnt(int no) throws Exception;
 	// 07. 게시글 레코드 갯수 메서드 추가
 	public int countArticle(String searchOption, String keyword) throws Exception;
+	
+	// 08. 최근 게시글 번호 얻어오기
+	public int recent_bno() throws Exception;
+	
 /*	// 08. 게시물 첨부파일 추가
 	public void addAttach(String fullName);
 	// 09. 게시물 첨부파일 목록

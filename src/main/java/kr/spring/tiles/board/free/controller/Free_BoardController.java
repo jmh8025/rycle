@@ -2,6 +2,7 @@
 package kr.spring.tiles.board.free.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import java.util.List;
@@ -21,11 +22,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
 import org.springframework.web.multipart.MultipartHttpServletRequest; //파일 업로드
    
 import kr.spring.tiles.board.util.BoardPager;
 import kr.spring.tiles.board.free.model.dto.Free_boardVO;
+import kr.spring.tiles.board.free.model.dto.Free_fileVO;
 import kr.spring.tiles.board.free.model.dto.Fb_categoryVO;
+import kr.spring.tiles.board.free.model.dto.Free_commentVO;
 
 import kr.spring.tiles.board.free.service.FreeBoardService;
 
@@ -34,7 +38,7 @@ public class Free_BoardController {
    
    private static final Logger logger = LoggerFactory.getLogger(Free_BoardController.class);
    
-   // MemberService 객체를 스프링에서 생성하여 주입시킴
+   // FreeBoardService 객체를 스프링에서 생성하여 주입시킴
    @Inject
    FreeBoardService freeBoardService;
    
@@ -46,7 +50,8 @@ public class Free_BoardController {
             @RequestParam(value="searchKeyword", defaultValue="") String keyword,
             @RequestParam(value="curPage", defaultValue="1") int curPage) throws Exception{
 
-         logger.info("키워드값"+keyword);
+       logger.info("검색값"+searchOption);
+       logger.info("키워드값"+keyword);
         
 
       //게시판 목록s
@@ -95,7 +100,7 @@ public class Free_BoardController {
    
    //게시글 작성처리
    @RequestMapping(value = "/board/free_board_insert.do", method= RequestMethod.POST )
-   public String free_Board_insert( @ModelAttribute Free_boardVO freeboard , HttpSession session) throws Exception{
+   public String free_Board_insert( @ModelAttribute Free_boardVO freeboard, @ModelAttribute Free_fileVO freefile , HttpSession session) throws Exception{
 
 
       // session에 저장된 userId를 writer에 저장
@@ -115,7 +120,7 @@ public class Free_BoardController {
 
         //파일 e
         
-      freeBoardService.create(freeboard);
+      freeBoardService.create(freeboard, freefile);
       
       return "redirect:/board/free_board_list.do";
    }
@@ -135,6 +140,12 @@ public class Free_BoardController {
        logger.info("cate_chk"+cate_chk);
        map.put("cdto",  freeBoardService.cateName(cate_chk)); // view       
        
+       map.put("fdto", freeBoardService.fread(bno));
+       
+       //댓글
+       // 게시글 번호를 이용하여 해당 글에 있는 댓글 목록을 가져온다.
+       map.put("cmtdto", freeBoardService.getCommentList(bno));
+
        model.addAttribute("map", map);
        
        return "board/free/free_board_view";
@@ -146,12 +157,14 @@ public class Free_BoardController {
    @RequestMapping(value="/board/free_board_update.do", method=RequestMethod.GET)
    public String free_Board_Update(int bno, Model model) throws Exception{
 	   
-	   List<Fb_categoryVO> fblist = freeBoardService.listAll();
 
        // 데이터를 맵에 저장
        Map<String, Object> map = new HashMap<String, Object>();
        map.put("dto",  freeBoardService.read(bno)); // view    
-       map.put("fblist",  fblist); // 카테고리 목록
+       map.put("fblist",  freeBoardService.listAll()); // 카테고리 목록
+       map.put("fdto", freeBoardService.fread(bno));
+       
+       map.put("uheight", freeBoardService.cnt_img(bno)*100 + freeBoardService.cnt_nimg(bno)*20 + 60);
        
        model.addAttribute("map", map);
        

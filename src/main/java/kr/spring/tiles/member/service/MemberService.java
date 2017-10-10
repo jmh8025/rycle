@@ -24,6 +24,8 @@ public interface MemberService {
     public void logout(HttpSession session);
   //아이디 중복확인
     public boolean idcheck(String id);
+ // 이메일 체크
+ 	public boolean emailCheck(String email);
 	
 	
 }
