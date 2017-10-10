@@ -269,6 +269,39 @@
         <artifactId>gson</artifactId>
         <version>2.2.4</version>
     </dependency>
+    
+
+<!-- json파싱과 http 아파치 -->
+<dependency>
+    <groupId>commons-net</groupId>
+    <artifactId>commons-net</artifactId>
+    <version>3.3</version>
+</dependency>
+   
+<dependency>
+    <groupId>org.apache.httpcomponents</groupId>
+    <artifactId>httpclient</artifactId>
+    <version>4.5.3</version>
+</dependency>
+    <dependency>
+       <groupId>com.fasterxml.jackson.core</groupId>
+       <artifactId>jackson-core</artifactId>
+       <version>2.7.3</version>
+   </dependency>
+   <dependency>
+       <groupId>com.fasterxml.jackson.core</groupId>
+       <artifactId>jackson-databind</artifactId>
+       <version>2.7.3</version>
+   </dependency>
+    
+   <dependency>
+       <groupId>com.fasterxml.jackson.core</groupId>
+       <artifactId>jackson-annotations</artifactId>
+       <version>2.7.3</version>
+   </dependency>
+   <!-- json파싱과 http아파치 -->
+    
+    
 
 	</dependencies>
 	<build>

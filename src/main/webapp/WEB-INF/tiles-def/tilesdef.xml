@@ -15,7 +15,7 @@
 	<definition name="*/*/*" extends="index">
 		<put-attribute name="content" value="/WEB-INF/tiles-view/{1}.jsp"/>
 		<put-attribute name="content" value="/WEB-INF/tiles-view/{1}/{2}.jsp"/>
-		<put-attribute name="content" value="/WEB-INF/tiles-view/{1}/{2}/{3}.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/tiles-view/{1}/{2}/{3}.jsp"/> 
 	</definition>
 	
 	<definition name="*/*" extends="index">

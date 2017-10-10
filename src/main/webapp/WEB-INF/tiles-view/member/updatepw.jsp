@@ -30,7 +30,7 @@
 		</form>
 		<br>
 		<center>
-			<button type="button" class="btn btn-primary" id="membermodify">수정</button>
+			<button type="button" class="btn btn-primary" id="membermodify" >수정</button>
 			<button type="button" class="btn btn-default"
 				onclick="location.href='${path}/index.do'">나가기</button>
 		</center>
