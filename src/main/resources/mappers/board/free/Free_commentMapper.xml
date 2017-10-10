@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="freecomment">
+	
+	<select id="clread" parameterType="int" resultType="kr.spring.tiles.board.free.model.dto.Free_commentVO">
+		select * from free_comment where bno=#{bno} order by cpno, cno asc
+	</select>
+	
+	<insert id="cinsert" parameterType="map">
+		insert into free_comment 
+		( bno, cid, cname, cdate, cpno, clevel, ccontent) VALUES ( #{bno}, #{cid}, #{cname}, now(), #{cpno}, #{clevel}, #{ccontent})
+	</insert>
+	
+	<select id="cread" resultType="kr.spring.tiles.board.free.model.dto.Free_commentVO">
+		select * from free_comment where bno=#{bno} order by cno desc limit 1
+	</select>
+
+</mapper>
+

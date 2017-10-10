@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="freefile">
+
+	<!-- 파일 업로드 -->
+	<insert id="addAttach">
+	    INSERT INTO free_file (
+	        no, file_name, ufile_name
+	    ) VALUES (
+	        #{bno}, #{file}, #{ufile}
+	    )
+	</insert>
+	
+	<select id="list" parameterType="int" resultType="kr.spring.tiles.board.free.model.dto.Free_fileVO">
+		select * from free_file where no=#{bno} order by file_no asc
+	</select>
+	
+	<select id="cnt_img" parameterType="int" resultType="int">
+		select count(*) from free_file where no=#{bno} and 
+		 ( file_name like '%.jpg%' or file_name like '%.gif%' or file_name like '%.png%' or file_name like '%.jpeg%' )
+	</select>
+	
+	<select id="cnt_nimg" parameterType="int" resultType="int">
+		select count(*) from free_file where no=#{bno} and 
+		 file_name NOT LIKE '%.jpg%' AND file_name NOT LIKE '%.gif%' AND file_name NOT LIKE  '%.png%' AND file_name NOT LIKE '%.jpeg%'
+	</select>
+	
+	<delete id="delAttach" parameterType="String">
+		DELETE FROM free_file WHERE ufile_name = #{ufile_name}
+	</delete>
+</mapper>

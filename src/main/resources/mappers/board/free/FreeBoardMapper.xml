@@ -4,25 +4,19 @@
 <!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
 <mapper namespace="free_board">
 
+	<!-- 최근에 작성된 게시글 번호 얻어오기 -->
+	<select id="getBno" resultType="int">
+		SELECT no
+		FROM 
+		free_board order by no desc limit 1
+	</select>
+	
 	<!-- 02. 게시글 작성 -->
     <insert id="insert">
-        INSERT INTO free_board (
-          id,
-          writer, 
-          subject,
-          content,
-          k_date,
-          readcount,
-          cate_chk
-        ) VALUES (
-		  #{id},
-		  #{writer},
-		  #{subject},
-		  #{content},
-		  now(),
-		  0,
-		  #{cate_chk}
-        )
+        INSERT INTO free_board 
+        ( id, writer, subject, content, k_date, readcount, cate_chk ) 
+        VALUES 
+        ( #{id}, #{writer}, #{subject}, #{content}, now(), 0, #{cate_chk} )
     </insert>
     
 	<!-- 02_02. 게시글 레코드 갯수 -->
@@ -67,12 +61,7 @@
         WHERE no = #{no}
     </update>
 	 
-	 
-	 
-	 
-	 
-	 
-	 
+
 	<!-- 검색 조건 sql -->
 	<sql id="board_search">
 	 <if test="keyword != null and keyword !=''">
@@ -99,4 +88,5 @@
 		ORDER BY no DESC limit #{start}, #{end} 
 	</sql>
 
+	
 </mapper>
