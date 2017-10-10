@@ -19,14 +19,10 @@
 		<div class="boardWrite">
 			<table>
 				<tr>
-					<th>카테코리</th>
-					<td>${map.cdto.cate_name}</td>
+					<th>id</th>
+					<td>${map.dto.id}</td>
 					<th>조회수</th>
 					<td>${map.dto.readcount}</td>
-				</tr>
-				<tr>
-					<th>id</th>
-					<td colspan="3">${map.dto.id}</td>
 				</tr>
 				<tr>
 					<th>writer</th>
@@ -36,10 +32,6 @@
 				<tr>
 					<th>제목</th>
 					<td colspan="3">${map.dto.subject}</td>
-				</tr>
-				<tr>
-					<th>내용</th>
-					<td height="300px;" colspan="3">${map.dto.content}</td>
 				</tr>
 				<tr>
 					<th>첨부파일</th>
@@ -138,11 +130,11 @@
 
 	<!-- btnArea -->
 	<div class="btnArea">
-		<button class="btnSubmit" type="button" onclick="location.href='/SpringTiles/board/free_board_list.do">목록</button>
+		<button class="btnSubmit" type="button" onclick="location.href='/SpringTiles/board/gallery_board_list.do">목록</button>
 
 		<c:if test="${map.dto.id == sessionScope.id}">
-			<button class="btnSubmit" type="button" onclick="location.href='/SpringTiles/board/free_board_update.do?bno=${map.dto.no}' ">수정</button>
-			<button class="btnSubmit" type="button" onclick="location.href='/SpringTiles/board/free_board_delete.do'">삭제</button>
+			<button class="btnSubmit" type="button" onclick="location.href='/SpringTiles/board/gallery_board_update.do?bno=${map.dto.no}' ">수정</button>
+			<button class="btnSubmit" type="button" onclick="location.href='/SpringTiles/board/gallery_board_delete.do'">삭제</button>
 		</c:if>
 			
 	</div>

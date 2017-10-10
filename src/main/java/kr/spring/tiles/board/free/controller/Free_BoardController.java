@@ -111,6 +111,7 @@ public class Free_BoardController {
       freeboard.setId("slr2"); 
       freeboard.setWriter("홍길동");
 
+
       logger.info("freeboard 값 체크 [ "
             + "freeboard.getId()"+freeboard.getId()
             + "freeboard.Writer="+freeboard.getWriter()+", subject="+freeboard.getSubject() 

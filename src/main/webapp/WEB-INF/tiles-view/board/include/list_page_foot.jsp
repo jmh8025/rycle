@@ -36,8 +36,11 @@
 					<span class="btn_arr"><a href="/SpringTiles/board/free_board_list.do?curPage=${map.boardPager.totPage}&searchOption=${map.searchOption}&keyword=${map.keyword}">[끝]</a>
 				</c:if>
 				
-				<input class="btnWrite" type="button" value="글쓰기" onclick="location.href='/SpringTiles/board/${map.board_name}_write.do'">
 				
+				
+				<c:if test="${sessionScope.id != null && sessionScope.id != '' }">
+				<input class="btnWrite" type="button" value="글쓰기" onclick="location.href='/SpringTiles/board/${map.board_name}_write.do'">
+				</c:if>
 	</div>
 
 </div>

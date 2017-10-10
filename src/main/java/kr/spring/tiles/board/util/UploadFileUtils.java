@@ -86,6 +86,15 @@ public class UploadFileUtils {
 		if (new File(paths[paths.length - 1]).exists()){
 			return;
 		}
+		
+		File dirPath2 = new File(uploadPath);
+		
+		if(!dirPath2.exists()) {
+			logger.info("UploadFileUtil_makeDir_uploadPath:"+uploadPath);
+			logger.info(uploadPath);
+			dirPath2.mkdir(); //디렉토리 생성
+		}
+		
 		// 디렉토리가 존재하지 않으면
 		for (String path : paths) {
 			// 

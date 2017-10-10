@@ -27,6 +27,10 @@ public interface FreeBoardService {
 	public List<Free_commentVO> getCommentList(int bno) throws Exception;
 	// 02-5 넣고 댓글 가져오기
 	public Free_commentVO getComment(int bno, Free_commentVO cvo) throws Exception;
+	// 02-6 수정하고 댓글 가져오기
+	public Free_commentVO getUpComment(int cno, Free_commentVO cvo) throws Exception;
+	// 02-7 댓글 삭제
+	public void getDelComment(int cno) throws Exception;
 	
 	// 03. 게시글 수정
 	public void update(Free_boardVO vo) throws Exception;

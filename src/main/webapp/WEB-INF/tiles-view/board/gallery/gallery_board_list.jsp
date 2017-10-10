@@ -31,12 +31,12 @@
             <!-- boardSearch -->
             <div class="boardSearch">
                 <p class="result"><i class="icon-doc-text"></i> 총 <strong>${map.count}</strong> 건</p>
-                <form method="post" name="boardForm" action="/SpringTiles/board/free_board_list.do">    
+                <form method="post" name="boardForm" action="/SpringTiles/board/gallery_board_list.do">    
                     <fieldset class="search">
                         <div class="selectBox">
                          <select id="searchOption" name="searchOption" title="검색조건 분류 선택하세요.">
 			<option value="all" <c:out value="${map.searchOption == 'all'?'selected':''}" /> >전체</option>
-			<option value="content" <c:out value="${map.searchOption == 'content'?'selected':''}" /> >본문</option>
+			<option value="subject_content" <c:out value="${map.searchOption == 'subject_content'?'selected':''}" /> >제목+본문</option>
 			<option value="subject" <c:out value="${map.searchOption == 'subject'?'selected':''}" /> >제목</option>
 			<option value="writer" <c:out value="${map.searchOption == 'writer'?'selected':''}" /> >작성자</option>	
 			<option value="id" <c:out value="${map.searchOption == 'id'?'selected':''}" /> >ID</option>	
@@ -54,7 +54,6 @@
                 <table>
                 <colgroup>
                     <col style="width:6%;">
-                    <col style="width:10%;">
                     <col>
                     <col style="width:10%;">
                     <col style="width:10%;">
@@ -63,7 +62,6 @@
                 <thead>
                     <tr>
                         <th scope="col">번호</th>
-                        <th scope="col">카테고리명</th>
                         <th scope="col">제목</th>
                         <th scope="col">작성자</th>
                         <th scope="col">작성일</th>
@@ -79,8 +77,7 @@
 	<c:forEach var="article" items="${map.list}"  varStatus="status">
 		<tr>
 			<td align="center">${(map.count) - ( (map.boardPager.curPage - 1)  *  map.PAGE_SCALE + status.index ) }</td>
-			<td>${article.writer}</td>
-			<td><a href="/SpringTiles/board/free_board_view.do?bno=${article.no}&cate_chk=${article.cate_chk}${board_link}">${article.subject}</a></td>
+			<td><a href="/SpringTiles/board/gallery_board_view.do?bno=${article.no}${board_link}">${article.subject}</a></td>
 			<td>${article.writer}</td>
 			<td>${article.k_date}</td>
 			<td>${article.readcount}</td>
