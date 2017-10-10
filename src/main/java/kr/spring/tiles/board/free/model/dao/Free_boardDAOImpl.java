@@ -29,10 +29,12 @@ public class Free_boardDAOImpl implements Free_boardDAO {
 	// Inject애노테이션이 있으면 외부에서 객체를 주입시켜주게 된다. 
 	// try catch문, finally문, 객체를 close할 필요가 없어졌다.
 	SqlSession sqlSession;
+		
 	
 	// 01_01. 게시글 작성
 	@Override
 	public void create(Free_boardVO vo) throws Exception {
+    	logger.info("FreeBoardDao에서 불러서 insert 실행한다");
 		sqlSession.insert("free_board.insert", vo);
 	}
 	
@@ -89,6 +91,12 @@ public class Free_boardDAOImpl implements Free_boardDAO {
 		map.put("searchOption", searchOption);
 		map.put("keyword", keyword);
 		return sqlSession.selectOne("free_board.countArticle", map);
+	}
+	
+	@Override
+	public int recent_bno() throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("free_board.getBno");
 	}
 /*	
 	// 08. 게시글 첨부파일 목록

@@ -4,98 +4,66 @@ import java.sql.Date;
 
 public class Free_commentVO {
 	
-	private int cmt_no;
-	private int no;
-	private int gr_no;
-	private int gr_order;
-	private int depth;
-
-	private String content;
+	private int cno; 
+	private int bno; //게시판번호
+	private String cid; //작성자 아이디
+	private String cname; //작성자 이름
+	private Date cdate; // java.sql.Date
 	
-	private String id; 
-	private String writer; 
+	private int cpno;	
+	private int clevel; //내용
+	private String ccontent; //내용
 	
-	private Date k_date; // java.sql.Date
+	//Getter, Setter
 	
-	// Getter/Setter
-	
-	public int getCmt_no() {
-		return cmt_no;
+	public int getCno() {
+		return cno;
 	}
-
-	public void setCmt_no(int cmt_no) {
-		this.cmt_no = cmt_no;
+	public void setCno(int cno) {
+		this.cno = cno;
 	}
-
-	public int getNo() {
-		return no;
+	public int getBno() {
+		return bno;
 	}
-
-	public void setNo(int no) {
-		this.no = no;
+	public void setBno(int bno) {
+		this.bno = bno;
 	}
-
-	public int getGr_no() {
-		return gr_no;
+	public String getCid() {
+		return cid;
 	}
-
-	public void setGr_no(int gr_no) {
-		this.gr_no = gr_no;
+	public void setCid(String cid) {
+		this.cid = cid;
 	}
-
-	public int getGr_order() {
-		return gr_order;
+	public String getCname() {
+		return cname;
 	}
-
-	public void setGr_order(int gr_order) {
-		this.gr_order = gr_order;
+	public void setCname(String cname) {
+		this.cname = cname;
 	}
-
-	public int getDepth() {
-		return depth;
+	public Date getCdate() {
+		return cdate;
 	}
-
-	public void setDepth(int depth) {
-		this.depth = depth;
+	public void setCdate(Date cdate) {
+		this.cdate = cdate;
 	}
-
-	public String getContent() {
-		return content;
+	public int getCpno() {
+		return cpno;
 	}
-
-	public void setContent(String content) {
-		this.content = content;
+	public void setCpno(int cpno) {
+		this.cpno = cpno;
 	}
-
-	public String getId() {
-		return id;
+	public int getClevel() {
+		return clevel;
 	}
-
-	public void setId(String id) {
-		this.id = id;
+	public void setClevel(int clevel) {
+		this.clevel = clevel;
 	}
-
-	public String getWriter() {
-		return writer;
+	public String getCcontent() {
+		return ccontent;
 	}
-
-	public void setWriter(String writer) {
-		this.writer = writer;
-	}
-
-	public Date getK_date() {
-		return k_date;
-	}
-
-	public void setK_date(Date k_date) {
-		this.k_date = k_date;
+	public void setCcontent(String ccontent) {
+		this.ccontent = ccontent;
 	}
 	
-	// toString()
-	@Override
-	public String toString() {
-		return "Free_commentVO [cmt_no=" + cmt_no + ", no=" + no + ", gr_no=" + gr_no + ", gr_order="
-				+ gr_order + ", depth=" + depth + ", content=" + content 
-				+ ", id=" + id + ", writer=" + writer + ", k_date=" + k_date + "]";
-	}
+		
 }
