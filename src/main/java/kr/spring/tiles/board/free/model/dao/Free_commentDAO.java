@@ -19,5 +19,12 @@ public interface Free_commentDAO {
 	
 	//최근 insert 한 댓글 가져오기
 	public Free_commentVO cread(int bno) throws Exception;
-
+	
+	//update
+	public void cupdate(Free_commentVO cvo) throws Exception;
+	
+	//cno통해 댓글 가져오기
+	public Free_commentVO curead(int cno) throws Exception;	
+	
+	public void cdelete(int cno) throws Exception;
 }

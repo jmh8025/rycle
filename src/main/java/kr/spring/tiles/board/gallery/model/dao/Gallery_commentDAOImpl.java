@@ -1,4 +1,4 @@
-package kr.spring.tiles.board.free.model.dao;
+package kr.spring.tiles.board.gallery.model.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,16 +14,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import kr.spring.tiles.board.free.controller.Free_BoardController;
-import kr.spring.tiles.board.free.model.dao.Free_fileDAO;
-import kr.spring.tiles.board.free.model.dto.Free_fileVO;
-import kr.spring.tiles.board.free.model.dto.Free_commentVO;
+import kr.spring.tiles.board.gallery.controller.Gallery_BoardController;
+import kr.spring.tiles.board.gallery.model.dao.Gallery_fileDAO;
+import kr.spring.tiles.board.gallery.model.dto.Gallery_fileVO;
+import kr.spring.tiles.board.gallery.model.dto.Gallery_commentVO;
 
 //현재 클래스를 DAO bean으로 등록시킴
 @Repository
-public class Free_commentDAOImpl implements Free_commentDAO {
+public class Gallery_commentDAOImpl implements Gallery_commentDAO {
 	
-	private static final Logger logger = LoggerFactory.getLogger(Free_BoardController.class);
+	private static final Logger logger = LoggerFactory.getLogger(Gallery_BoardController.class);
 
 	// SqlSession 객체를 스프링에서 생성하여 주입시켜준다.
 	// 의존관계 주입(Dependency Injection, DI)
@@ -36,38 +36,38 @@ public class Free_commentDAOImpl implements Free_commentDAO {
 	SqlSession sqlSession;
 
 	@Override
-	public List<Free_commentVO> clread(int bno) throws Exception {
+	public List<Gallery_commentVO> clread(int bno) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("freecomment.clread", bno);
+		return sqlSession.selectList("gallerycomment.clread", bno);
 	}
 	
 	@Override
-	public void cinsert(Free_commentVO vo) throws Exception {
+	public void cinsert(Gallery_commentVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		sqlSession.insert("freecomment.cinsert", vo);
+		sqlSession.insert("gallerycomment.cinsert", vo);
 	}
 	
 	@Override
-	public Free_commentVO cread(int bno) throws Exception {
+	public Gallery_commentVO cread(int bno) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("freecomment.cread", bno);
+		return sqlSession.selectOne("gallerycomment.cread", bno);
 	}
 	
 	@Override
-	public void cupdate(Free_commentVO cvo) throws Exception {
+	public void cupdate(Gallery_commentVO cvo) throws Exception {
 		// TODO Auto-generated method stub
-		sqlSession.update("freecomment.cupdate", cvo);
+		sqlSession.update("gallerycomment.cupdate", cvo);
 	}
 	
 	@Override
-	public Free_commentVO curead(int cno) throws Exception {
+	public Gallery_commentVO curead(int cno) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("freecomment.curead", cno);
+		return sqlSession.selectOne("gallerycomment.curead", cno);
 	}
 	
 	@Override
 	public void cdelete(int cno) throws Exception {
-		sqlSession.delete("freecomment.cdelete", cno);
+		sqlSession.delete("gallerycomment.cdelete", cno);
 		
 	}
 }

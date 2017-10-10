@@ -104,6 +104,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		return freeboardDao.read(bno);
 	}
 	
+	// 카테고리 이름 
 	@Override
 	public Fb_categoryVO cateName(String cate_chk) throws Exception {
 		// TODO Auto-generated method stub
@@ -122,14 +123,28 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	
 	@Override
 	public Free_commentVO getComment(int bno, Free_commentVO cvo) throws Exception {
-
 		
 		freecommentDao.cinsert(cvo);
-		
 		logger.info("getComment_bno : "+bno);
-		
 		return freecommentDao.cread(bno);
 		
+	}
+	
+	// 02-6 수정하고 댓글 가져오기
+	@Override
+	public Free_commentVO getUpComment(int cno, Free_commentVO cvo) throws Exception {
+		
+		freecommentDao.cupdate(cvo);
+/*		logger.info("getUpComment_cno : "+cno);
+		logger.info("getUpComment_ccontent : "+ccontent);*/
+		return freecommentDao.curead(cno);
+		
+	}
+	
+	// 02-7 댓글 삭제
+	@Override
+	public void getDelComment(int cno) throws Exception {
+		freecommentDao.cdelete(cno);
 	}
 
 	// 03. 게시글 수정
@@ -143,7 +158,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 			freeboardDao.updateAttach(name, vo.getBno());
 		}*/
 	}
-	
+		
 	/*// 04. 게시글 삭제
 	@Override
 	public void delete(int bno) throws Exception {

@@ -2,88 +2,62 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
-<mapper namespace="free_board">
+<mapper namespace="gallery_board">
 
 	<!-- 최근에 작성된 게시글 번호 얻어오기 -->
 	<select id="getBno" resultType="int">
 		SELECT no
 		FROM 
-		free_board order by no desc limit 1
+		gallery_board order by no desc limit 1
 	</select>
 	
 	<!-- 02. 게시글 작성 -->
     <insert id="insert">
-        INSERT INTO free_board 
-        ( id, writer, subject, content, k_date, readcount, cate_chk ) 
+        INSERT INTO gallery_board 
+        ( id, writer, subject, k_date, readcount ) 
         VALUES 
-        ( #{id}, #{writer}, #{subject}, #{content}, now(), 0, #{cate_chk} )
+        ( #{id}, #{writer}, #{subject}, now(), 0)
     </insert>
     
 	<!-- 02_02. 게시글 레코드 갯수 -->
 	<select id="countArticle" parameterType="map" resultType="int">
 		SELECT COUNT(no) 
 		FROM 
-		free_board
+		gallery_board
 		<!-- WHERE절을 include 태그로 삽입 -->
 		<include refid="board_search"></include>
 	</select>
 
 	<!-- 게시글 전체 목록 조회 및 검색조회까지 -->
-	<select id="listAll" parameterType="map" resultType="kr.spring.tiles.board.free.model.dto.Free_boardVO">
+	<select id="listAll" parameterType="map" resultType="kr.spring.tiles.board.gallery.model.dto.Gallery_boardVO">
 	    <!-- 목록 조회 및 페이징 전체 쿼리 -->
-			SELECT a.*, b.cate_name
-			FROM free_board a LEFT OUTER JOIN fb_category b 
-			ON a.cate_chk = b.cate_chk
-	        <include refid="fboard_search" />
-	        <include refid="fpagingFooter" />
+			SELECT *
+			FROM gallery_board 
+	        <include refid="board_search" />
+	        <include refid="pagingFooter" />
 	</select>
 	 
     <!--03. 게시글 상세보기 조회 -->
-    <select id="view" parameterType="int" resultType="kr.spring.tiles.board.free.model.dto.Free_boardVO">
-        SELECT * FROM free_board 
+    <select id="view" parameterType="int" resultType="kr.spring.tiles.board.gallery.model.dto.Gallery_boardVO">
+        SELECT * FROM gallery_board 
         WHERE no = #{bno}
     </select>
 	 
-	 
     <!-- 04. 게시글 조회수 증가처리 -->
     <update id="increaseViewcnt">
-        UPDATE free_board SET readcount = readcount + 1 
+        UPDATE gallery_board SET readcount = readcount + 1 
         WHERE no = #{no}
     </update>
 	 
 	<!-- 05. 게시글 수정처리 -->
-    <update id="update" parameterType="kr.spring.tiles.board.free.model.dto.Free_boardVO">
-        UPDATE free_board SET
+    <update id="update" parameterType="kr.spring.tiles.board.gallery.model.dto.Gallery_boardVO">
+        UPDATE gallery_board SET
             id = #{id},
             writer = #{writer},
             subject = #{subject},
-            content = #{content},
-            cate_chk = #{cate_chk}
         WHERE no = #{no}
     </update>
-	 
 
-	<!-- 검색 조건 sql -->
-	<sql id="fboard_search">
-	 <if test="keyword != null and keyword !=''">
-	 <where>
-	    <choose> 
-	        <!-- 검색옵션이 전체 검색일 경우 -->
-	        <when test="searchOption == 'all'">
-	            a.id like '%${keyword}%' or
-	            a.writer like '%${keyword}%' or
-	            a.subject like '%${keyword}%' or
-	            a.content like '%${keyword}%'
-	        </when>
-	        <!-- 전체 검색이 아닐 경우 -->
-	        <otherwise>
-	          a.${searchOption} like '%${keyword}%'
-	        </otherwise>
-	    </choose>
-	    </where>
-	    </if>
-	</sql>
-	
 	<!-- 검색 조건 sql -->
 	<sql id="board_search">
 	 <if test="keyword != null and keyword !=''">
@@ -94,7 +68,6 @@
 	            id like '%${keyword}%' or
 	            writer like '%${keyword}%' or
 	            subject like '%${keyword}%' or
-	            content like '%${keyword}%'
 	        </when>
 	        <!-- 전체 검색이 아닐 경우 -->
 	        <otherwise>
@@ -104,16 +77,10 @@
 	    </where>
 	    </if>
 	</sql>
-	 
-	<!-- 페이징 sql -->
-	<sql id="fpagingFooter">
-		ORDER BY a.no DESC limit #{start}, #{end} 
-	</sql>
 	
 	<!-- 페이징 sql -->
 	<sql id="pagingFooter">
 		ORDER BY no DESC limit #{start}, #{end} 
 	</sql>
-
 	
 </mapper>

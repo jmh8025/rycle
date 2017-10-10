@@ -59,7 +59,6 @@ public class CommentController {
 
 	}
 
-	// 5. Ajax업로드 처리 매핑
 	// 파일의 한글처리 : produces="text/plain;charset=utf-8"
 	@ResponseBody // view가 아닌 data리턴
 	@RequestMapping(value = "/comment/insertAjax", method = RequestMethod.POST)	
@@ -83,5 +82,29 @@ public class CommentController {
 		
 		return map;
 	}
-
+	
+	@ResponseBody // view가 아닌 data리턴
+	@RequestMapping(value = "/comment/updateAjax", method = RequestMethod.POST)	
+	public Map<String, Object> insertAjax(@RequestParam("cno") int cno, @RequestParam("ccontent") String ccontent) throws Exception {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		Free_commentVO cvo = new Free_commentVO();
+		cvo.setCno(cno);
+		cvo.setCcontent(ccontent);
+		
+		map.put("cvo", boardService.getUpComment(cno, cvo)); // 게시물명
+		
+		return map;
+	}
+	
+	
+	@ResponseBody // view가 아닌 data리턴
+	@RequestMapping(value = "/comment/deleteAjax", method = RequestMethod.POST)	
+	public int insertAjax(@RequestParam("cno") int cno) throws Exception {
+		
+		boardService.getDelComment(cno); // 게시물명
+		return cno;
+	}
+	
 }
