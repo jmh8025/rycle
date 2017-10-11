@@ -11,6 +11,7 @@ public class Free_boardVO {
 	private Date k_date; // java.sql.Date
 	private int readcount;
 	private String cate_chk;
+	private String cate_name;
 
 	// Getter/Setter
 
@@ -78,6 +79,14 @@ public class Free_boardVO {
 		this.cate_chk = cate_chk;
 	}
 	
+	public String getCate_name() {
+		return cate_name;
+	}
+
+	public void setCate_name(String cate_name) {
+		this.cate_name = cate_name;
+	}
+
 	// toString()
 	@Override
 	public String toString() {

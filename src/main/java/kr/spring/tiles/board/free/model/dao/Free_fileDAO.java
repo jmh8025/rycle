@@ -21,6 +21,11 @@ public interface Free_fileDAO {
 	//파일 목록 중 img 아닌 것 갯수
 	public int cnt_nimg(int bno) throws Exception;
 	
-	//파일 삭제
+	//파일이름을 체크하여 삭제
 	public void deleteFile(String ufile_name) throws Exception;
+	
+	//파일 게시판 번호 체크하여 삭제
+	public void bdeleteFile(int bno) throws Exception;
+	
+	
 }
