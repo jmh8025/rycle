@@ -66,7 +66,6 @@
 			<div class="btnArea">
 			
 					<input class="btnList" type="button" value="목록" onclick="location.href='/SpringTiles/board/free_board_list.do'">
-				
 					<button class="btnSubmit" type="button" id="btnSave" onclick="write_submit('free_board');" >확인</button>
 					<button class="btnReset" type="reset" >취소</button>
 				

@@ -208,5 +208,14 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		// TODO Auto-generated method stub
 		freefileDao.deleteFile(fullname);
 	}
+	
+	@Override
+	public void delete(int bno) throws Exception {
+		// TODO Auto-generated method stub
+		//파일 삭제 시 게시판, 파일, 댓글 삭제
+		freeboardDao.bdelete(bno);
+		freefileDao.bdeleteFile(bno); 
+		freecommentDao.bdeleteCmt(bno);
+	}
 
 }

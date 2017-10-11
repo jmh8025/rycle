@@ -71,4 +71,10 @@ public class Free_fileDAOImpl implements Free_fileDAO {
 		sqlSession.delete("freefile.delAttach", ufile_name);		
 		
 	}
+	
+	@Override
+	public void bdeleteFile(int bno) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.delete("freefile.bdeleteFile", bno);		
+	}
 }

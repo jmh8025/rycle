@@ -70,4 +70,10 @@ public class Free_commentDAOImpl implements Free_commentDAO {
 		sqlSession.delete("freecomment.cdelete", cno);
 		
 	}
+	
+	@Override
+	public void bdeleteCmt(int bno) throws Exception {
+		sqlSession.delete("freecomment.bdeleteCmt", bno);
+		
+	}
 }

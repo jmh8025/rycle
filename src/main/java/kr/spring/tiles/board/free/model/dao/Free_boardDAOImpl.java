@@ -98,6 +98,12 @@ public class Free_boardDAOImpl implements Free_boardDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("free_board.getBno");
 	}
+	
+	@Override
+	public void bdelete(int bno) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.delete("free_board.bdelete" ,bno);
+	}
 /*	
 	// 08. 게시글 첨부파일 목록
 	@Override
