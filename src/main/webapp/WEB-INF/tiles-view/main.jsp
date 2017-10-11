@@ -9,16 +9,46 @@
     </li>
     <li>
         <div class="weather">
-        <h3>${today.day_week}, ${today.month}</h3><br>
-        <h3><i class="icon-plus-circled"></i>Seoul, ${today.sky}</h3>
+        <h3><br>${today.day_week}, ${today.month}</h3><br>
+        <h3><i class="icon-plus-circled"></i>Seoul, ${today.sky}</h3><br>
         <p><span>${today.temp}˚</span><img src="${path}/${today.skyicon}" width="115px"></p><br>
-        <h3></h3>
         </div>
     </li>
     <li>
         <div class="gallary">갤러리</div>
-        <div class="today">접속자수</div>
+        <div class="today">dd ${totalCount} </div>
     </li>
-    <li><div class="notice">공지사항</div></li>
+    <li><div class="notice">
+    
+      <div class="boardList">
+                <table>
+                <colgroup>
+                    <col style="width:10%;">
+                    <col style="width:10%;">
+                    <col style="width:10%;">
+                </colgroup>
+                <thead>
+                    <tr class="boardListtr">
+                        <th scope="col">제목</th>
+                        <th scope="col">작성자</th>
+                        <th scope="col">작성일</th>
+                    </tr>
+                </thead>
+                <tbody>
+	<c:forEach var="article" items="${map.list}"  varStatus="status">
+		<tr>
+			<td><a href="/SpringTiles/board/free_board_view.do?bno=${article.no}&cate_chk=${article.cate_chk}${board_link}">${article.subject}</a></td>
+			<td>${article.writer}</td>
+			<td>${article.k_date}</td>
+		</tr>	
+	</c:forEach>
+                </tbody>
+                </table>
+            </div>
+
+
+</div>
+
+</li>
     <li><div class="route">경로추천</div></li>
 </ul>
