@@ -103,13 +103,13 @@ public class Free_BoardController {
    public String free_Board_insert( @ModelAttribute Free_boardVO freeboard, @ModelAttribute Free_fileVO freefile , HttpSession session) throws Exception{
 
 
-      // session에 저장된 userId를 writer에 저장
-/*      String id = (String) session.getAttribute("userId");
-      String writer = (String) session.getAttribute("userWriter");*/      
-      
-      // vo에 writer를 세팅
-      freeboard.setId("slr2"); 
-      freeboard.setWriter("홍길동");
+	      // session에 저장된 userId를 writer에 저장
+       String session_id = (String) session.getAttribute("id");
+       String session_writer = (String) session.getAttribute("name");
+       
+       // vo에 writer를 세팅
+   freeboard.setId(session_id); 
+   freeboard.setWriter(session_writer);
 
 
       logger.info("freeboard 값 체크 [ "
@@ -178,15 +178,14 @@ public class Free_BoardController {
    
    public String free_Board_Update(@RequestParam int bno, @ModelAttribute Free_boardVO freeboard, HttpSession session, Model model) throws Exception{
       
-	   
 	   logger.info("free_Board_Update실행[ bno="+bno+"]");
 	      // session에 저장된 userId를 writer에 저장
-	   /*      String id = (String) session.getAttribute("userId");
-	         String writer = (String) session.getAttribute("userWriter");*/      
+	         String session_id = (String) session.getAttribute("id");
+	         String session_writer = (String) session.getAttribute("name");
 	         
 	         // vo에 writer를 세팅
-	     freeboard.setId("slr2_m"); 
-	     freeboard.setWriter("홍길동_m");
+	     freeboard.setId(session_id); 
+	     freeboard.setWriter(session_writer);
 	     
 	     freeboard.setNo(bno); 
 	      logger.info("freeboard 값 체크 [ "
@@ -204,13 +203,13 @@ public class Free_BoardController {
 	        return "board/free/free_board_view";
    }
    
-   /*
+   
    // 05. 게시글 삭제
-   @RequestMapping("delete.do")
+   @RequestMapping(value="/board/free_board_delete.do", method=RequestMethod.GET)
    public String free_Board_Delete(@RequestParam int bno) throws Exception{
-       boardService.delete(bno);
-       return "redirect:list.do";
-   }*/
+	   freeBoardService.delete(bno);
+	      return "redirect:/board/free_board_list.do";
+   }
    
    
 }

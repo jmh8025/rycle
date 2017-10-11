@@ -92,13 +92,13 @@ public class Gallery_BoardController {
    public String gallery_Board_insert( @ModelAttribute Gallery_boardVO galleryboard, @ModelAttribute Gallery_fileVO galleryfile , HttpSession session) throws Exception{
 
 
-      // session에 저장된 userId를 writer에 저장
-/*      String id = (String) session.getAttribute("userId");
-      String writer = (String) session.getAttribute("userWriter");*/      
-      
-      // vo에 writer를 세팅
-	  galleryboard.setId("slr2"); 
-	  galleryboard.setWriter("홍길동");
+	      // session에 저장된 userId를 writer에 저장
+       String session_id = (String) session.getAttribute("id");
+       String session_writer = (String) session.getAttribute("name");
+       
+       // vo에 writer를 세팅
+   galleryboard.setId(session_id); 
+   galleryboard.setWriter(session_writer);
 
 
       logger.info("galleryboard 값 체크 [ "
@@ -164,13 +164,13 @@ public class Gallery_BoardController {
       
 	   
 	   logger.info("gallery_Board_Update실행[ bno="+bno+"]");
-	      // session에 저장된 userId를 writer에 저장
-	   /*      String id = (String) session.getAttribute("userId");
-	         String writer = (String) session.getAttribute("userWriter");*/      
-	         
-	         // vo에 writer를 세팅
-	   galleryboard.setId("slr2_m"); 
-	   galleryboard.setWriter("홍길동_m");
+	    // session에 저장된 userId를 writer에 저장
+	    String session_id = (String) session.getAttribute("id");
+    	String session_writer = (String) session.getAttribute("name");
+    
+    	// vo에 writer를 세팅
+    	galleryboard.setId(session_id); 
+    	galleryboard.setWriter(session_writer);
 	     
 	   galleryboard.setNo(bno); 
 	      logger.info("galleryboard 값 체크 [ "

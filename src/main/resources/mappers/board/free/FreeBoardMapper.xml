@@ -115,5 +115,9 @@
 		ORDER BY no DESC limit #{start}, #{end} 
 	</sql>
 
+	<!-- 게시판 삭제 -->
+	<delete id="bdelete" parameterType="int">
+		delete from free_board where no= #{bno}
+	</delete>
 	
 </mapper>

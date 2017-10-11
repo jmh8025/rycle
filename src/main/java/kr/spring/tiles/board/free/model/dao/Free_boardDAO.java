@@ -27,6 +27,9 @@ public interface Free_boardDAO {
 	// 08. 최근 게시글 번호 얻어오기
 	public int recent_bno() throws Exception;
 	
+	// 09 게시판 삭제
+	public void bdelete(int bno) throws Exception;
+	
 /*	// 08. 게시물 첨부파일 추가
 	public void addAttach(String fullName);
 	// 09. 게시물 첨부파일 목록

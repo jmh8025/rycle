@@ -54,8 +54,9 @@
                 <table>
                 <colgroup>
                     <col style="width:6%;">
-                    <col style="width:10%;">
+                    <col style="width:15%;">
                     <col>
+                    <col style="width:10%;">
                     <col style="width:10%;">
                     <col style="width:10%;">
                     <col style="width:10%;">
@@ -65,6 +66,7 @@
                         <th scope="col">번호</th>
                         <th scope="col">카테고리명</th>
                         <th scope="col">제목</th>
+                        <th scope="col">ID</th>
                         <th scope="col">작성자</th>
                         <th scope="col">작성일</th>
                         <th scope="col">조회</th>
@@ -79,8 +81,9 @@
 	<c:forEach var="article" items="${map.list}"  varStatus="status">
 		<tr>
 			<td align="center">${(map.count) - ( (map.boardPager.curPage - 1)  *  map.PAGE_SCALE + status.index ) }</td>
-			<td>${article.writer}</td>
+			<td>${article.cate_name}</td>
 			<td><a href="/SpringTiles/board/free_board_view.do?bno=${article.no}&cate_chk=${article.cate_chk}${board_link}">${article.subject}</a></td>
+			<td>${article.id}</td>
 			<td>${article.writer}</td>
 			<td>${article.k_date}</td>
 			<td>${article.readcount}</td>
