@@ -32,9 +32,16 @@ function write_submit(board) {
 			ssubject.innerHTML = "";
 		}
 
-		if (cate_chk.value.length != 0 && subject.value.length != 0 && content.value.length != 0) {
-			var form = document.writeform;
-			form.submit();
+		if (board == "free_board") {
+			if (cate_chk.value.length != 0 && subject.value.length != 0 && content.value.length != 0) {
+				var form = document.writeform;
+				form.submit();
+			}
+		}	else {
+			if (subject.value.length != 0) {
+				var form = document.writeform;
+				form.submit();
+			}
 		}
 
 }
@@ -84,21 +91,27 @@ function getFileInfo(fullName){
 }
 
 $(document).ready(function() {
+	   var path = window.location.pathname;
+	   var gall_chk = "N";
+	   
+	   if(path.indexOf("gallery") != -1) {
+	      gall_chk = "Y";
+	   }
 	
 	// 1. 드래그 영역 기본 효과(바로보기)를 제한
-	$(".fileDrop").on("dragenter dragover", function(event) {
+	$("#fileDrop").on("dragenter dragover", function(event) {
 		event.preventDefault(); // 기본효과를 제한
 	});
 	
 	// 2. 파일 업로드
 	// event : jQuery 이벤트, originalEvent : javascript 이벤트
-	$(".fileDrop").on("drop", function(event) {
+	$("#fileDrop").on("drop", function(event) {
 		event.preventDefault(); // 기본효과를 제한
 		// 드래그된 파일의 정보
 		var files = event.originalEvent.dataTransfer.files;
 		// 첫번째 파일
 		var file = files[0];
-		// 콘솔에서 파일정보 확인
+				// 콘솔에서 파일정보 확인
 		console.log(file);
 		// ajax로 전달할 폼 객체
 		var formData = new FormData();
@@ -107,22 +120,21 @@ $(document).ready(function() {
 		
 		$.ajax({
 			type: "post",
-			url: "/SpringTiles/upload/uploadAjax.do",
+			url: "/SpringTiles/upload/uploadAjax.do?gall_chk="+gall_chk,
 			data: formData,
 			dataType: "text",
 			// processData: true=> get방식, false => post방식
 			processData: false,
-			// contentType: true => application/x-www-form-urlencoded, 기본옵션
-			//				false => multipart/form-data, 멀티파트
 			contentType: false,
 			success: function(data) {
 				//alert(data);
 				console.log(data);
-				
+
 				var hadd = 20;
 				var str = "";
 				var file_name = "";
-				
+
+				alert(data);
 				// 이미지파일이면 썸네일 이미지 출력
 					if(checkImageType(data)){ 
 					str = "<div><a href='/SpringTiles/upload/displayFile.do?fileName="+getImageLink(data)+"'>";
@@ -130,22 +142,25 @@ $(document).ready(function() {
 					hadd = 100;
 				// 이미지 파일이 아니면 다운로드
 				} else { 
+					if(gall_chk == "Y"){ alert("이미지만 등록 가능합니다"); return false; }
 					str = "<div><a href='/SpringTiles/upload/displayFile.do?fileName="+data+"'>"+getOriginalName(data)+"</a>";	
+
 				}
-					str += "<span data-src="+data+">[삭제]</span><input type='hidden' name='file_name2' value='"+ getOriginalName(data) +"'><input type='hidden' name='ufile_name2' value='"+ data +"'></div>";					
+					str += "<span data-src="+data+">[삭제]</span>";
+					str += "<input type='hidden' name='file_name2' value='"+ getOriginalName(data) +"'>"; //원본파일명
+					str += "<input type='hidden' name='ufile_name2' value='"+ data +"'></div>";					 //업로드명
 					
-					alert(str);
 				var height = document.getElementById('fileDrop' ).offsetHeight;
 				
-				$('.fileDrop').height( height + hadd );
+				$('#fileDrop').height( height + hadd );
 
-				$(".fileDrop").append(str);
+				$("#fileDrop").append(str);
 			}
 		});
 	});
 		// 2. 파일 삭제
 		// 태그.on("이벤트", "자손태그", "이벤트핸들러")
-	$(".fileDrop").on("click", "span", function(event){
+	$("#fileDrop").on("click", "span", function(event){
 		alert("이미지 삭제")
 		var that = $(this); // 여기서 this는 클릭한 span태그
 		$.ajax({
@@ -163,9 +178,9 @@ $(document).ready(function() {
 					var height = document.getElementById('fileDrop' ).offsetHeight;
 					
 					if(result == "deleted_img") {
-						$('.fileDrop').height( height - 100 );
+						$('#fileDrop').height( height - 100 );
 					}	else {
-						$('.fileDrop').height( height - 20 );
+						$('#fileDrop').height( height - 20 );
 					}
 					
 				}
