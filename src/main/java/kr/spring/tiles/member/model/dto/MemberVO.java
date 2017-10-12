@@ -42,36 +42,21 @@ public class MemberVO {
 		return id;
 	}
 
-
-
-
 	public void setId(String id) {
 		this.id = id;
 	}
-
-
-
 
 	public String getPw() {
 		return pw;
 	}
 
-
-
-
 	public void setPw(String pw) {
 		this.pw = pw;
 	}
 
-
-
-
 	public String getName() {
 		return name;
 	}
-
-
-
 
 	public void setName(String name) {
 		this.name = name;
@@ -84,22 +69,13 @@ public class MemberVO {
 		return gender;
 	}
 
-
-
-
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
 
-
-
-
 	public String getBirth() {
 		return birth;
 	}
-
-
-
 
 	public void setBirth(String birth) {
 		this.birth = birth;
@@ -112,71 +88,41 @@ public class MemberVO {
 		return tel;
 	}
 
-
-
-
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-
-
-
 
 	public String getEmail() {
 		return email;
 	}
 
-
-
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-
-
 
 	public String getPostcode() {
 		return postcode;
 	}
 
-
-
-
 	public void setPostcode(String postcode) {
 		this.postcode = postcode;
 	}
-
-
-
 
 	public String getAddress() {
 		return address;
 	}
 
-
-
-
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
-
-
 
 	public String getBike_yn() {
 		return bike_yn;
 	}
 
-
-
-
 	public void setBike_yn(String bike_yn) {
 		this.bike_yn = bike_yn;
 	}
-
-
-
 
 	public String getBike_type() {
 		return bike_type;
