@@ -446,7 +446,37 @@ body {
 .paging .num a:hover,.paging strong.on {background: #eff0f0;color: #0d6fb8}
 .paging .btnWrite { float:right; background-color:#23527c; color: #fff; height:34px; line-height: 34px; border: 1px solid #e1e2e2; padding: 0 26px; cursor: pointer;}
 
+/* 인피니트스크롤 */
 
+    .gal_body {
+      overflow-y: scroll;
+    }
+    /* clearfix because of floats */
+    .gal_container:before,
+    .gal_container:after {
+      content: "";
+      display: table;
+    }
+    .gal_container:after {
+      clear: both;
+    }
+    .gitem {
+      float: left;
+      margin-bottom: 15px;
+    }
+    .gitem {
+      max-width: 100%;
+      max-height: 100%;
+      vertical-align: bottom;
+    }
+    .first-gitem {
+      clear: both;
+    }
+    /* remove margin bottom on last row */
+    .last-row, .last-row ~ .gitem {
+      margin-bottom: 0;
+    }
+    
 /*radiobutton*/
 .zInputWrapper{
 background-color:#F5F5F5;

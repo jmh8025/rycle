@@ -44,35 +44,19 @@ public class Gallery_BoardController {
    // 01 회원 목록
    // url pattern mapping
    @RequestMapping("/board/gallery_board_list.do")
-   public String gallery_Board_List(Model model, 
-         @RequestParam(value="searchOption", defaultValue="all") String searchOption,
-            @RequestParam(value="searchKeyword", defaultValue="") String keyword,
-            @RequestParam(value="curPage", defaultValue="1") int curPage) throws Exception{
-
-       logger.info("검색값"+searchOption);
-       logger.info("키워드값"+keyword);
-        
+   public String gallery_Board_List(Model model ) throws Exception{        
         
        // 레코드의 갯수 계산
-       int count = galleryBoardService.countArticle(searchOption, keyword);
-   
-       // 페이지 나누기 관련 처리
-       BoardPager boardPager = new BoardPager(count, curPage);
-       int start = boardPager.getPageBegin();
-       int end = boardPager.getPageEnd();
-       int PAGE_SCALE = boardPager.getPAGE_SCALE();
-       logger.info("키워드값2"+keyword);
-       List<Gallery_boardVO> list = galleryBoardService.listAll(start, end, searchOption, keyword);
+       int count = galleryBoardService.countArticle();
+       List<Gallery_fileVO> list = galleryBoardService.listAll();
         
        // 데이터를 맵에 저장
        Map<String, Object> map = new HashMap<String, Object>();
        map.put("list", list); // list
        map.put("count", count); // 레코드의 갯수
-       map.put("searchOption", searchOption); // 검색옵션
-       map.put("keyword", keyword); // 검색키워드
-       map.put("boardPager", boardPager);
-       map.put("PAGE_SCALE", PAGE_SCALE); //페이지당 게시물 수        
+   
        map.put("board_name", "gallery_board"); //게시물명
+
        model.addAttribute("map", map);
        
       return "board/gallery/gallery_board_list";

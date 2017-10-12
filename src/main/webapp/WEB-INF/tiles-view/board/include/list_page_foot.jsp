@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div class="pagingWrap">
 	<div class="paging">
-		<!-- 페이징 -->
-		
+		<!-- 갤러리 아닌경우 페이징 -->
+			<c:if test="${map.board_name != 'gallery_board' }" >
 				<!-- 처음페이지로 이동 : 현재 페이지가 1보다 크면  [처음]하이퍼링크를 화면에 출력-->
 				<c:if test="${map.boardPager.curBlock > 1}">
 					<span class="btn_arr"><a href="/SpringTiles/board/free_board_list.do?curPage=1&searchOption=${map.searchOption}&keyword=${map.keyword}">[처음]</a></span>
@@ -37,7 +37,7 @@
 				</c:if>
 				
 				
-				
+				</c:if>
 				<c:if test="${sessionScope.id != null && sessionScope.id != '' }">
 				<input class="btnWrite" type="button" value="글쓰기" onclick="location.href='/SpringTiles/board/${map.board_name}_write.do'">
 				</c:if>

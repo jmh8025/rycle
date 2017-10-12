@@ -20,14 +20,16 @@ public class UploadFileUtils {
 	private static final Logger logger = LoggerFactory.getLogger(UploadController.class);
 	
 	public static String uploadFile(String uploadPath, String originalName, byte[] fileData) throws Exception {
+		
 		// UUID 발급
 		UUID uuid = UUID.randomUUID();
 		// 저장할 파일명 = UUID + 원본이름
 		String savedName = uuid.toString() + "_" + originalName;
 		// 업로드할 디렉토리(날짜별 폴더) 생성 
 		String savedPath = calcPath(uploadPath);
-		// 파일 경로(기존의 업로드경로+날짜별경로), 파일명을 받아 파일 객체 생성
+		// 파일 경로(기존의 업로드경로+날짜별경로), 파일명을 받아 파일 객체 생성		
 		File target = new File(uploadPath + savedPath, savedName);
+		
 		// 임시 디렉토리에 업로드된 파일을 지정된 디렉토리로 복사
 		FileCopyUtils.copy(fileData, target);
 		// 썸네일을 생성하기 위한 파일의 확장자 검사
@@ -87,10 +89,10 @@ public class UploadFileUtils {
 			return;
 		}
 		
+		logger.info("UploadFileUtil_makeDir_uploadPath:"+uploadPath);
 		File dirPath2 = new File(uploadPath);
 		
 		if(!dirPath2.exists()) {
-			logger.info("UploadFileUtil_makeDir_uploadPath:"+uploadPath);
 			logger.info(uploadPath);
 			dirPath2.mkdir(); //디렉토리 생성
 		}
@@ -112,7 +114,10 @@ public class UploadFileUtils {
 		BufferedImage sourceImg = ImageIO.read(new File(uploadPath + path, fileName));
 		
 		//100픽셀 단위의 썸네일 생성
-		BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, 250);
+		
+		//BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, 250);
+		
+		BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_WIDTH, 270);
 		
 		//썸네일의 이름을 생성(기존의파일명에 s_를 붙임)
 		String thumbnailName = uploadPath + path + File.separator + "s_" + fileName;

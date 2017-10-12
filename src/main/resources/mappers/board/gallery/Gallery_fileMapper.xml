@@ -3,14 +3,15 @@
 
 <!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
 <mapper namespace="galleryfile">
-
+	
+	<select id="flistAll"  resultType="kr.spring.tiles.board.gallery.model.dto.Gallery_fileVO">
+	    <!-- 목록 조회 및 페이징 전체 쿼리 -->
+		SELECT * FROM (SELECT * FROM gallery_file ORDER BY file_no ASC) AS a GROUP BY NO ORDER BY NO DESC LIMIT 0, 20
+	</select>
+	
 	<!-- 파일 업로드 -->
 	<insert id="addAttach">
-	    INSERT INTO gallery_file (
-	        no, file_name, ufile_name
-	    ) VALUES (
-	        #{bno}, #{file}, #{ufile}
-	    )
+	    INSERT INTO gallery_file ( no, file_name, ufile_name ) VALUES ( #{bno}, #{file}, #{ufile} )
 	</insert>
 	
 	<select id="list" parameterType="int" resultType="kr.spring.tiles.board.gallery.model.dto.Gallery_fileVO">

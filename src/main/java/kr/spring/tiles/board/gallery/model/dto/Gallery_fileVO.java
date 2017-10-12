@@ -4,8 +4,10 @@ import java.sql.Date;
 
 public class Gallery_fileVO {
 	
-	private int file_no;
 	private int no;
+
+	private int file_no;
+	private int bno;
 	private int cate_no; 
 	
 	private String file_name;
@@ -71,6 +73,15 @@ public class Gallery_fileVO {
 
 	public void setUfile_name(String ufile_name) {
 		this.ufile_name = ufile_name;
+	}
+
+	
+	public int getBno() {
+		return bno;
+	}
+
+	public void setBno(int bno) {
+		this.bno = bno;
 	}
 
 	// toString()
