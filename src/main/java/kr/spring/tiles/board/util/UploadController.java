@@ -101,6 +101,9 @@ public class UploadController {
             // 헤더 구성 객체(외부에서 데이터를 주고받을 때에는 header와 body를 구성해야하기 때문에)
             HttpHeaders headers = new HttpHeaders();
             // InputStream 생성
+            String s = System.getProperty("user.dir");
+            System.out.println("현재 디렉토리는 " + s + " 입니다");
+
             in = new FileInputStream(uploadPath + fileName);
             // 이미지 파일이면
             if (mType != null) { 
