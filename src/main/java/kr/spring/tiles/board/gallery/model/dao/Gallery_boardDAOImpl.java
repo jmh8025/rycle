@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.spring.tiles.board.gallery.controller.Gallery_BoardController;
 import kr.spring.tiles.board.gallery.model.dto.Gallery_boardVO;
+import kr.spring.tiles.board.gallery.model.dto.Gallery_fileVO;
 
 //현재 클래스를 DAO bean으로 등록시킴
 @Repository
@@ -65,15 +66,10 @@ public class Gallery_boardDAOImpl implements Gallery_boardDAO {
 	
 	// 05. 게시글 전체 목록
 	@Override
-	public List<Gallery_boardVO> listAll(int start, int end, String searchOption, String keyword) throws Exception {
-		// 검색옵션, 키워드 맵에 저장
-		 logger.info("키워드값33344"+keyword);
+	public List<Gallery_boardVO> listAll(String searchOption, String keyword) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("searchOption", searchOption);
 		map.put("keyword", keyword);
-		// BETWEEN #{start}, #{end}에 입력될 값을 맵에 
-		map.put("start", start);
-		map.put("end", end);
 		return sqlSession.selectList("gallery_board.listAll", map);
 	}
 	
@@ -85,12 +81,9 @@ public class Gallery_boardDAOImpl implements Gallery_boardDAO {
 	
 	// 07. 게시글 레코드 갯수
 	@Override
-	public int countArticle(String searchOption, String keyword) throws Exception {
+	public int countArticle() throws Exception {
 		// 검색옵션, 키워드 맵에 저장
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("searchOption", searchOption);
-		map.put("keyword", keyword);
-		return sqlSession.selectOne("gallery_board.countArticle", map);
+		return sqlSession.selectOne("gallery_board.countArticle");
 	}
 	
 	@Override

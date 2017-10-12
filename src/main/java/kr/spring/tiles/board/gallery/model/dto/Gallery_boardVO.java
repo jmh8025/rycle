@@ -10,7 +10,9 @@ public class Gallery_boardVO {
 	private String subject;
 	private Date k_date; // java.sql.Date
 	private int readcount;
-
+	private String file_name;
+	private String ufile_name;
+	
 	// Getter/Setter
 
 	public int getNo() {
@@ -61,6 +63,23 @@ public class Gallery_boardVO {
 		this.readcount = readcount;
 	}
 	
+	
+	public String getFile_name() {
+		return file_name;
+	}
+
+	public String getUfile_name() {
+		return ufile_name;
+	}
+
+	public void setFile_name(String file_name) {
+		this.file_name = file_name;
+	}
+
+	public void setUfile_name(String ufile_name) {
+		this.ufile_name = ufile_name;
+	}
+
 	// toString()
 	@Override
 	public String toString() {

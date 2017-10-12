@@ -80,7 +80,7 @@
 	
 	<!-- 페이징 sql -->
 	<sql id="pagingFooter">
-		ORDER BY no DESC limit #{start}, #{end} 
+		ORDER BY no DESC limit 0, 10
 	</sql>
 	
 </mapper>

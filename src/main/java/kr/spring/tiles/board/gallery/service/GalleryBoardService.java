@@ -36,11 +36,11 @@ public interface GalleryBoardService {
 	/*// 04. 게시글 삭제
 	public void delete(int bno) throws Exception;*/
 	// 05. 게시글 전체 목록
-	public List<Gallery_boardVO> listAll(int start, int end, String searchOption, String keyword) throws Exception;
+	public List<Gallery_fileVO> listAll() throws Exception;
 // 06. 게시글 조회
 	public void increaseViewcnt(int no, HttpSession session) throws Exception;
 	/*		// 07. 게시글 레코드 갯수
-*/	public int countArticle(String searchOption, String keyword) throws Exception;
+*/	public int countArticle() throws Exception;
 	// 09. 게시글 첨부파일 삭제
 	public void deleteFile(String fullname) throws Exception;
 	

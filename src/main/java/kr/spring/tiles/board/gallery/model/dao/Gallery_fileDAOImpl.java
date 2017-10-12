@@ -32,7 +32,13 @@ public class Gallery_fileDAOImpl implements Gallery_fileDAO {
 	// Inject애노테이션이 있으면 외부에서 객체를 주입시켜주게 된다. 
 	// try catch문, finally문, 객체를 close할 필요가 없어졌다.
 	SqlSession sqlSession;
-
+	
+	@Override
+	public List<Gallery_fileVO> flistAll() throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("galleryfile.flistAll");
+	}
+	
 	@Override
 	public void addAttach(String file, String ufile, int bno) throws Exception {
 		

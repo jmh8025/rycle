@@ -20,12 +20,11 @@
     </insert>
     
 	<!-- 02_02. 게시글 레코드 갯수 -->
-	<select id="countArticle" parameterType="map" resultType="int">
+	<select id="countArticle" resultType="int">
 		SELECT COUNT(no) 
 		FROM 
 		free_board
 		<!-- WHERE절을 include 태그로 삽입 -->
-		<include refid="board_search"></include>
 	</select>
 
 	<!-- 게시글 전체 목록 조회 및 검색조회까지 -->

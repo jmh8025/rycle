@@ -143,9 +143,8 @@ public class GalleryBoardServiceImpl implements GalleryBoardService {
 	
 	// 05. 게시글 전체 목록
 	@Override
-	public List<Gallery_boardVO> listAll(int start, int end, String searchOption, String keyword) throws Exception {
-		 logger.info("키워드값333"+keyword);
-		return galleryboardDao.listAll(start, end, searchOption, keyword);
+	public List<Gallery_fileVO> listAll() throws Exception {
+		return galleryfileDao.flistAll();
 	}
 	
 	// 06. 게시글 조회수 증가
@@ -158,8 +157,8 @@ public class GalleryBoardServiceImpl implements GalleryBoardService {
 	
 	// 07. 게시글 레코드 갯수
 	@Override
-	public int countArticle(String searchOption, String keyword) throws Exception {
-		return galleryboardDao.countArticle(searchOption, keyword);
+	public int countArticle() throws Exception {
+		return galleryboardDao.countArticle();
 	}
 	
 	@Override

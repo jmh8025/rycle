@@ -41,8 +41,8 @@ public class UploadController {
 	// xml에 설정된 리소스 참조
 	// bean의 id가 uploadPath인 태그를 참조
 	@Resource(name="uploadPath")
-	String uploadPath;
-	
+	String uploadPath; 	
+ 	
 	@Inject
 	FreeBoardService boardService;
 	
@@ -65,10 +65,10 @@ public class UploadController {
 		logger.info("size : "+file.getSize());
 		logger.info("contentType : "+file.getContentType());
 				
-		//해당 폴더 없는 경우 생성
+	//해당 폴더 없는 경우 생성
 		
         //생성할 파일경로 지정
-        String path = "c://webtest//uploadfile//test.txt";
+        String path = uploadPath+"/test.txt";
         //파일 객체 생성
         File file2 = new File(path);
         //!표를 붙여주어 파일이 존재하지 않는 경우의 조건을 걸어줌
@@ -83,13 +83,12 @@ public class UploadController {
 		//return UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
 	}
 	
-
-
-	
     // 6. 이미지 표시 매핑
     @ResponseBody // view가 아닌 data리턴
     @RequestMapping("/upload/displayFile")
     public ResponseEntity<byte[]> displayFile(String fileName) throws Exception {
+    	
+    	logger.info("uploadPath(UploadController_displayFile) : "+uploadPath);
         // 서버의 파일을 다운로드하기 위한 스트림
         InputStream in = null; //java.io
         ResponseEntity<byte[]> entity = null;
@@ -115,7 +114,7 @@ public class UploadController {
                 // 파일의 한글 깨짐 방지
                 headers.add("Content-Disposition", "attachment; filename=\""+new String(fileName.getBytes("utf-8"), "iso-8859-1")+"\"");
                 //headers.add("Content-Disposition", "attachment; filename='"+fileName+"'");
-            }
+            }  
             // 바이트배열, 헤더, HTTP상태코드
             entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.OK);
         } catch (Exception e) {

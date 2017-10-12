@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 import kr.spring.tiles.board.gallery.model.dto.Gallery_boardVO;
+import kr.spring.tiles.board.gallery.model.dto.Gallery_fileVO;
 import kr.spring.tiles.board.gallery.service.GalleryBoardService;
   
 public interface Gallery_boardDAO {
@@ -18,11 +19,12 @@ public interface Gallery_boardDAO {
 	/*// 04. 게시글 삭제
 	public void delete(int bno) throws Exception;*/
 	// 05. 게시글 전체 목록
-	public List<Gallery_boardVO> listAll(int start, int end, String searchOption, String keyword) throws Exception;
+	public List<Gallery_boardVO> listAll(String searchOption, String keyword) throws Exception;
+	
 	// 06. 게시글 조회 증가
 	public void increaseViewcnt(int no) throws Exception;
 	// 07. 게시글 레코드 갯수 메서드 추가
-	public int countArticle(String searchOption, String keyword) throws Exception;
+	public int countArticle() throws Exception;
 	
 	// 08. 최근 게시글 번호 얻어오기
 	public int recent_bno() throws Exception;
