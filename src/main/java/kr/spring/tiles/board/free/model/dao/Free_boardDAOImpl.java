@@ -67,7 +67,6 @@ public class Free_boardDAOImpl implements Free_boardDAO {
 	@Override
 	public List<Free_boardVO> listAll(int start, int end, String searchOption, String keyword) throws Exception {
 		// 검색옵션, 키워드 맵에 저장
-		 logger.info("키워드값33344"+keyword);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("searchOption", searchOption);
 		map.put("keyword", keyword);

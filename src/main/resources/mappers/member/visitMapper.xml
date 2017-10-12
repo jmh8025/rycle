@@ -5,7 +5,7 @@
 <mapper namespace="visit">
 
 	<insert id="insertVisit">
-	INSERT INTO VISIT (V_DATE) VALUES (now());
+	INSERT INTO VISIT (V_DATE) VALUES (NOW());
 	</insert>
 	
 	<select id="selectToday" resultType="int">
