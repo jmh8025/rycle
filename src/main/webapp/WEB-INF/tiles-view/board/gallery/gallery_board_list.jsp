@@ -58,11 +58,13 @@
                     <col style="width:10%;">
                     <col style="width:10%;">
                     <col style="width:10%;">
+                    <col style="width:10%;">
                 </colgroup>
                 <thead>
                     <tr>
                         <th scope="col">번호</th>
                         <th scope="col">제목</th>
+                        <th scope="col">ID</th>
                         <th scope="col">작성자</th>
                         <th scope="col">작성일</th>
                         <th scope="col">조회</th>
@@ -78,6 +80,7 @@
 		<tr>
 			<td align="center">${(map.count) - ( (map.boardPager.curPage - 1)  *  map.PAGE_SCALE + status.index ) }</td>
 			<td><a href="/SpringTiles/board/gallery_board_view.do?bno=${article.no}${board_link}">${article.subject}</a></td>
+			<td>${article.id}</td>
 			<td>${article.writer}</td>
 			<td>${article.k_date}</td>
 			<td>${article.readcount}</td>
@@ -89,7 +92,6 @@
             <!-- padding -->
          <%@ include file="../include/list_page_foot.jsp" %>
          <!-- btnArea -->
-
 </div>
 
 
