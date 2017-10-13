@@ -101,5 +101,38 @@ public class MemberDAOImpl implements MemberDAO {
 			if(count == 1) result= true;
 			return result;
 		}
+		@Override
+		public Map<String, Integer> cycleyn() {
+			int bike_y =  sqlSession.selectOne("member.cycley");
+			int bike_n =  sqlSession.selectOne("member.cyclen");
+			int cycletype_pixy =  sqlSession.selectOne("member.cycletype_pixy");
+			int cycletype_load =  sqlSession.selectOne("member.cycletype_load");
+			int cycletype_mini =  sqlSession.selectOne("member.cycletype_mini");
+			int cycletype_tour =  sqlSession.selectOne("member.cycletype_tour");
+			int cycletype_mtb =  sqlSession.selectOne("member.cycletype_mtb");
+			int cycletype_hib =  sqlSession.selectOne("member.cycletype_hib");
+			int cycletype_default =  sqlSession.selectOne("member.cycletype_default");
+			int cycle_how_01 =  sqlSession.selectOne("member.cycle_how_01");
+			int cycle_how_23 =  sqlSession.selectOne("member.cycle_how_23");
+			int cycle_how_45 =  sqlSession.selectOne("member.cycle_how_45");
+			int cycle_how_67 =  sqlSession.selectOne("member.cycle_how_67");
+		
+			Map<String, Integer> result = new HashMap<String, Integer>();
+			result.put("y", bike_y);
+			result.put("n", bike_n);
+			result.put("pixy", cycletype_pixy);
+			result.put("load", cycletype_load);
+			result.put("mini", cycletype_mini);
+			result.put("tour", cycletype_tour);
+			result.put("mtb", cycletype_mtb);
+			result.put("hib", cycletype_hib);
+			result.put("default", cycletype_default);
+			result.put("how_01", cycle_how_01);
+			result.put("how_23", cycle_how_23);
+			result.put("how_45", cycle_how_45);
+			result.put("how_67", cycle_how_67);
+			return result;
+		}
+	
 
 }

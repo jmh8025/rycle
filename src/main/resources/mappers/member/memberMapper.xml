@@ -85,4 +85,47 @@
     	where email = #{email}
     </select>
     
+    <!-- 10. 설문조사 -->
+    <select id="cycley" resultType="int">
+    	SELECT count(*) from member where bike_yn='y'
+    </select>
+    <select id="cyclen" resultType="int">
+    	SELECT count(*) from member where bike_yn='n'
+    </select>
+    <select id="cycletype_load" resultType="int">
+    	SELECT count(*) from member where bike_type='로드'
+    </select>
+    <select id="cycletype_pixy" resultType="int">
+    	SELECT count(*) from member where bike_type='픽시'
+    </select>
+    <select id="cycletype_mini" resultType="int">
+    	SELECT count(*) from member where bike_type='미니벨로'
+    </select>
+    <select id="cycletype_tour" resultType="int">
+    	SELECT count(*) from member where bike_type='투어링바이크'
+    </select>
+    <select id="cycletype_mtb" resultType="int">
+    	SELECT count(*) from member where bike_type='MTB'
+    </select>
+    <select id="cycletype_hib" resultType="int">
+    	SELECT count(*) from member where bike_type='하이브리드'
+    </select>
+    <select id="cycletype_default" resultType="int">
+    	SELECT count(*) from member where bike_type='none'
+    </select>
+    <select id="cycle_how_01" resultType="int">
+    	SELECT count(*) from member where how_many='01'
+    </select>
+    <select id="cycle_how_23" resultType="int">
+    	SELECT count(*) from member where how_many='23'
+    </select>
+    <select id="cycle_how_45" resultType="int">
+    	SELECT count(*) from member where how_many='45'
+    </select>
+    <select id="cycle_how_67" resultType="int">
+    	SELECT count(*) from member where how_many='67'
+    </select>
+    
+    
+    
 </mapper>
