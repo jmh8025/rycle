@@ -1,7 +1,7 @@
 package kr.spring.tiles.member.service;
 
 import java.util.List;
-
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -86,6 +86,12 @@ public class MemberServiceImpl implements MemberService {
 		@Override
 		public boolean emailCheck(String email) {
 			return memberDao.emailCheck(email);
+		}
+
+		@Override
+		public Map<String, Integer> cycleyn() {
+			// TODO Auto-generated method stub
+			return memberDao.cycleyn();
 		}
 
 }

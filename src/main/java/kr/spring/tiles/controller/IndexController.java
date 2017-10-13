@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.spring.tiles.board.free.model.dto.Free_boardVO;
 import kr.spring.tiles.board.free.service.FreeBoardService;
+import kr.spring.tiles.member.service.MemberService;
 import kr.spring.tiles.util.VisitCountService;
 import kr.spring.tiles.util.WeatherService;
 
@@ -27,7 +28,8 @@ public class IndexController {
 	WeatherService weatherService;
 	@Inject
 	FreeBoardService freeBoardService;
-
+	@Inject
+	MemberService memberService;
 	
 	
 	@RequestMapping("/index.do")
@@ -39,10 +41,12 @@ public class IndexController {
 		mav.setViewName("index");
 		mav.addObject("today",today);
 		
+		Map<String, Integer> cycle = memberService.cycleyn();
+		mav.addObject("cycle", cycle);
+		
 		List<Free_boardVO> list = freeBoardService.listAll(0, 4,"all","");
-	    // 데이터를 맵에 저장
-		// 데이터를 맵에 저장
-	    Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
+	    
 	    map.put("list", list); // list    
 	    map.put("board_name", "free_board"); //게시물명
 	    mav.addObject("map", map);
