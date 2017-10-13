@@ -183,5 +183,13 @@ public class GalleryBoardServiceImpl implements GalleryBoardService {
 		// TODO Auto-generated method stub
 		galleryfileDao.deleteFile(fullname);
 	}
-
+	
+	@Override
+	public void delete(int bno) throws Exception {
+		// TODO Auto-generated method stub
+		//파일 삭제 시 게시판, 파일, 댓글 삭제
+		galleryboardDao.bdelete(bno);
+		galleryfileDao.bdeleteFile(bno); 
+		gallerycommentDao.bdeleteCmt(bno);
+	}
 }

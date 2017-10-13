@@ -54,7 +54,7 @@
         UPDATE gallery_board SET
             id = #{id},
             writer = #{writer},
-            subject = #{subject},
+            subject = #{subject}
         WHERE no = #{no}
     </update>
 
@@ -83,4 +83,8 @@
 		ORDER BY no DESC limit 0, 10
 	</sql>
 	
+	<!-- 게시판 삭제 -->
+	<delete id="bdelete" parameterType="int">
+		delete from gallery_board where no= #{bno}
+	</delete>
 </mapper>

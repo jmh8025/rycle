@@ -134,7 +134,7 @@
 
 		<c:if test="${map.dto.id == sessionScope.id}">
 			<button class="btnSubmit" type="button" onclick="location.href='/SpringTiles/board/gallery_board_update.do?bno=${map.dto.no}' ">수정</button>
-			<button class="btnSubmit" type="button" onclick="location.href='/SpringTiles/board/gallery_board_delete.do'">삭제</button>
+			<button class="btnSubmit" type="button" onclick="location.href='/SpringTiles/board/gallery_board_delete.do?bno=${map.dto.no}'">삭제</button>
 		</c:if>
 			
 	</div>

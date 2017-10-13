@@ -43,5 +43,6 @@ public interface GalleryBoardService {
 */	public int countArticle() throws Exception;
 	// 09. 게시글 첨부파일 삭제
 	public void deleteFile(String fullname) throws Exception;
-	
+	//10. 게시판 삭제
+	public void delete(int bno) throws Exception;
 }

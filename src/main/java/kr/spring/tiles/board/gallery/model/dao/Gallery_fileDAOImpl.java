@@ -77,4 +77,10 @@ public class Gallery_fileDAOImpl implements Gallery_fileDAO {
 		sqlSession.delete("galleryfile.delAttach", ufile_name);		
 		
 	}
+	
+	@Override
+	public void bdeleteFile(int bno) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.delete("galleryfile.bdeleteFile" ,bno);
+	}
 }

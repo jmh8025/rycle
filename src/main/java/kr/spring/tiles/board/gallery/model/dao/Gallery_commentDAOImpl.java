@@ -70,4 +70,8 @@ public class Gallery_commentDAOImpl implements Gallery_commentDAO {
 		sqlSession.delete("gallerycomment.cdelete", cno);
 		
 	}
+	@Override
+	public void bdeleteCmt(int bno) throws Exception {
+		sqlSession.delete("gallerycomment.bdeleteCmt" ,bno);
+	}
 }

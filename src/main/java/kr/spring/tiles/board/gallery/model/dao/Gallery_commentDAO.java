@@ -26,4 +26,7 @@ public interface Gallery_commentDAO {
 	public Gallery_commentVO curead(int cno) throws Exception;	
 	
 	public void cdelete(int cno) throws Exception;
+	
+	//댓글 삭제
+	public void bdeleteCmt(int bno) throws Exception;
 }

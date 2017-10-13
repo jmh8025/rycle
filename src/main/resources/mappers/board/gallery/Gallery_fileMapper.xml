@@ -31,4 +31,9 @@
 	<delete id="delAttach" parameterType="String">
 		DELETE FROM gallery_file WHERE ufile_name = #{ufile_name}
 	</delete>
+	
+		<!-- 파일 게시판 번호 체크하여 삭제 -->
+	<delete id="bdeleteFile" parameterType="int">
+		delete from gallery_file where no= #{bno}
+	</delete>
 </mapper>

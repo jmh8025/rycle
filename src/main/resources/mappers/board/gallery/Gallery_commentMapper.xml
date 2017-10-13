@@ -28,5 +28,10 @@
 	<delete id="cdelete" parameterType="int">
 		delete from gallery_comment where cno = #{cno}
 	</delete>
+	
+	<!-- 파일 게시판 번호 체크하여 삭제 -->
+	<delete id="bdeleteCmt" parameterType="int">
+		delete from gallery_comment where bno= #{bno}
+	</delete>
 </mapper>
 

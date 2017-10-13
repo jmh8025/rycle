@@ -31,19 +31,23 @@
 			            if(!data) {
 			            	return alert("실패");
 			            }	else {
-			    			alert (data);
-			    			alert (data.list.file_name);
+			    			
+			    			var fhtml = "";
+			    			
+			    			for (var i=0; i<data.list.length; i++ ){
+			    				fhtml += '<a href="/SpringTiles/board/gallery_board_view.do?bno='+data.list[i].no+'"><img id="gitem" src="/SpringTiles/upload/displayFile.do?fileName='+data.list[i].ufile_name+'" style="margin: 3px;"></a>';
+			    			}
+			    			$("#boardList").append(fhtml);
 			            }
 						
 					}
 				});
-		      $("#boardList").append("<h1>Page</h1><BR/>So<BR/>MANY<BR/>BRS<BR/>YEAHHH~<BR/>So<BR/>MANY<BR/>BRS<BR/>YEAHHH~<BR/>So<BR/>MANY<BR/>BRS<BR/>YEAHHH~<BR/>So<BR/>MANY<BR/>BRS<BR/>YEAHHH~<BR/>So<BR/>MANY<BR/>BRS<BR/>YEAHHH~<BR/>So<BR/>MANY<BR/>BRS<BR/>YEAHHH~<BR/>So<BR/>MANY<BR/>BRS<BR/>YEAHHH~<BR/>So<BR/>MANY<BR/>BRS<BR/>YEAHHH~<BR/>So<BR/>MANY<BR/>BRS<BR/>YEAHHH~<BR/>So<BR/>MANY<BR/>BRS<BR/>YEAHHH~<BR/>So<BR/>MANY<BR/>BRS<BR/>YEAHHH~<BR/>So<BR/>MANY<BR/>BRS<BR/>YEAHHH~");
 		    }
 		});
 		</script>
 		<input type="hidden" name="gpage" id="gpage" value="1" />
 		<c:forEach var="article" items="${map.list}" varStatus="status">
-			<!-- <div id="gitem" style="float:left"> --><a href="/SpringTiles/board/gallery_board_view.do?bno=${article.bno}"><img id="gitem" src="/SpringTiles/upload/displayFile.do?fileName=${article.ufile_name}" style="margin: 3px;"></a>
+			<!-- <div id="gitem" style="float:left"> --><a href="/SpringTiles/board/gallery_board_view.do?bno=${article.no}"><img id="gitem" src="/SpringTiles/upload/displayFile.do?fileName=${article.ufile_name}" style="margin: 3px;"></a>
 			<!-- </div> -->
 		</c:forEach>
 	</div>

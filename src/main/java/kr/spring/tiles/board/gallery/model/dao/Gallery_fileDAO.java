@@ -24,4 +24,6 @@ public interface Gallery_fileDAO {
 	
 	//파일 삭제
 	public void deleteFile(String ufile_name) throws Exception;
+	
+	public void bdeleteFile(int bno) throws Exception;
 }
