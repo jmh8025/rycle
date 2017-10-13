@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<jsp:useBean id="CountManager" class="kr.spring.tiles.util.CountManager" scope="application" />
 <link rel="stylesheet" href="/SpringTiles/css/Nwagon.css">
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <script
@@ -51,10 +52,10 @@
 		</div>
 	</li>
 	<li>
-		<div class="gallary">갤러리</div>
+		<div class="gallary"><img style="border-radius: 12px;" src="/SpringTiles/img/maincycle.jpg" width="100%" height="100%"></div>
 		<div class="today">
 			<center>
-				<h2>준비중!</h2>
+				<span><h3><br>현재 접속자수 : <%= CountManager.getCount() %></h3></span>
 			</center>
 		</div>
 	</li>

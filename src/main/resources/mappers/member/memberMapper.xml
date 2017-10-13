@@ -125,7 +125,19 @@
     <select id="cycle_how_67" resultType="int">
     	SELECT count(*) from member where how_many='67'
     </select>
-    
+	
+	<!-- 오늘 접속자 -->    
+    <select id="todayuser" resultType="int">
+    select count(*) from VISIT where V_DATE = DATE_FORMAT(NOW(),"%Y-%c-%e");
+    </select>
+    <!-- 총 접속자 -->
+    <select id="totaluser" resultType="int">
+    select count(*) from VISIT;
+    </select>
+    <!-- 오늘 접속자 추가 -->
+    <select id="inserttoday">
+    INSERT INTO VISIT (V_DATE) VALUES (NOW());
+    </select>
     
     
 </mapper>

@@ -12,7 +12,7 @@ $(window).scroll(function() {
 	            	return alert("실패");
 	            }	else {
 	    			alert (data);
-	    			alert (data.list.file_name);
+	    			alert (data.list.file_name[1]);
 	            }
 			}
 		});
