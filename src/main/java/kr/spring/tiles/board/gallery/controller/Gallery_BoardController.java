@@ -76,7 +76,7 @@ public class Gallery_BoardController {
        // 레코드의 갯수 계산
        int count = galleryBoardService.countArticle();
        
-       int page_cnt = gpage*10;
+       int page_cnt = gpage*20;
        
        List<Gallery_fileVO> list = galleryBoardService.listAll(page_cnt);
        // 데이터를 맵에 저장
@@ -196,6 +196,11 @@ public class Gallery_BoardController {
 	        return "board/gallery/gallery_board_view";
    }
 
-   
+   // 05. 게시글 삭제
+   @RequestMapping(value="/board/gallery_board_delete.do", method=RequestMethod.GET)
+   public String free_Board_Delete(@RequestParam int bno) throws Exception{
+	   galleryBoardService.delete(bno);
+	      return "redirect:/board/gallery_board_list.do";
+   }
    
 }

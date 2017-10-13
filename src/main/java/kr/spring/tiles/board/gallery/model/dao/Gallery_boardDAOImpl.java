@@ -91,25 +91,10 @@ public class Gallery_boardDAOImpl implements Gallery_boardDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("gallery_board.getBno");
 	}
-/*	
-	// 08. 게시글 첨부파일 목록
-	@Override
-	public List<String> getAttach(int bno) {
-		return sqlSession.selectList("board.getAttach", bno);
-	}
 	
-	// 09. 게시글 첨부파일 삭제처리
 	@Override
-	public void deleteFile(String fullname) {
-		sqlSession.delete("board.deleteAttach", fullname);
+	public void bdelete(int bno) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.delete("gallery_board.bdelete" ,bno);
 	}
-	// 10. 게시글 첨부파일 업데이트 처리
-	@Override
-	public void updateAttach(String fullName, int bno) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("fullName", fullName);
-		map.put("bno", bno);
-		sqlSession.insert("board.updateAttach", map);
-		
-	}*/
 }

@@ -29,14 +29,8 @@ public interface Gallery_boardDAO {
 	// 08. 최근 게시글 번호 얻어오기
 	public int recent_bno() throws Exception;
 	
-/*	// 08. 게시물 첨부파일 추가
-	public void addAttach(String fullName);
-	// 09. 게시물 첨부파일 목록
-	public List<String> getAttach(int bno);
-	// 10. 게시글 첨부파일 삭제처리
-	public void deleteFile(String fullname);
-	// 11. 게시글 첨부파일 업데이트처리
-	public void updateAttach(String fullName, int bno);*/
+	// 09 게시판 삭제
+	public void bdelete(int bno) throws Exception;
 
 	
 }
