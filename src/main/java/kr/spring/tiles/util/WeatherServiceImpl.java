@@ -27,7 +27,7 @@ public class WeatherServiceImpl implements WeatherService {
 		 String result = null;
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		try {
-		String callUrl ="http://rycle.xyz/resources/upload/weather22.json"; 
+		String callUrl ="http://rycle.xyz/resources/upload/juso.json"; 
 		  HttpGet httpGet = new HttpGet(callUrl); 
 		  HttpResponse response = httpclient.execute(httpGet);
 		  InputStream in = response.getEntity().getContent();

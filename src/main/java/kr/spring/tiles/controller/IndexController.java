@@ -27,18 +27,19 @@ public class IndexController {
 	WeatherService weatherService;
 	@Inject
 	FreeBoardService freeBoardService;
+
 	
 	
 	@RequestMapping("/index.do")
 	public ModelAndView proIndex() throws Exception{
 		ModelAndView mav = new ModelAndView();
-		
+	
 		
 		HashMap<String, Object> today = weatherService.todayWeather("서울");
 		mav.setViewName("index");
 		mav.addObject("today",today);
 		
-		List<Free_boardVO> list = freeBoardService.listAll(0, 5,"all","");
+		List<Free_boardVO> list = freeBoardService.listAll(0, 4,"all","");
 	    // 데이터를 맵에 저장
 		// 데이터를 맵에 저장
 	    Map<String, Object> map = new HashMap<String, Object>();
