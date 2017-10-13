@@ -11,6 +11,8 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 <ul class="cards">
+
+
 	<li>
 		<h2>
 			Like + Bicycle <small>BY <span>LYCLE</span> FROM KIC CAMPUS
@@ -57,6 +59,7 @@
 		</div>
 	</li>
 	<li><div class="notice">
+
 
 			<table class="noticetab">
 				<colgroup>

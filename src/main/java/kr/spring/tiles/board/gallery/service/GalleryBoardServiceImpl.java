@@ -143,8 +143,8 @@ public class GalleryBoardServiceImpl implements GalleryBoardService {
 	
 	// 05. 게시글 전체 목록
 	@Override
-	public List<Gallery_fileVO> listAll() throws Exception {
-		return galleryfileDao.flistAll();
+	public List<Gallery_fileVO> listAll(int page_cnt) throws Exception {
+		return galleryfileDao.flistAll(page_cnt);
 	}
 	
 	// 06. 게시글 조회수 증가

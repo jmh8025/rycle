@@ -9,7 +9,7 @@ import kr.spring.tiles.board.gallery.model.dto.Gallery_fileVO;
 public interface Gallery_fileDAO {
 	
 	//목록 뿌리기
-	public List<Gallery_fileVO> flistAll() throws Exception;
+	public List<Gallery_fileVO> flistAll(int page_cnt) throws Exception;
 	//파일 업로드
 	public void addAttach(String file, String ufile, int bno) throws Exception;
 	

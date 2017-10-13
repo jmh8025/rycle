@@ -1,6 +1,8 @@
 package kr.spring.tiles.controller;
 
 import java.util.HashMap;
+
+
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.spring.tiles.board.free.model.dto.Free_boardVO;
 import kr.spring.tiles.board.free.service.FreeBoardService;
 import kr.spring.tiles.member.service.MemberService;
-import kr.spring.tiles.util.VisitCountService;
 import kr.spring.tiles.util.WeatherService;
 
 @Controller

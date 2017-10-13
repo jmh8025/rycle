@@ -44,14 +44,18 @@ public class Gallery_BoardController {
    // 01 회원 목록
    // url pattern mapping
    @RequestMapping("/board/gallery_board_list.do")
-   public String gallery_Board_List(Model model ) throws Exception{        
+   public String gallery_Board_List(Model model, @RequestParam(value="gpage", defaultValue="0") int gpage ) throws Exception{        
         
+	   logger.info("Gallery_boardController_page"+gpage);
        // 레코드의 갯수 계산
        int count = galleryBoardService.countArticle();
-       List<Gallery_fileVO> list = galleryBoardService.listAll();
-        
+       
+       int page_cnt = gpage*10;
+       
+       List<Gallery_fileVO> list = galleryBoardService.listAll(page_cnt);
        // 데이터를 맵에 저장
        Map<String, Object> map = new HashMap<String, Object>();
+       
        map.put("list", list); // list
        map.put("count", count); // 레코드의 갯수
    
@@ -60,6 +64,25 @@ public class Gallery_BoardController {
        model.addAttribute("map", map);
        
       return "board/gallery/gallery_board_list";
+              
+   }
+   
+   @RequestMapping(value = "/board/gallery_board_list_infinite.do", method= RequestMethod.POST )
+   public Map<String, Object> gallery_Board_List2(Model model, @RequestParam(value="gpage", defaultValue="0") int gpage ) throws Exception{        
+        
+	   logger.info("Gallery_boardController_page"+gpage);
+       // 레코드의 갯수 계산
+       int count = galleryBoardService.countArticle();
+       
+       int page_cnt = gpage*10;
+       
+       List<Gallery_fileVO> list = galleryBoardService.listAll(page_cnt);
+       // 데이터를 맵에 저장
+       Map<String, Object> map2 = new HashMap<String, Object>();
+       
+       map2.put("list", list); // list
+       
+       return map2;
    }
    
    
