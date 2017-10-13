@@ -32,5 +32,16 @@ public interface MemberDAO {
  	
  	//자전거유무
  	public Map<String, Integer> cycleyn();
+ 	
+	// 접속자
+	// 오늘접속자
+	public int todayuser();
+
+	// 총접속자
+	public int totaluser();
+
+	// 오늘접속자 추가
+	public void inserttoday();
+
 	
 }

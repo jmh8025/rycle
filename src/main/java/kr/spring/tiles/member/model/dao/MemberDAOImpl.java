@@ -133,6 +133,20 @@ public class MemberDAOImpl implements MemberDAO {
 			result.put("how_67", cycle_how_67);
 			return result;
 		}
+		@Override
+		public int todayuser() {
+			// TODO Auto-generated method stub
+			return sqlSession.selectOne("member.todayuser");
+		}
+		@Override
+		public int totaluser() {
+			// TODO Auto-generated method stub
+			return  sqlSession.selectOne("member.totaluser");
+		}
+		@Override
+		public void inserttoday() {
+			sqlSession.insert("member.inserttoday");
+		}
 	
 
 }
