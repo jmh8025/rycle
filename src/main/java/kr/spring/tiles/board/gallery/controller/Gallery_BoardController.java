@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -68,6 +69,7 @@ public class Gallery_BoardController {
    }
    
    @RequestMapping(value = "/board/gallery_board_list_infinite.do", method= RequestMethod.POST )
+   @ResponseBody
    public Map<String, Object> gallery_Board_List2(Model model, @RequestParam(value="gpage", defaultValue="0") int gpage ) throws Exception{        
         
 	   logger.info("Gallery_boardController_page"+gpage);
@@ -78,11 +80,10 @@ public class Gallery_BoardController {
        
        List<Gallery_fileVO> list = galleryBoardService.listAll(page_cnt);
        // 데이터를 맵에 저장
-       Map<String, Object> map2 = new HashMap<String, Object>();
+       Map<String, Object> map = new HashMap<String, Object>();
+       map.put("list", list); // list
        
-       map2.put("list", list); // list
-       
-       return map2;
+       return map;
    }
    
    
