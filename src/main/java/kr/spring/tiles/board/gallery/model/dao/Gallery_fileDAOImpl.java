@@ -34,9 +34,9 @@ public class Gallery_fileDAOImpl implements Gallery_fileDAO {
 	SqlSession sqlSession;
 	
 	@Override
-	public List<Gallery_fileVO> flistAll() throws Exception {
+	public List<Gallery_fileVO> flistAll(int page_cnt) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("galleryfile.flistAll");
+		return sqlSession.selectList("galleryfile.flistAll", page_cnt);
 	}
 	
 	@Override

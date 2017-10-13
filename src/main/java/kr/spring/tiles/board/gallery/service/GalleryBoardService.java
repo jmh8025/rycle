@@ -36,7 +36,7 @@ public interface GalleryBoardService {
 	/*// 04. 게시글 삭제
 	public void delete(int bno) throws Exception;*/
 	// 05. 게시글 전체 목록
-	public List<Gallery_fileVO> listAll() throws Exception;
+	public List<Gallery_fileVO> listAll(int page_cnt) throws Exception;
 // 06. 게시글 조회
 	public void increaseViewcnt(int no, HttpSession session) throws Exception;
 	/*		// 07. 게시글 레코드 갯수

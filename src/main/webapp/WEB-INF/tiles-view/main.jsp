@@ -22,7 +22,7 @@
 			'core_circle_radius':60,
 			'chartDiv': 'chart_d',
 			'chartType': 'donut',
-			'chartSize': {width:600, height:300}
+			'chartSize': {width:300, height:150}
 		};
 
 		Nwagon.chart(options);
