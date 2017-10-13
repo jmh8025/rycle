@@ -19,7 +19,7 @@ public class VisitCountService{
 	}
 	
 	public void setVisitTotalCount() {
-		sqlSession.insert("visit.insertVisit");
+		sqlSession.insert("visit.setVisitTotalCount");
 		System.out.println("실행됨");
 	}
 	public int getVisitTodayCount() {

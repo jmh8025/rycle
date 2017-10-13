@@ -1,7 +1,7 @@
 package kr.spring.tiles.member.service;
 
 import java.util.List;
-
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 import kr.spring.tiles.member.model.dto.MemberVO;
@@ -27,6 +27,7 @@ public interface MemberService {
     public boolean idcheck(String id);
  // 이메일 체크
  	public boolean emailCheck(String email);
-	
+	//설문조사
+ 	public Map<String, Integer> cycleyn();
 	
 }

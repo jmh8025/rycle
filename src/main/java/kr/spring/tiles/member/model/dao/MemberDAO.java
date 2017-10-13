@@ -1,6 +1,7 @@
 package kr.spring.tiles.member.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 import kr.spring.tiles.member.model.dto.MemberVO;
@@ -28,5 +29,8 @@ public interface MemberDAO {
     public boolean idcheck(String id);
  // 이메일 체크
  	public boolean emailCheck(String email);
+ 	
+ 	//자전거유무
+ 	public Map<String, Integer> cycleyn();
 	
 }
