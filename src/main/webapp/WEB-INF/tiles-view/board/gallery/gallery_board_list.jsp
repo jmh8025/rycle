@@ -32,7 +32,7 @@
 			            	return alert("실패");
 			            }	else {
 			    			alert (data);
-			    			alert (data.list.file_name);
+			    			alert ("2"+data.list[1].file_name);
 			            }
 						
 					}

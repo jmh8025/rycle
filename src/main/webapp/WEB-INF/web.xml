@@ -18,8 +18,10 @@
       </listener-class>
   </listener>
   
-
-
+  <listener>
+    <listener-class>kr.spring.tiles.util.CountManager</listener-class>
+</listener>
+  
   
 		<servlet>
         <servlet-name>dispatcher</servlet-name>

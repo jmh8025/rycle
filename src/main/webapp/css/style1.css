@@ -261,7 +261,11 @@ body {
     line-height: 1.6em;
     color: #fff;
 }
-
+.today h3 {
+    font-size: 25px;
+    line-height: 0.6em;
+    color: #fff;
+}
 
 .weather h3 {
     font-size: 25px;
@@ -288,6 +292,10 @@ body {
 .cards h2 small span {
     color: #33c9dd;
 }   
+.cards .gallary{
+	opacity:0.8;
+}
+
 .cards > li:nth-child(1),
 .cards > li:nth-child(2),
 .cards > li:nth-child(3),
@@ -787,4 +795,6 @@ background:#23527C; border-top-right-radius:12px;  }
 .cards .survey .survey_cyclekind canvas{
 z-index:9999;
 	}    
+  
+  
   
