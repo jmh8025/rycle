@@ -126,8 +126,35 @@ public class GalleryBoardServiceImpl implements GalleryBoardService {
 	// 03. 게시글 수정
 	@Transactional
 	@Override
-	public void update(Gallery_boardVO vo) throws Exception {
+	public void update(Gallery_boardVO vo, Gallery_fileVO fvo) throws Exception {
 		galleryboardDao.update(vo);
+		
+		
+		int bno = vo.getNo();
+		
+		logger.info("Gallery_service_update_bno"+bno);
+		
+		// 게시물의 첨부파일 정보 등록
+	    String[] files = fvo.getFile_name2(); // 첨부파일 배열
+	    String[] ufiles = fvo.getUfile_name2(); // 첨부파일 업로드명 배열
+	    
+	    if(files == null) {
+	    	logger.info("없어서 리턴한다");
+	    	return; // 첨부파일이 없으면 메서드 종료
+
+	    }	else {
+
+	    // 첨부파일들의 정보를 tbl_attach 테이블에 insert
+		    for(int i=0; i<files.length; i++){ 
+		    	logger.info("GalleryService_files"+i+":"+files[i]);
+		    	logger.info("GalleryService_ufiles"+i+":"+ufiles[i]);
+		    	logger.info("GalleryService_bno:"+bno);
+		    }
+		    
+		    for(int i=0; i<files.length; i++){ 
+		    	galleryfileDao.addAttach(files[i], ufiles[i], bno);
+		    }
+	    }
 
 		/*		// 첨부파일들의 정보를 tbl_attach 테이블에 insert
 		for(String name : files){

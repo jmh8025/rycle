@@ -120,7 +120,7 @@ $(document).ready(function() {
 		
 		$.ajax({
 			type: "post",
-			url: "/SpringTiles/upload/uploadAjax.do?gall_chk="+gall_chk,
+			url: "/SpringTiles/upload/uploadAjax.do",
 			data: formData,
 			dataType: "text",
 			// processData: true=> get방식, false => post방식
