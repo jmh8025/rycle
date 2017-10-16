@@ -28,7 +28,6 @@ public class GalleryBoardServiceImpl implements GalleryBoardService {
 	@Inject
 	Gallery_boardDAOImpl galleryboardDao;
 	
-	
 	@Inject
 	Gallery_fileDAOImpl galleryfileDao;
 	

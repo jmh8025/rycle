@@ -161,14 +161,18 @@ $(document).ready(function() {
 		// 2. 파일 삭제
 		// 태그.on("이벤트", "자손태그", "이벤트핸들러")
 	$("#fileDrop").on("click", "span", function(event){
-		alert("이미지 삭제")
+		alert("게시판명"+$("#board_file").val());
+		
+		//게시판명으로 파일 삭제 체크
+		var board_file = $("#board_file").val();
+		
 		var that = $(this); // 여기서 this는 클릭한 span태그
 		$.ajax({
 			url: "/SpringTiles/upload/deleteFile.do",
 			type: "post",
 			// data: "fileName="+$(this).attr("date-src") = {fileName:$(this).attr("data-src")}
 			// 태그.attr("속성")
-			data: {fileName:$(this).attr("data-src")}, // json방식
+			data: {fileName:$(this).attr("data-src"), board_file:board_file}, // json방식
 			dataType: "text",
 			success: function(result){
 				if( result == "deleted" || result == "deleted_img" ){
