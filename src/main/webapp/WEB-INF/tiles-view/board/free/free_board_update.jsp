@@ -7,8 +7,7 @@
 	
 		<p class="tbTopTxt"><span><b class="star" title="필수항목">*</b> 필수입력</span></p>
 		<form method="post" id="writeform" name="writeform" action="/SpringTiles/board/free_board_update.do?bno=${map.dto.no}"> 
-			<input type="hidden" name="id" value="slr2">
-			<input type="hidden" name="writer" value="작성자">
+			<input type="hidden" id="board_file" value="free_file">
 			
 			<!-- boardWrite -->
 			<div class="boardWrite">

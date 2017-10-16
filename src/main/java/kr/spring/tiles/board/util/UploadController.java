@@ -30,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.spring.tiles.board.free.model.dto.Free_boardVO;
 import kr.spring.tiles.board.free.service.FreeBoardService;
+import kr.spring.tiles.board.gallery.service.GalleryBoardService;
 import kr.spring.tiles.board.util.MediaUtils;
 import kr.spring.tiles.board.util.UploadFileUtils;
 
@@ -42,9 +43,13 @@ public class UploadController {
 	// bean의 id가 uploadPath인 태그를 참조
 	@Resource(name="uploadPath")
 	String uploadPath; 	
- 	
+
 	@Inject
-	FreeBoardService boardService;
+	GalleryBoardService galleryBoardService;
+	
+	@Inject
+	FreeBoardService freeBoardService;
+
 	
 	// 업로드 흐름 : 업로드 버튼클릭 => 임시디렉토리에 업로드=> 지정된 디렉토리에 저장 => 파일정보가 file에 저장
 	
@@ -131,7 +136,7 @@ public class UploadController {
     // 7. 파일 삭제 매핑
     @ResponseBody // view가 아닌 데이터 리턴
     @RequestMapping(value = "/upload/deleteFile", method = RequestMethod.POST)
-    public ResponseEntity<String> deleteFile(String fileName) throws Exception {
+    public ResponseEntity<String> deleteFile(String fileName, String board_file) throws Exception {
         // 파일의 확장자 추출
         String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
         
@@ -155,8 +160,16 @@ public class UploadController {
         // 원본 파일 삭제
         new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
         
+        logger.info("deleteFile_board_file : "+board_file);
+        
+        if(board_file.equals("gallery_file")) {
+            logger.info("gallery_file실행!");
+        	galleryBoardService.deleteFile(fileName);
+        }	else {
+            logger.info("free_file실행!");
+        	freeBoardService.deleteFile(fileName);
+        }
         // 레코드 삭제
-        boardService.deleteFile(fileName);
         
         // 데이터와 http 상태 코드 전송
         return new ResponseEntity<String>(deleted, HttpStatus.OK);
