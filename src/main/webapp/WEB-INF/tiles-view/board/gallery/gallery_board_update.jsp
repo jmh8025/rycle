@@ -29,7 +29,9 @@
 							    <div id="fileDrop" class="gfileDrop" style="height:500px">
 								<c:forEach var="farticle" items="${map.fdto}"  varStatus="status">
 									<div>
-										<a href='/SpringTiles/upload/displayFile.do?fileName=${farticle.ufile_name}'>${farticle.file_name}</a>
+										<a href='/SpringTiles/upload/displayFile.do?fileName=${farticle.ufile_name}'>
+										<img id="gitem" src="/SpringTiles/upload/displayFile.do?fileName=${farticle.ufile_name}" style="margin: 3px;">
+										</a>
 										<span data-src="${farticle.ufile_name}">[삭제]</span>
 									</div>
 								</c:forEach>

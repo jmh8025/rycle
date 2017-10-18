@@ -19,6 +19,7 @@ import kr.spring.tiles.board.free.model.dto.Fb_categoryVO;
 import kr.spring.tiles.board.free.model.dto.Free_boardVO;
 import kr.spring.tiles.board.free.model.dto.Free_commentVO;
 import kr.spring.tiles.board.free.model.dto.Free_fileVO;
+import kr.spring.tiles.board.gallery.model.dto.Gallery_fileVO;
 
 // 현재 클래스를 스프링에서 관리하는 service bean으로 등록
 @Service
@@ -150,13 +151,34 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	// 03. 게시글 수정
 	@Transactional
 	@Override
-	public void update(Free_boardVO vo) throws Exception {
+	public void update(Free_boardVO vo, Free_fileVO fvo) throws Exception {
 		freeboardDao.update(vo);
 
-		/*		// 첨부파일들의 정보를 tbl_attach 테이블에 insert
-		for(String name : files){
-			freeboardDao.updateAttach(name, vo.getBno());
-		}*/
+		int bno = vo.getNo();
+		
+		logger.info("Free_service_update_bno"+bno);
+		
+		// 게시물의 첨부파일 정보 등록
+	    String[] files = fvo.getFile_name2(); // 첨부파일 배열
+	    String[] ufiles = fvo.getUfile_name2(); // 첨부파일 업로드명 배열
+	    
+	    if(files == null) {
+	    	logger.info("없어서 리턴한다");
+	    	return; // 첨부파일이 없으면 메서드 종료
+
+	    }	else {
+
+	    // 첨부파일들의 정보를 tbl_attach 테이블에 insert
+		    for(int i=0; i<files.length; i++){ 
+		    	logger.info("FreeService_files"+i+":"+files[i]);
+		    	logger.info("FreeService_ufiles"+i+":"+ufiles[i]);
+		    	logger.info("FreeService_bno:"+bno);
+		    }
+		    
+		    for(int i=0; i<files.length; i++){ 
+		    	freefileDao.addAttach(files[i], ufiles[i], bno);
+		    }
+	    }
 	}
 		
 	/*// 04. 게시글 삭제
@@ -213,9 +235,9 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	public void delete(int bno) throws Exception {
 		// TODO Auto-generated method stub
 		//파일 삭제 시 게시판, 파일, 댓글 삭제
-		freeboardDao.bdelete(bno);
 		freefileDao.bdeleteFile(bno); 
 		freecommentDao.bdeleteCmt(bno);
+		freeboardDao.bdelete(bno);
 	}
 
 }
