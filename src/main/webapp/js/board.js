@@ -313,13 +313,10 @@ function cmUpdateOpen(cno){
 
 // 댓글 수정
 function cmUpdateOK(cno){
-	alert("cmUpdateOK실행!");
 	
 	var cid = $("#sid").val();
 	var ccontent_cno = $("#ccontent_"+cno).val();
-	
-	alert("내용:"+ccontent_cno);
-	
+		
 	// ajax로 전달할 폼 객체
     var allData = { "cno": cno, "ccontent": ccontent_cno };
 	

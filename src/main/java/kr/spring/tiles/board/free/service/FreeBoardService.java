@@ -33,7 +33,7 @@ public interface FreeBoardService {
 	public void getDelComment(int cno) throws Exception;
 	
 	// 03. 게시글 수정
-	public void update(Free_boardVO vo) throws Exception;
+	public void update(Free_boardVO vo, Free_fileVO fvo) throws Exception;
 	// 03-2 file 이미지 갯수
 	public int cnt_img(int bno) throws Exception;
 	// 03-3 file 이미지 아닌것 갯수

@@ -32,7 +32,6 @@
 			            	return alert("실패");
 			            }	else {
 			    			var fhtml = "";
-			    			
 			    			for (var i=0; i<data.list.length; i++ ){
 			    				fhtml += '<a href="/SpringTiles/board/gallery_board_view.do?bno='+data.list[i].no+'"><img id="gitem" src="/SpringTiles/upload/displayFile.do?fileName='+data.list[i].ufile_name+'" style="margin: 3px;"></a>';
 			    			}
@@ -51,10 +50,6 @@
 			<!-- </div> -->
 		</c:forEach>
 	</div>
-		
-		<div class="gal_container" id="body">
-				<center><button class="demo-more" id="more">더보기</button></center>
-		</div>
 	
 </div>
 

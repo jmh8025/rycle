@@ -4,6 +4,7 @@
 
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
+
 <input type="hidden" name="bno" id="bno" value="${map.dto.no}">
 <input type="hidden" name="sid" id="sid" value="${sessionScope.id}">
 <input type="hidden" name="sname" id="sname" value="${sessionScope.name}">
@@ -40,7 +41,10 @@
 						<div id="uploadedList">
 							<c:if test="${map.fdto != null}">
 								<c:forEach var="farticle" items="${map.fdto}" varStatus="status">
-								<a href='/SpringTiles/upload/displayFile.do?fileName=${farticle.ufile_name}'>${farticle.file_name}</a>
+								<c:set var="wfile_name" value="${fn:replace(farticle.ufile_name, '/s_', '/')}" />
+
+								<a href='/SpringTiles/upload/displayFile.do?fileName=${wfile_name}'>
+								<img id="gitem" src="/SpringTiles/upload/displayFile.do?fileName=${farticle.ufile_name}" style="margin: 3px;"></a>
 									<br>
 								</c:forEach>
 							</c:if>

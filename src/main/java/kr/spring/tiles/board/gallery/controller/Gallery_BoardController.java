@@ -143,7 +143,6 @@ public class Gallery_BoardController {
 	}
 
 	// 04. 게시글 수정
-	// 폼에서 입력한 내용들은 @ModelAttribute BoardVO vo로 전달됨
 	@RequestMapping(value = "/board/gallery_board_update.do", method = RequestMethod.GET)
 	public String gallery_Board_Update(int bno, Model model) throws Exception {
 
@@ -151,7 +150,6 @@ public class Gallery_BoardController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("dto", galleryBoardService.read(bno)); // view
 		map.put("fdto", galleryBoardService.fread(bno));
-
 		map.put("uheight", galleryBoardService.cnt_img(bno) * 100 + galleryBoardService.cnt_nimg(bno) * 20 + 60);
 
 		model.addAttribute("map", map);
@@ -160,14 +158,13 @@ public class Gallery_BoardController {
 	}
 
 	// 04. 게시글 수정
-	// 폼에서 입력한 내용들은 @ModelAttribute BoardVO vo로 전달됨
 	@RequestMapping(value = "/board/gallery_board_update.do", method = RequestMethod.POST)
-	
+
 	public String gallery_Board_Update(@RequestParam int bno, @ModelAttribute Gallery_boardVO galleryboard,
-		@ModelAttribute Gallery_fileVO galleryfile, HttpSession session, Model model) throws Exception {
+			@ModelAttribute Gallery_fileVO galleryfile, HttpSession session, Model model) throws Exception {
 
 		logger.info("gallery_Board_Update실행[ bno=" + bno + "]");
-		// session에 저장된 userId를 writer에 저장
+
 		String session_id = (String) session.getAttribute("id");
 		String session_writer = (String) session.getAttribute("name");
 
