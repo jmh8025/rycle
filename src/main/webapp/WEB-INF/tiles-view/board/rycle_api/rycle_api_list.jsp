@@ -32,25 +32,47 @@
 
         var infoWindow = new google.maps.InfoWindow({map: map});
       
-      if (navigator.geolocation) {
-         navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
-               lat : position.coords.latitude,
-               lng : position.coords.longitude
-            };
+        
+        var browserGeolocationSuccess = function(position) {
+        	 var pos = {
+                     lat : position.coords.latitude,
+                     lng : position.coords.longitude
+                  };
+        	  infoWindow.setPosition(pos); //지도에 현재 위치를 나타내도록 함
+              infoWindow.setContent('내위치'); // 가리키는 지점에 텍스트 상자 보이도록 하기
+              //나중에 넣어서 텍스트 상자 창을 띄울 수 있음
+              map.setCenter(pos);
+        };
 
-            infoWindow.setPosition(pos); //지도에 현재 위치를 나타내도록 함
-            infoWindow.setContent('내위치'); // 가리키는 지점에 텍스트 상자 보이도록 하기
-            //나중에 넣어서 텍스트 상자 창을 띄울 수 있음
-            map.setCenter(pos);
-            
-         }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
-         });
-      } else {
-         // Browser doesn't support Geolocation
-         handleLocationError(false, infoWindow, map.getCenter());
-      }
+        
+        
+        var browserGeolocationFail = function(error) {
+        	  switch (error.code) {
+        	    case error.TIMEOUT:
+        	      alert("Browser geolocation error !\n\nTimeout.");
+        	      break;
+        	    case error.PERMISSION_DENIED:
+        	      if(error.message.indexOf("Only secure origins are allowed") == 0) {
+        	        tryAPIGeolocation();
+        	      }
+        	      break;
+        	    case error.POSITION_UNAVAILABLE:
+        	      alert("Browser geolocation error !\n\nPosition unavailable.");
+        	      break;
+        	  }
+        	};
+        
+        
+        var tryGeolocation = function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                	browserGeolocationSuccess,
+                  browserGeolocationFail,
+                  {maximumAge: 50000, timeout: 20000, enableHighAccuracy: true});
+              }
+         }
+        tryGeolocation();
+        
       // e: navigator.geolocation
 
       // 버튼 뿌리기
