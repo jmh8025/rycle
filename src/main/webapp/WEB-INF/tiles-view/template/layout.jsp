@@ -16,16 +16,16 @@
     
     <!-- css -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/SpringTiles/css/reset1.css">
-    <link rel="stylesheet" href="/SpringTiles/css/fontello.css"> 
-    <link rel="stylesheet" href="/SpringTiles/css/style1.css">
+    <link rel="stylesheet" href="/css/reset1.css">
+    <link rel="stylesheet" href="/css/fontello.css"> 
+    <link rel="stylesheet" href="/css/style1.css">
     
     <!-- js -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="/SpringTiles/js/memberreg.js"></script>
-    <script src="/SpringTiles/js/common170908.js"></script>
-    <script src="/SpringTiles/js/board.js"></script>
+    <script src="/js/memberreg.js"></script>
+    <script src="/js/common170908.js"></script>
+    <script src="/js/board.js"></script>
 
 
 </head>

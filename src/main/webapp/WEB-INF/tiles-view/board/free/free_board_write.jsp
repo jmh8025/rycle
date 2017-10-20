@@ -5,9 +5,8 @@
 	<div class="content">
 
 		<p class="tbTopTxt"><span><b class="star" title="필수항목">*</b> 필수입력</span></p>
-		<form method="post" id="writeform" name="writeform" action="/SpringTiles/board/free_board_insert.do"> 
-			<input type="hidden" name="id" value="slr2">
-			<input type="hidden" name="writer" value="작성자">
+		<form method="post" id="writeform" name="writeform" action="/board/free_board_insert.do"> 
+			<input type="hidden" id="board_file" value="free_file">
 			
 			<!-- boardWrite -->
 			<div class="content_inner">
@@ -65,7 +64,7 @@
 			<!-- btnArea -->
 			<div class="btnArea">
 			
-					<input class="btnList" type="button" value="목록" onclick="location.href='/SpringTiles/board/free_board_list.do'">
+					<input class="btnList" type="button" value="목록" onclick="location.href='/board/free_board_list.do'">
 					<button class="btnSubmit" type="button" id="btnSave" onclick="write_submit('free_board');" >확인</button>
 					<button class="btnReset" type="reset" >취소</button>
 				

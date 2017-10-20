@@ -60,7 +60,7 @@ function getFileInfo(fullName){
 	// 이미지 파일일 경우
 	if(checkImageType(fullName)){
 		// 이미지 파열 경로(썸네일)
-		imgsrc = "/SpringTiles/board/upload/displayFile?fileName="+fullName;
+		imgsrc = "/board/upload/displayFile?fileName="+fullName;
 		console.log(imgsrc);
 		// 업로드 파일명
 		fileLink = fullName.substr(14);
@@ -72,7 +72,7 @@ function getFileInfo(fullName){
 		var end = fullName.substr(14);
 		console.log(end);
 		// 원본이미지 파일 디렉토리
-		getLink = "/SpringTiles/board/upload/displayFile?fileName="+front+end;
+		getLink = "/board/upload/displayFile?fileName="+front+end;
 		console.log(getLink);
 	// 이미지 파일이 아닐경우
 	} else {
@@ -80,7 +80,7 @@ function getFileInfo(fullName){
 		fileLink = fullName.substr(12);
 		console.log(fileLink);
 		// 일반파일디렉토리 
-		getLink = "/SpringTiles/board/upload/displayFile?fileName="+fullName;
+		getLink = "/board/upload/displayFile?fileName="+fullName;
 		console.log(getLink);
 	}
 	// 목록에 출력할 원본파일명
@@ -120,7 +120,7 @@ $(document).ready(function() {
 		
 		$.ajax({
 			type: "post",
-			url: "/SpringTiles/upload/uploadAjax.do",
+			url: "/upload/uploadAjax.do",
 			data: formData,
 			dataType: "text",
 			// processData: true=> get방식, false => post방식
@@ -137,13 +137,13 @@ $(document).ready(function() {
 				alert(data);
 				// 이미지파일이면 썸네일 이미지 출력
 					if(checkImageType(data)){ 
-					str = "<div><a href='/SpringTiles/upload/displayFile.do?fileName="+getImageLink(data)+"'>";
-					str += "<img src='/SpringTiles/upload/displayFile.do?fileName="+data+"'></a>";
+					str = "<div><a href='/upload/displayFile.do?fileName="+getImageLink(data)+"'>";
+					str += "<img src='/upload/displayFile.do?fileName="+data+"'></a>";
 					hadd = 100;
 				// 이미지 파일이 아니면 다운로드
 				} else { 
 					if(gall_chk == "Y"){ alert("이미지만 등록 가능합니다"); return false; }
-					str = "<div><a href='/SpringTiles/upload/displayFile.do?fileName="+data+"'>"+getOriginalName(data)+"</a>";	
+					str = "<div><a href='/upload/displayFile.do?fileName="+data+"'>"+getOriginalName(data)+"</a>";	
 
 				}
 					str += "<span data-src="+data+">[삭제]</span>";
@@ -161,14 +161,18 @@ $(document).ready(function() {
 		// 2. 파일 삭제
 		// 태그.on("이벤트", "자손태그", "이벤트핸들러")
 	$("#fileDrop").on("click", "span", function(event){
-		alert("이미지 삭제")
+		alert("게시판명"+$("#board_file").val());
+		
+		//게시판명으로 파일 삭제 체크
+		var board_file = $("#board_file").val();
+		
 		var that = $(this); // 여기서 this는 클릭한 span태그
 		$.ajax({
-			url: "/SpringTiles/upload/deleteFile.do",
+			url: "/upload/deleteFile.do",
 			type: "post",
 			// data: "fileName="+$(this).attr("date-src") = {fileName:$(this).attr("data-src")}
 			// 태그.attr("속성")
-			data: {fileName:$(this).attr("data-src")}, // json방식
+			data: {fileName:$(this).attr("data-src"), board_file:board_file}, // json방식
 			dataType: "text",
 			success: function(result){
 				if( result == "deleted" || result == "deleted_img" ){
@@ -254,7 +258,7 @@ $(document).ready(function() {
 		
 		$.ajax({
 			type: "post",
-			url: "/SpringTiles/comment/insertAjax.do",
+			url: "/comment/insertAjax.do",
 			data: allData,
 			success: function(data) {
 				
@@ -309,19 +313,16 @@ function cmUpdateOpen(cno){
 
 // 댓글 수정
 function cmUpdateOK(cno){
-	alert("cmUpdateOK실행!");
 	
 	var cid = $("#sid").val();
 	var ccontent_cno = $("#ccontent_"+cno).val();
-	
-	alert("내용:"+ccontent_cno);
-	
+		
 	// ajax로 전달할 폼 객체
     var allData = { "cno": cno, "ccontent": ccontent_cno };
 	
 	$.ajax({
 		type: "post",
-		url: "/SpringTiles/comment/updateAjax.do",
+		url: "/comment/updateAjax.do",
 		data: allData,
 		success: function(data) {
 
@@ -360,7 +361,7 @@ function cmDeleteOpen(cno){
 	
 	$.ajax({
 		type: "post",
-		url: "/SpringTiles/comment/deleteAjax.do",
+		url: "/comment/deleteAjax.do",
 		data: allData,
 		success: function(data) {
 			
@@ -422,7 +423,7 @@ function writeReCmt(idx) {
 	
 	$.ajax({
 		type: "post",
-		url: "/SpringTiles/comment/insertAjax.do",
+		url: "/comment/insertAjax.do",
 		data: allData,
 		
 		success: function(data) {

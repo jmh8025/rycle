@@ -28,7 +28,6 @@ public class GalleryBoardServiceImpl implements GalleryBoardService {
 	@Inject
 	Gallery_boardDAOImpl galleryboardDao;
 	
-	
 	@Inject
 	Gallery_fileDAOImpl galleryfileDao;
 	
@@ -215,8 +214,8 @@ public class GalleryBoardServiceImpl implements GalleryBoardService {
 	public void delete(int bno) throws Exception {
 		// TODO Auto-generated method stub
 		//파일 삭제 시 게시판, 파일, 댓글 삭제
-		galleryboardDao.bdelete(bno);
 		galleryfileDao.bdeleteFile(bno); 
 		gallerycommentDao.bdeleteCmt(bno);
+		galleryboardDao.bdelete(bno);
 	}
 }

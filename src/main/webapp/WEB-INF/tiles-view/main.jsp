@@ -45,14 +45,14 @@
 			</h3>
 			<br>
 			<p>
-				<span>${today.temp}˚</span><img src="${path}/${today.skyicon}"
+				<span>${today.temp}˚</span><img src="${today.skyicon}"
 					width="115px">
 			</p>
 			<br>
 		</div>
 	</li>
 	<li>
-		<div class="gallary"><img style="border-radius: 12px;" src="/SpringTiles/img/maincycle.jpg" width="100%" height="100%"></div>
+		<div class="gallary"><img style="border-radius: 12px;" src="/img/maincycle.jpg" width="100%" height="100%"></div>
 		<div class="today">
 			<center>
 				<span><h3><br>현재 접속자수 : <%= CountManager.getCount() %></h3></span>
@@ -82,13 +82,13 @@
 							<c:choose>
 								<c:when test="${fn:length(article.subject) > 18}">
 									<td class="names"><a
-										href="/SpringTiles/board/free_board_view.do?bno=${article.no}&cate_chk=${article.cate_chk}${board_link}">
+										href="/board/free_board_view.do?bno=${article.no}&cate_chk=${article.cate_chk}${board_link}">
 											<c:out value="${fn:substring(article.subject,0,17)}" />....
 									</a></td>
 								</c:when>
 								<c:otherwise>
 									<td class="names"><a
-										href="/SpringTiles/board/free_board_view.do?bno=${article.no}&cate_chk=${article.cate_chk}${board_link}">
+										href="/board/free_board_view.do?bno=${article.no}&cate_chk=${article.cate_chk}${board_link}">
 											${article.subject} </a></td>
 								</c:otherwise>
 							</c:choose>

@@ -48,7 +48,7 @@
 						<div id="uploadedList">
 							<c:if test="${map.fdto != null}">
 								<c:forEach var="farticle" items="${map.fdto}" varStatus="status">
-								<a href='/SpringTiles/upload/displayFile.do?fileName=${farticle.ufile_name}'>${farticle.file_name}</a>
+								<a href='/upload/displayFile.do?fileName=${farticle.ufile_name}'>${farticle.file_name}</a>
 									<br>
 								</c:forEach>
 							</c:if>
@@ -138,11 +138,11 @@
 
 	<!-- btnArea -->
 	<div class="btnArea">
-		<input class="btnList" type="button" value="목록" onclick="location.href='/SpringTiles/board/free_board_list.do'">
+		<input class="btnList" type="button" value="목록" onclick="location.href='/board/free_board_list.do'">
 
 		<c:if test="${map.dto.id == sessionScope.id}">
-			<button class="btnSubmit" type="button" onclick="location.href='/SpringTiles/board/free_board_update.do?bno=${map.dto.no}' ">수정</button>
-			<button class="btnSubmit" type="button" onclick="location.href='/SpringTiles/board/free_board_delete.do?bno=${map.dto.no}'">삭제</button>
+			<button class="btnSubmit" type="button" onclick="location.href='/board/free_board_update.do?bno=${map.dto.no}' ">수정</button>
+			<button class="btnSubmit" type="button" onclick="location.href='/board/free_board_delete.do?bno=${map.dto.no}'">삭제</button>
 		</c:if>
 			
 	</div>

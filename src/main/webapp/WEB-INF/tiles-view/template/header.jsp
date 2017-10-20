@@ -296,7 +296,7 @@
 
 
 
-<script src="/SpringTiles/js/regfooter.js"></script>
+<script src="/js/regfooter.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 
