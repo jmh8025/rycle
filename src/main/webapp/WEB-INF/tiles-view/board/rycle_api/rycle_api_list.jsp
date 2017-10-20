@@ -27,7 +27,7 @@
 
       //JSONP를 요청하려면 createElement()를 사용하여 script 태그를 문서의 헤드에 추가합니다.
       var script = document.createElement('script');
-      script.src = '/SpringTiles/js/lycle_map.js';
+      script.src = '/js/lycle_map.js';
       document.getElementsByTagName('head')[0].appendChild(script);
 
         var infoWindow = new google.maps.InfoWindow({map: map});
