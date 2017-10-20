@@ -6,7 +6,9 @@
 	<div class="content">
 	
 		<p class="tbTopTxt"><span><b class="star" title="필수항목">*</b> 필수입력</span></p>
+
 		<form method="post" id="writeform" name="writeform" action="/board/gallery_board_update.do?bno=${map.dto.no}"> 
+
 			<input type="hidden" id="board_file" value="gallery_file">
 			
 			<!-- boardWrite -->
@@ -31,6 +33,7 @@
 									<div>
 										<a href='/upload/displayFile.do?fileName=${farticle.ufile_name}'>
 										<img id="gitem" src="/upload/displayFile.do?fileName=${farticle.ufile_name}" style="margin: 3px;">
+
 										</a>
 										<span data-src="${farticle.ufile_name}">[삭제]</span>
 									</div>

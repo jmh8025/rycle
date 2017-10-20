@@ -45,6 +45,7 @@
 
 								<a href='/upload/displayFile.do?fileName=${wfile_name}'>
 								<img id="gitem" src="/upload/displayFile.do?fileName=${farticle.ufile_name}" style="margin: 3px;"></a>
+
 									<br>
 								</c:forEach>
 							</c:if>
