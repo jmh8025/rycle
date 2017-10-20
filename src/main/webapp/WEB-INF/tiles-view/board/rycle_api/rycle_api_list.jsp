@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <script>
    var resultlocal; //로컬json파일을 담기위한 전역변수
    var map;
@@ -179,7 +179,7 @@
       });
 		markers.push(marker); //마커를 배열에 삽입 (나중에 지우기위해서)
 		
-		var content = "주소 : "+result.ADDRESS+"<br> <img src='"+result.FILENAME+"' width='300px'>"; //콘텐츠 새성
+		var content = "<b>주소 : "+result.ADDRESS+"</b><br><br> <img src='"+result.FILENAME+"' width='300px'>"; //콘텐츠 새성
 		google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){ //마커 클릭시 이벤트(click->mouseover(?),over)등으로 변경가능 
 			return function(){
 				infowindow.setContent(content); //정보창의 컨텐츠(내용)  
@@ -203,12 +203,13 @@
 	 }
    
 </script>
-<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+<script
+	src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 <script async defer
-   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA67w35cw4kd5G741egvTz3Iihp0q54cbI&callback=initMap">
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA67w35cw4kd5G741egvTz3Iihp0q54cbI&callback=initMap">
    
 </script>
 <div class="content_inner">
-  <div id="map" style="height:500px"></div>
-  </div>
+	<div id="map" style="height: 500px"></div>
+</div>
 
