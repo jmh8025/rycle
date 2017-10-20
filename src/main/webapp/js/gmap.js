@@ -16,6 +16,48 @@ function initMap() {
 
 infowindow = new google.maps.InfoWindow(); //마커클릭시 정보창을 띄우기위한 함수 및 그함수를 변수에 담음
 
+var browserGeolocationSuccess = function(position) {
+	 var pos = {
+             lat : position.coords.latitude,
+             lng : position.coords.longitude
+          };
+	  infoWindow.setPosition(pos); //지도에 현재 위치를 나타내도록 함
+      infoWindow.setContent('내위치'); // 가리키는 지점에 텍스트 상자 보이도록 하기
+      //나중에 넣어서 텍스트 상자 창을 띄울 수 있음
+      map.setCenter(pos);
+};
+
+
+
+var browserGeolocationFail = function(error) {
+	  switch (error.code) {
+	    case error.TIMEOUT:
+	      alert("Browser geolocation error !\n\nTimeout.");
+	      break;
+	    case error.PERMISSION_DENIED:
+	      if(error.message.indexOf("Only secure origins are allowed") == 0) {
+	        tryAPIGeolocation();
+	      }
+	      break;
+	    case error.POSITION_UNAVAILABLE:
+	      alert("Browser geolocation error !\n\nPosition unavailable.");
+	      break;
+	  }
+	};
+
+
+var tryGeolocation = function() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+        	browserGeolocationSuccess,
+          browserGeolocationFail,
+          {maximumAge: 50000, timeout: 20000, enableHighAccuracy: true});
+      }
+ }
+tryGeolocation();
+
+
+
 //아래의 소스는
   var script = document.createElement('script');
   script.src = '/js/test2.js';
