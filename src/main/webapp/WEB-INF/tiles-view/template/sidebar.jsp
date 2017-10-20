@@ -23,7 +23,7 @@
                 </li>
                 <li class="sub-menu"><a href="sub.html">커뮤니티</a>
                     <ul>
-                        <li><a href="#">공지사항</a></li>
+                        <li><a href="${path}/board/rycle_api_list.do">매장_식수대</a></li>
                         <li><a href="${path}/board/free_board_list.do">자유게시판</a></li>
                         <li><a href="#">질문과답변</a></li>
                         <li><a href="${path}/board/gallery_board_list.do">갤러리 </a></li>
