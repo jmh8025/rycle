@@ -18,7 +18,7 @@ infowindow = new google.maps.InfoWindow(); //마커클릭시 정보창을 띄우
 
 //아래의 소스는
   var script = document.createElement('script');
-  script.src = '/SpringTiles/js/test2.js';
+  script.src = '/js/test2.js';
   document.getElementsByTagName('head')[0].appendChild(script);
 // <script src="test2.js"~  와 같습니다
 // 왜 이걸 후에 선언하는 이유는 구글지도맵을 초기화 한후에 값을 불러들여서 오류를 최소화하기위해서입니다.

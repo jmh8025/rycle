@@ -43,8 +43,9 @@
 								<c:forEach var="farticle" items="${map.fdto}" varStatus="status">
 								<c:set var="wfile_name" value="${fn:replace(farticle.ufile_name, '/s_', '/')}" />
 
-								<a href='/SpringTiles/upload/displayFile.do?fileName=${wfile_name}'>
-								<img id="gitem" src="/SpringTiles/upload/displayFile.do?fileName=${farticle.ufile_name}" style="margin: 3px;"></a>
+								<a href='/upload/displayFile.do?fileName=${wfile_name}'>
+								<img id="gitem" src="/upload/displayFile.do?fileName=${farticle.ufile_name}" style="margin: 3px;"></a>
+
 									<br>
 								</c:forEach>
 							</c:if>
@@ -134,11 +135,11 @@
 
 	<!-- btnArea -->
 	<div class="btnArea">
-		<button class="btnSubmit" type="button" onclick="location.href='/SpringTiles/board/gallery_board_list.do">목록</button>
+		<button class="btnSubmit" type="button" onclick="location.href='/board/gallery_board_list.do">목록</button>
 
 		<c:if test="${map.dto.id == sessionScope.id}">
-			<button class="btnSubmit" type="button" onclick="location.href='/SpringTiles/board/gallery_board_update.do?bno=${map.dto.no}' ">수정</button>
-			<button class="btnSubmit" type="button" onclick="location.href='/SpringTiles/board/gallery_board_delete.do?bno=${map.dto.no}'">삭제</button>
+			<button class="btnSubmit" type="button" onclick="location.href='/board/gallery_board_update.do?bno=${map.dto.no}' ">수정</button>
+			<button class="btnSubmit" type="button" onclick="location.href='/board/gallery_board_delete.do?bno=${map.dto.no}'">삭제</button>
 		</c:if>
 			
 	</div>

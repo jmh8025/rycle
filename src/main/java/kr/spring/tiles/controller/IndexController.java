@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
-
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,4 +58,12 @@ public class IndexController {
 	    mav.addObject("count",count);
 		return mav;
 	}
+	
+	
+	@RequestMapping("/error.do")
+    public ModelAndView error(){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("error/errorpage");
+        return mav;
+    }
 }

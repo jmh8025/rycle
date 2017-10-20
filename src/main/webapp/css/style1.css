@@ -795,6 +795,22 @@ background:#23527C; border-top-right-radius:12px;  }
 .cards .survey .survey_cyclekind canvas{
 z-index:9999;
 	}    
-  
-  
+	
+  .errors h2 {
+    font-size: 50px;
+    line-height: 1.6em;
+    color: #000;
+}
+  	
+  .errors h3 {
+    font-size: 40px;
+    line-height: 1.6em;
+    color: #000;
+}
+
+  .errors h3 .r{
+    font-size: 40px;
+    line-height: 1.6em;
+    color: red;
+}
   
