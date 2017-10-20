@@ -16,7 +16,7 @@ function initMap() {
 
 infowindow = new google.maps.InfoWindow(); //마커클릭시 정보창을 띄우기위한 함수 및 그함수를 변수에 담음
 
-var browserGeolocationSuccess = function(position) {
+/*var browserGeolocationSuccess = function(position) {
 	 var pos = {
              lat : position.coords.latitude,
              lng : position.coords.longitude
@@ -26,8 +26,6 @@ var browserGeolocationSuccess = function(position) {
       //나중에 넣어서 텍스트 상자 창을 띄울 수 있음
       map.setCenter(pos);
 };
-
-
 
 var browserGeolocationFail = function(error) {
 	  switch (error.code) {
@@ -54,7 +52,7 @@ var tryGeolocation = function() {
           {maximumAge: 50000, timeout: 20000, enableHighAccuracy: true});
       }
  }
-tryGeolocation();
+tryGeolocation();*/
 
 
 
