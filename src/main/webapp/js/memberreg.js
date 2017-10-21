@@ -2,8 +2,7 @@
 
 $(document).ready(function() {
 	
-	var path=location.host + location.pathname.slice(0,location.pathname.indexOf("/",2)+1);
-
+	var path=location.host + location.pathname.slice(0,location.pathname.indexOf("/",0)+1);
 /*	var sendMail = "http://"+path+"member/sendMail.do";*/
 	$('#havenothave').hide()
 	/*이메일부분*/
