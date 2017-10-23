@@ -31,7 +31,7 @@
       document.getElementsByTagName('head')[0].appendChild(script);
 
         var infoWindow = new google.maps.InfoWindow({map: map});
-    /*   
+     
       if (navigator.geolocation) {
          navigator.geolocation.getCurrentPosition(function(position) {
             var pos = {
@@ -50,7 +50,7 @@
       } else {
          // Browser doesn't support Geolocation
          handleLocationError(false, infoWindow, map.getCenter());
-      } */
+      } 
       // e: navigator.geolocation
 
       // 버튼 뿌리기
@@ -92,7 +92,7 @@
       controlText.style.paddingLeft = '5px';
       controlText.style.paddingRight = '5px';
       controlText.innerHTML = "";
-      controlText.innerHTML = "";
+      controlText.innerHTML += "<img src='https://raw.githubusercontent.com/jmh8025/api/master/ic_red.png' width='20px'>";
       /*          controlText.innerHTML += "<a onMouseOver='alarm();'>";
        */controlText.innerHTML += "매장";
       controlText.innerHTML += "</a>";
@@ -118,7 +118,7 @@
       controlText2.style.paddingLeft = '5px';
       controlText2.style.paddingRight = '5px';
       controlText2.innerHTML = "";
-      controlText2.innerHTML = "";
+      controlText2.innerHTML += "<img src='https://raw.githubusercontent.com/jmh8025/api/master/ic_blue.png' width='20px'>";
       /*          controlText.innerHTML += "<a onMouseOver='alarm();'>";
        */controlText2.innerHTML += "식수대";
       controlText2.innerHTML += "</a>";
