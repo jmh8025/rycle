@@ -17,6 +17,25 @@ function initMap() {
 
 infowindow = new google.maps.InfoWindow(); //마커클릭시 정보창을 띄우기위한 함수 및 그함수를 변수에 담음
 
+
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+       var pos = {
+          lat : position.coords.latitude,
+          lng : position.coords.longitude
+       };
+       map.setCenter(pos);
+       
+    }, function() {
+       handleLocationError(true, map.getCenter());
+    });
+ } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, map.getCenter());
+ } 
+
+
+
 //아래의 소스는
   var script = document.createElement('script');
   script.src = '/js/test2.js';
