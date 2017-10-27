@@ -130,16 +130,15 @@ $(document).ready(function() {
 				//alert(data);
 				console.log(data);
 
-				var hadd = 20;
+				var hadd = 23;
 				var str = "";
 				var file_name = "";
 
-				alert(data);
 				// 이미지파일이면 썸네일 이미지 출력
 					if(checkImageType(data)){ 
 					str = "<div><a href='/upload/displayFile.do?fileName="+getImageLink(data)+"'>";
 					str += "<img src='/upload/displayFile.do?fileName="+data+"'></a>";
-					hadd = 100;
+					hadd = 180;
 				// 이미지 파일이 아니면 다운로드
 				} else { 
 					if(gall_chk == "Y"){ alert("이미지만 등록 가능합니다"); return false; }
@@ -161,7 +160,6 @@ $(document).ready(function() {
 		// 2. 파일 삭제
 		// 태그.on("이벤트", "자손태그", "이벤트핸들러")
 	$("#fileDrop").on("click", "span", function(event){
-		alert("게시판명"+$("#board_file").val());
 		
 		//게시판명으로 파일 삭제 체크
 		var board_file = $("#board_file").val();
@@ -182,7 +180,7 @@ $(document).ready(function() {
 					var height = document.getElementById('fileDrop' ).offsetHeight;
 					
 					if(result == "deleted_img") {
-						$('#fileDrop').height( height - 100 );
+						$('#fileDrop').height( height - 180 );
 					}	else {
 						$('#fileDrop').height( height - 20 );
 					}
@@ -244,7 +242,6 @@ $(document).ready(function() {
 			ccontent = ccontent.replace("<","&lt;");
 			ccontent = ccontent.replace(">","&gt;");
 		}
-		alert(ccontent);
 		
 		$("#ccontent").val("");
 		
@@ -382,7 +379,6 @@ function cmReplyOpen(val) {
 	var cpno = $("#cno_"+idx).val(); 
 	var clevel = parseInt($("#clevel_"+idx).val())+1; //부모 level +1
 	
-	alert ("cpno:"+cpno+", clevel:"+clevel);
 	
 	var html = '';
     var nbsp = '';
@@ -416,8 +412,6 @@ function writeReCmt(idx) {
 	var ccontent = $("#ccontent_"+idx).val();
 	var clevel = $("#clevel_"+idx).val();
 	
-	alert ("cpno:"+cpno+", ccontent:"+ccontent+", clevel:"+clevel);
-
 	// ajax로 전달할 폼 객체
     var allData = { "bno": bno, "cid": cid, "cname": cname, "ccontent": ccontent, "cpno":cpno, "clevel" : clevel  };
 	

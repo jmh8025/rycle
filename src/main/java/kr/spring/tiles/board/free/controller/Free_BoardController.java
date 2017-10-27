@@ -158,7 +158,7 @@ public class Free_BoardController {
 		map.put("dto", freeBoardService.read(bno)); // view
 		map.put("fblist", freeBoardService.listAll()); // 카테고리 목록
 		map.put("fdto", freeBoardService.fread(bno)); //파일
-		map.put("uheight", freeBoardService.cnt_img(bno) * 100 + freeBoardService.cnt_nimg(bno) * 20 + 60);
+		map.put("uheight", freeBoardService.cnt_img(bno) * 180 + freeBoardService.cnt_nimg(bno) * 23 + 60);
 
 		model.addAttribute("map", map);
 

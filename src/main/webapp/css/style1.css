@@ -426,7 +426,7 @@ body {
 /* 갤러리 첨부파일을 드래그할 영역의 스타일 */
 .boardWrite .gfileDrop {
     width: 600px;
-    height: 600px;
+    height: 400px;
     border: 1px solid #d8d8d8;
 }
 

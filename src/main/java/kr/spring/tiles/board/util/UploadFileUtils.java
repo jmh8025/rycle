@@ -117,7 +117,8 @@ public class UploadFileUtils {
 		
 		//BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, 250);
 		
-		BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_WIDTH, 270);
+		//높이 고정
+		BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, 180);
 		
 		//썸네일의 이름을 생성(기존의파일명에 s_를 붙임)
 		String thumbnailName = uploadPath + path + File.separator + "s_" + fileName;

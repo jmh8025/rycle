@@ -150,7 +150,7 @@ public class Gallery_BoardController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("dto", galleryBoardService.read(bno)); // view
 		map.put("fdto", galleryBoardService.fread(bno));
-		map.put("uheight", galleryBoardService.cnt_img(bno) * 100 + galleryBoardService.cnt_nimg(bno) * 20 + 60);
+		map.put("uheight", galleryBoardService.cnt_img(bno) * 180 + galleryBoardService.cnt_nimg(bno) * 23 + 60);
 
 		model.addAttribute("map", map);
 
