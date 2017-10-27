@@ -19,7 +19,7 @@
    function initMap() {
       map = new google.maps.Map(document.getElementById('map'), {
          zoom : 13,
-         center : new google.maps.LatLng(2.8, -187.3),
+         center : new google.maps.LatLng(37.4989993,127.0299699),
       //  mapTypeId: 'terrain' //지형으로 보이도록
       });
 
@@ -27,11 +27,11 @@
 
       //JSONP를 요청하려면 createElement()를 사용하여 script 태그를 문서의 헤드에 추가합니다.
       var script = document.createElement('script');
-      script.src = '/SpringTiles/js/lycle_map.js';
+      script.src = '/js/lycle_map.js';
       document.getElementsByTagName('head')[0].appendChild(script);
 
         var infoWindow = new google.maps.InfoWindow({map: map});
-      
+     
       if (navigator.geolocation) {
          navigator.geolocation.getCurrentPosition(function(position) {
             var pos = {
@@ -50,7 +50,7 @@
       } else {
          // Browser doesn't support Geolocation
          handleLocationError(false, infoWindow, map.getCenter());
-      }
+      } 
       // e: navigator.geolocation
 
       // 버튼 뿌리기
@@ -92,7 +92,7 @@
       controlText.style.paddingLeft = '5px';
       controlText.style.paddingRight = '5px';
       controlText.innerHTML = "";
-      controlText.innerHTML = "";
+      controlText.innerHTML += "<img src='https://raw.githubusercontent.com/jmh8025/api/master/ic_red.png' width='20px'>";
       /*          controlText.innerHTML += "<a onMouseOver='alarm();'>";
        */controlText.innerHTML += "매장";
       controlText.innerHTML += "</a>";
@@ -118,7 +118,7 @@
       controlText2.style.paddingLeft = '5px';
       controlText2.style.paddingRight = '5px';
       controlText2.innerHTML = "";
-      controlText2.innerHTML = "";
+      controlText2.innerHTML += "<img src='https://raw.githubusercontent.com/jmh8025/api/master/ic_blue.png' width='20px'>";
       /*          controlText.innerHTML += "<a onMouseOver='alarm();'>";
        */controlText2.innerHTML += "식수대";
       controlText2.innerHTML += "</a>";

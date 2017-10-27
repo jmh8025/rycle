@@ -1,3 +1,4 @@
+
 	var resultlocal; //로컬json파일을 담기위한 전역변수
 	var resultgoogle; //구글'자전거'키워드 검색 결과를 담기위한 전역변수
 	var markers = [];
@@ -16,9 +17,28 @@ function initMap() {
 
 infowindow = new google.maps.InfoWindow(); //마커클릭시 정보창을 띄우기위한 함수 및 그함수를 변수에 담음
 
+
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+       var pos = {
+          lat : position.coords.latitude,
+          lng : position.coords.longitude
+       };
+       map.setCenter(pos);
+       
+    }, function() {
+       handleLocationError(true, map.getCenter());
+    });
+ } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, map.getCenter());
+ } 
+
+
+
 //아래의 소스는
   var script = document.createElement('script');
-  script.src = '/SpringTiles/js/test2.js';
+  script.src = '/js/test2.js';
   document.getElementsByTagName('head')[0].appendChild(script);
 // <script src="test2.js"~  와 같습니다
 // 왜 이걸 후에 선언하는 이유는 구글지도맵을 초기화 한후에 값을 불러들여서 오류를 최소화하기위해서입니다.
@@ -39,21 +59,18 @@ infowindow = new google.maps.InfoWindow(); //마커클릭시 정보창을 띄우
     }
 }
   
-  var request = { //자전거의 검색값을 널습니다.
+  var request = { //자전거의 검색값을 넣습니다.
 		    location: loc,
 		    radius: '100',
-		    query: '자전거'
-		  };
+		    query: '자전거대리점'};
+		    
 		  var service = new google.maps.places.PlacesService(map); //검색하기위한 객체를 만듭니다.
 		service.textSearch(request, searchresult); // 검색값과 요청결과값을 객체에 담아서 전송합니다.
-		
 		 var centerControlDiv = document.createElement('div');
 		  var centerControl = new CenterControl(centerControlDiv, map);
-
 		  centerControlDiv.index = 1;
-		  map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
-		
-}//initMap()끝
+		  map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(centerControlDiv);
+}
 
 function CenterControl(controlDiv, map) {
 
@@ -69,26 +86,88 @@ function CenterControl(controlDiv, map) {
 	  controlUI.title = 'Click to recenter the map';
 	  controlDiv.appendChild(controlUI);
 
+	  var controlText1 = document.createElement('div');
+	  controlText1.style.color = 'rgb(25,25,25)';
+	  controlText1.style.fontFamily = 'Roboto,Arial,sans-serif';
+	  controlText1.style.fontSize = '13px';
+	  controlText1.style.lineHeight = '38px';
+	  controlText1.style.paddingLeft = '5px';
+	  controlText1.style.paddingRight = '5px';
+	  controlText1.innerHTML = "";
+	  controlText1.innerHTML = "";
+	  controlText1.innerHTML += "<a onMouseOver='alarm();'>";
+	  controlText1.innerHTML += "모두보기";
+	  controlText1.innerHTML += "</a>";
+	  controlUI.appendChild(controlText1);
+	  
+	  
 	  // Set CSS for the control interior.
-	/*   var controlText = document.createElement('div');
-	  controlText.style.color = 'rgb(25,25,25)';
-	  controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
-	  controlText.style.fontSize = '16px';
-	  controlText.style.lineHeight = '38px';
-	  controlText.style.paddingLeft = '5px';
-	  controlText.style.paddingRight = '5px';
-	  controlText.innerHTML = "";
-	  controlText.innerHTML = "";
-	  controlText.innerHTML += "<a onMouseOver='alarm();'>";
-	  controlText.innerHTML += "ALARM";
-	  controlText.innerHTML += "</a>";
-	  controlUI.appendChild(controlText); */
+	  var controlText2 = document.createElement('div');
+	  controlText2.style.color = 'rgb(25,25,25)';
+	  controlText2.style.fontFamily = 'Roboto,Arial,sans-serif';
+	  controlText2.style.fontSize = '13px';
+	  controlText2.style.lineHeight = '38px';
+	  controlText2.style.paddingLeft = '5px';
+	  controlText2.style.paddingRight = '5px';
+	  controlText2.innerHTML = "";
+	  controlText2.innerHTML += "<img src='https://raw.githubusercontent.com/jmh8025/api/master/ic_blue.png' width='20px'>";
+	  controlText2.innerHTML += "<a onMouseOver='alarm();'>";
+	  controlText2.innerHTML += "보관소";
+	  controlText2.innerHTML += "</a>";
+	 
+	  
+	  controlUI.appendChild(controlText2);
+	  
+	  var controlText3 = document.createElement('div');
+	  controlText3.style.color = 'rgb(25,25,25)';
+	  controlText3.style.fontFamily = 'Roboto,Arial,sans-serif';
+	  controlText3.style.fontSize = '13px';
+	  controlText3.style.lineHeight = '38px';
+	  controlText3.style.paddingLeft = '5px';
+	  controlText3.style.paddingRight = '5px';
+	  controlText3.innerHTML = "";
+	  controlText3.innerHTML += "<img src='https://raw.githubusercontent.com/jmh8025/api/master/ic_red.png' width='20px'>";
+	  controlText3.innerHTML += "<a onMouseOver='alarm();'>";
+	  controlText3.innerHTML += "공기 주입기";
+	  controlText3.innerHTML += "</a>";
+	  controlUI.appendChild(controlText3);
+	  
+	  
+	  var controlText4 = document.createElement('div');
+	  controlText4.style.color = 'rgb(25,25,25)';
+	  controlText4.style.fontFamily = 'Roboto,Arial,sans-serif';
+	  controlText4.style.fontSize = '13px';
+	  controlText4.style.lineHeight = '38px';
+	  controlText4.style.paddingLeft = '5px';
+	  controlText4.style.paddingRight = '5px';
+	  controlText4.innerHTML = "";
+	  controlText4.innerHTML += "<img src='https://raw.githubusercontent.com/jmh8025/api/master/ic_green.png' width='20px'>";
+	  controlText4.innerHTML += "<a onMouseOver='alarm();'>";
+	  controlText4.innerHTML += "대리점";
+	  controlText4.innerHTML += "</a>";
+	  controlUI.appendChild(controlText4);
+	  
+	  
+	
+	  
 
 	  // Setup the click event listeners: simply set the map to Chicago.
-	  controlUI.addEventListener('click', function() {
-	    type='gonggi'
+	  controlText1.addEventListener('click', function() {
+	    type='all'
 	    searchsort(type);
-	  });
+	  }); 
+	  controlText2.addEventListener('click', function() {
+		    type='normal'
+		    searchsort(type);
+		  }); 
+	  controlText3.addEventListener('click', function() {
+		    type='gonggi'
+		    searchsort(type);
+		  }); 
+	  controlText4.addEventListener('click', function() {
+		    type='store'
+		    searchsort(type);
+		  }); 
 }
 //1.로컬js먼저읽고
 window.eqfeed_callback = function(results) {
@@ -104,7 +183,7 @@ function searchresult(results, status) {
 }
 function searchsort(type) {
 	if(type==null){
-		type='all';
+		return false;
 	}
 	clearMarkers() //마커 초기화작업 (왜 초기화하는지 궁금하신분은 지워서 실행해보시면 알듯!)
 /* 	var type; //고객이 뭘선택했는지 알아내기위한 라디오버튼값
@@ -115,14 +194,13 @@ function searchsort(type) {
 	} */
 	
 	if(type=='all'){//타입이 전부보여주세요이면
-		addmarkergoogle(resultgoogle); 
-		for (var i = 0, result; result = resultlocal[i]; i++) { //local값전부보내버렷
+		addmarkergoogle(resultgoogle); //구글값보내기
+		for (var i = 0, result; result = resultlocal[i]; i++) { 
 			addmarkerlocal(result);
 		}  
-		
 	}else if((type=='normal')||(type=='gonggi')){//타입이 일반이거나 공기이면
 		for (var i = 0, result; result = resultlocal[i]; i++) { 
-			if(type==result.service){ //선택한값과 맵의서비스가같을때만 즉, 노말과 공기를 솎아보냄
+			if(type==result.service){ //선택한값과 맵의서비스가같을때만 즉, 보관소와 주입기를 솎아보냄
 				addmarkerlocal(result);				
 			}
 		}  
@@ -141,7 +219,7 @@ function addmarkerlocal(result){ //로컬값의 마커추가
 	    icon: {
 	    	url: icons[result.service].icon, //service값과 일치하는 이미지읽어오기
 	        anchor: new google.maps.Point(10, 10),
-	        scaledSize: new google.maps.Size(15, 15)
+	        scaledSize: new google.maps.Size(30, 30)
 	}
 	});
 	markers.push(marker); //마커를 배열에 삽입 (나중에 지우기위해서)
@@ -162,7 +240,7 @@ function addmarkergoogle(results){//구글검색의 마커추가
 	  	   icon: {
 	              url: icons.store.icon, //service값과 일치하는 이미지읽어오기
 	              anchor: new google.maps.Point(10, 10),
-	              scaledSize: new google.maps.Size(15, 15)
+	              scaledSize: new google.maps.Size(30, 30)
 	            }
 	  	});
 	  	markers.push(marker); //마커를 배열에 삽입 (나중에 지우기위해서)
@@ -180,4 +258,5 @@ function clearMarkers() {  //배열에 담았던 마커들을 지우는 함수
   }
    markers = [];
 }
+
 

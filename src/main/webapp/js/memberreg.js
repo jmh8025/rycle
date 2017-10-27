@@ -2,9 +2,7 @@
 
 $(document).ready(function() {
 	
-	var path=location.host + location.pathname.slice(0,location.pathname.indexOf("/",2)+1);
-
-
+	var path=location.host + location.pathname.slice(0,location.pathname.indexOf("/",0)+1);
 /*	var sendMail = "http://"+path+"member/sendMail.do";*/
 	$('#havenothave').hide()
 	/*이메일부분*/
@@ -33,7 +31,7 @@ $(document).ready(function() {
 			$('#emailmsg').text('지금 메일을 보내고있어요. 조금만 기다려주세요..').css("color","blue")
         $.ajax({
                 type : "POST",
-                url : "http://"+path+"member/sendMail.do", //mv로 전송후
+                url : "http://"+path+"/member/sendMail.do", //mv로 전송후
                 data : {
                 	"email":$email
                 },
@@ -75,7 +73,7 @@ $(document).ready(function() {
 		var $EmailCheck2=$('#inputEmailCheck').val()
  		$.ajax({
             type : "POST",
-            url : "http://"+path+"member/checkMail.do", //mv로 전송후
+            url : "http://"+path+"/member/checkMail.do", //mv로 전송후
             data : {
             	"auth":$EmailCheck2 //사용자가입력한 인증번호전송
             },
@@ -145,7 +143,7 @@ $(document).ready(function() {
                 	}else{
                     $.ajax({
                         type : "POST",
-                        url : "http://"+path+"member/checkId.do", //mv로 전송후
+                        url : "http://"+path+"/member/checkId.do", //mv로 전송후
                         dataType: "json",
                         data : {
                         	"Id":$('#id').val()
@@ -269,7 +267,7 @@ $(document).ready(function() {
             //완료버튼누르면 모든걸 확인
             		  $.ajax({
             	            type : "POST",
-            	            url : "http://"+path+"member/insert.do", //mv로 전송후
+            	            url : "http://"+path+"/member/insert.do", //mv로 전송후
             	            data : $('#reg').serialize(), //폼값전부 전송
             	            dataType: "text",
             	            success : function(data) {
@@ -499,7 +497,7 @@ $(document).ready(function() {
 	$('#sign-in').click(function(){
 		 $.ajax({
 	            type : "POST",
-	            url : "http://"+path+"member/loginCheck.do", //mv로 전송후
+	            url : "http://"+path+"/member/loginCheck.do", //mv로 전송후
 	            data : $('#loginform').serialize(), //폼값전부 전송
 	            dataType: "json",
 	            success : function(data) {

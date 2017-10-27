@@ -31,7 +31,7 @@
             <!-- boardSearch -->
             <div class="boardSearch">
                 <p class="result"><i class="icon-doc-text"></i> 총 <strong>${map.count}</strong> 건</p>
-                <form method="post" name="boardForm" action="/SpringTiles/board/free_board_list.do">    
+                <form method="post" name="boardForm" action="/board/free_board_list.do">    
                     <fieldset class="search">
                         <div class="selectBox">
                          <select id="searchOption" name="searchOption" title="검색조건 분류 선택하세요.">
@@ -82,7 +82,7 @@
 		<tr>
 			<td align="center">${(map.count) - ( (map.boardPager.curPage - 1)  *  map.PAGE_SCALE + status.index ) }</td>
 			<td>${article.cate_name}</td>
-			<td><a href="/SpringTiles/board/free_board_view.do?bno=${article.no}&cate_chk=${article.cate_chk}${board_link}">${article.subject}</a></td>
+			<td><a href="/board/free_board_view.do?bno=${article.no}&cate_chk=${article.cate_chk}${board_link}">${article.subject}</a></td>
 			<td>${article.id}</td>
 			<td>${article.writer}</td>
 			<td>${article.k_date}</td>
